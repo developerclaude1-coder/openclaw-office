@@ -50,11 +50,16 @@
     }
   },
   "consoleNav": {
+    "office": "Office",
     "dashboard": "Dashboard",
     "agents": "Agents",
     "channels": "Channels",
     "skills": "Skills",
-    "cron": "Cron Tasks",
+    "cron": "Cron",
     "settings": "Settings"
+  },
+  "nav": {
+    "back": "Back",
+    "forward": "Forward"
   }
 }

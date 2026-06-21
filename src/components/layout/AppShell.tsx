@@ -8,6 +8,7 @@ import { ToastContainer } from "@/components/shared/ToastContainer";
 import type { GatewayWsClient } from "@/gateway/ws-client";
 import { useChatDockStore } from "@/store/console-stores/chat-dock-store";
 import { useOfficeStore } from "@/store/office-store";
+import { MobileBottomNav } from "./MobileBottomNav";
 import { Sidebar } from "./Sidebar";
 import { TopBar } from "./TopBar";
 
