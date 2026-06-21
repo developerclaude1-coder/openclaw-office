@@ -1,4 +1,4 @@
-import { LayoutDashboard, ArrowLeft } from "lucide-react";
+import { LayoutDashboard, ArrowLeft, ChevronLeft } from "lucide-react";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -118,8 +118,17 @@ function OfficeTopBarContent({
 
 function ConsoleTopBarContent({ currentPage }: { currentPage: PageId }) {
   const { t } = useTranslation("layout");
+  const navigate = useNavigate();
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-1">
+      <button
+        type="button"
+        onClick={() => navigate(-1)}
+        title={t("nav.back")}
+        className="flex h-8 w-8 items-center justify-center rounded-md text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+      >
+        <ChevronLeft className="h-5 w-5" />
+      </button>
       <h1 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
         {t(`topbar.pageTitles.${currentPage}`, { defaultValue: t("topbar.pageTitles.fallback") })}
       </h1>

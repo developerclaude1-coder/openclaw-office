@@ -1,0 +1,31 @@
+{
+  "name": "openclaw-office",
+  "path": "/home/knowam/projects/openclaw-office",
+  "type": "project",
+  "description": "OpenClaw Office",
+  "languages": [
+    "TypeScript",
+    "JavaScript",
+    "Shell"
+  ],
+  "has_readme": true,
+  "has_tests": true,
+  "has_ci": false,
+  "has_dockerfile": false,
+  "has_requirements": true,
+  "line_count": 21749,
+  "file_count": 252,
+  "is_git": true,
+  "last_commit": "2026-03-08 22:42:36 +0800",
+  "commit_count": 70,
+  "last_modified": "2026-05-16T14:00:22.550754+00:00",
+  "ownership": "external-oss",
+  "git_remote": "https://github.com/WW-AI-Lab/openclaw-office.git",
+  "lifecycle": "cataloged",
+  "hygiene_score": 75,
+  "commercial_score": null,
+  "monetization_model": null,
+  "release_state": "cataloged",
+  "karu_version": 1,
+  "scanned_at": "2026-05-16T21:40:11.085577+00:00"
+}

@@ -50,11 +50,16 @@
     }
   },
   "consoleNav": {
+    "office": "办公室",
     "dashboard": "仪表盘",
     "agents": "智能体",
     "channels": "渠道",
     "skills": "技能",
-    "cron": "定时任务",
+    "cron": "定时",
     "settings": "设置"
+  },
+  "nav": {
+    "back": "返回",
+    "forward": "前进"
   }
 }
