@@ -27,7 +27,8 @@
     "language": {
       "switchToEn": "切换到英文",
       "switchToZh": "切换到中文"
-    }
+    },
+    "dictionary": "视觉词典"
   },
   "sidebar": {
     "agents": "智能体",

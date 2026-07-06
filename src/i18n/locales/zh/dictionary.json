@@ -1,0 +1,80 @@
+{
+  "nav": "视觉词典",
+  "title": "视觉词典",
+  "tagline": "拍下任意人造物件，探索它是如何被制造的——一部关于人造之物的维基百科。",
+  "backToScan": "扫描其它物件",
+  "upload": {
+    "dropTitle": "拖入照片，或点击上传",
+    "dropHint": "任意人造物件的 PNG 或 JPG 图片",
+    "button": "上传照片",
+    "analyzing": "正在识别物件…",
+    "recognizedAs": "识别为",
+    "confidence": "匹配",
+    "searchLabel": "或按名称查询",
+    "searchPlaceholder": "例如：自行车、手表、锤子…",
+    "searchButton": "查询",
+    "noMatch": "暂无相关词条——请尝试下方的示例。",
+    "samplesTitle": "试试示例",
+    "mockNotice": "演示模式：识别由内置的小型离线词库模拟，后续可接入真实视觉模型。"
+  },
+  "entry": {
+    "summaryTitle": "概述",
+    "partsTitle": "部件图解",
+    "partsHint": "点击编号标记或下方部件，了解它的作用。",
+    "explodedHint": "爆炸视图——部件标注环绕在物件四周。点击标注了解其作用。",
+    "viewModeLabel": "图解视图",
+    "modeLabeled": "标注",
+    "modeExploded": "爆炸图",
+    "renderStyleLabel": "渲染风格",
+    "styleTechnical": "技术图",
+    "styleBlueprint": "蓝图",
+    "styleSketch": "手绘",
+    "figLabel": "图 1 — 部件装配图",
+    "partsListTitle": "部件列表",
+    "selectPrompt": "选择一个部件以查看其功能。",
+    "functionLabel": "功能",
+    "materialLabel": "常见材料",
+    "citationsTitle": "参考资料",
+    "citationsHint": "以上信息的来源。",
+    "citationsSource": "来源",
+    "openReference": "打开来源",
+    "categoryLabel": "类别"
+  },
+  "library": {
+    "save": "保存到我的词库",
+    "saved": "已保存",
+    "remove": "从我的词库移除",
+    "myTitle": "我的词库",
+    "mySubtitle": "你保存的物件——存储在本设备上，随身可查。",
+    "sharedTitle": "共享词库",
+    "sharedSubtitle": "不断增长的集体词库——重建一次，人人共享。"
+  },
+  "repair": {
+    "title": "维修与修复",
+    "hint": "说明书、教程，以及该物件最常出现的故障。",
+    "manual": "官方说明书",
+    "commonFaults": "常见故障",
+    "cause": "可能原因",
+    "fix": "修复方法",
+    "difficulty": {
+      "easy": "简单",
+      "medium": "中等",
+      "hard": "需专业"
+    }
+  },
+  "warranty": {
+    "title": "保修",
+    "hint": "在本设备上记录这台设备的保修信息——出问题时很有用。",
+    "purchaseDate": "购买日期",
+    "warrantyMonths": "保修期（月）",
+    "retailer": "经销商",
+    "serial": "型号 / 序列号",
+    "notes": "备注",
+    "saveDetails": "保存保修信息",
+    "savedDetails": "已保存 ✓",
+    "statusNone": "填写购买日期和保修期以追踪保修状态。",
+    "statusIncomplete": "填写购买日期和保修期以计算保修状态。",
+    "statusActive": "保修中 · {{date}} 到期 · 剩余 {{days}} 天",
+    "statusExpired": "保修已于 {{date}} 到期"
+  }
+}

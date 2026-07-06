@@ -27,7 +27,8 @@
     "language": {
       "switchToEn": "Switch to English",
       "switchToZh": "Switch to Chinese"
-    }
+    },
+    "dictionary": "Dictionary"
   },
   "sidebar": {
     "agents": "Agents",
