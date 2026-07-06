@@ -2,8 +2,13 @@ import { ImagePlus, Loader2, Search } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { dictionaryEntries } from "./data";
-import { matchEntry, recognizeFromFileName } from "./lib/match";
+import { recognitionProvider } from "./recognition/provider";
 import type { DictionaryEntry } from "./types";
+
+/** Show the "analysing" state for at least this long so it doesn't flash. */
+const MIN_ANALYSE_MS = 1100;
+
+const delay = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 interface PhotoUploadProps {
   /** Called once the mock recognition resolves an object, with a preview URL. */
@@ -22,34 +27,42 @@ export function PhotoUpload({ onRecognized }: PhotoUploadProps) {
   const [analyzing, setAnalyzing] = useState(false);
   const [query, setQuery] = useState("");
   const [notFound, setNotFound] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mountedRef = useRef(true);
 
   useEffect(() => {
     return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
+      mountedRef.current = false;
     };
   }, []);
 
-  function handleFile(file: File) {
+  async function handleFile(file: File) {
     setNotFound(false);
     setAnalyzing(true);
     const previewUrl = URL.createObjectURL(file);
-    // Simulate a vision model round-trip.
-    timerRef.current = setTimeout(() => {
-      const entry = recognizeFromFileName(file.name, dictionaryEntries);
-      setAnalyzing(false);
-      if (entry) {
-        onRecognized(entry, previewUrl);
-      } else {
-        URL.revokeObjectURL(previewUrl);
-      }
-    }, 1100);
+    // Recognise via the active provider (offline mock or live proxy), holding
+    // the "analysing" state for a minimum so the transition reads cleanly.
+    const [entry] = await Promise.all([
+      recognitionProvider.recognizeImage(file),
+      delay(MIN_ANALYSE_MS),
+    ]);
+    if (!mountedRef.current) {
+      URL.revokeObjectURL(previewUrl);
+      return;
+    }
+    setAnalyzing(false);
+    if (entry) {
+      onRecognized(entry, previewUrl);
+    } else {
+      URL.revokeObjectURL(previewUrl);
+      setNotFound(true);
+    }
   }
 
-  function handleLookup() {
-    const entry = matchEntry(query, dictionaryEntries);
+  async function handleLookup() {
+    const entry = await recognitionProvider.lookup(query);
+    if (!mountedRef.current) {
+      return;
+    }
     if (entry) {
       setNotFound(false);
       onRecognized(entry, null);
@@ -74,7 +87,7 @@ export function PhotoUpload({ onRecognized }: PhotoUploadProps) {
           setDragOver(false);
           const file = e.dataTransfer.files?.[0];
           if (file) {
-            handleFile(file);
+            void handleFile(file);
           }
         }}
         disabled={analyzing}
@@ -111,7 +124,7 @@ export function PhotoUpload({ onRecognized }: PhotoUploadProps) {
         onChange={(e) => {
           const file = e.target.files?.[0];
           if (file) {
-            handleFile(file);
+            void handleFile(file);
           }
           e.target.value = "";
         }}
@@ -138,7 +151,7 @@ export function PhotoUpload({ onRecognized }: PhotoUploadProps) {
               }}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  handleLookup();
+                  void handleLookup();
                 }
               }}
               placeholder={t("upload.searchPlaceholder")}
@@ -147,7 +160,7 @@ export function PhotoUpload({ onRecognized }: PhotoUploadProps) {
           </div>
           <button
             type="button"
-            onClick={handleLookup}
+            onClick={() => void handleLookup()}
             className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
           >
             {t("upload.searchButton")}
