@@ -21,6 +21,10 @@
     "summaryTitle": "Overview",
     "partsTitle": "Parts diagram",
     "partsHint": "Tap a numbered marker or a part below to learn what it does.",
+    "explodedHint": "Exploded view — parts are labelled around the object. Tap a label to learn what it does.",
+    "viewModeLabel": "Diagram view",
+    "modeLabeled": "Labelled",
+    "modeExploded": "Exploded",
     "partsListTitle": "Parts list",
     "selectPrompt": "Select a part to see its function.",
     "functionLabel": "Function",
@@ -30,5 +34,14 @@
     "citationsSource": "Source",
     "openReference": "Open reference",
     "categoryLabel": "Category"
+  },
+  "library": {
+    "save": "Save to My Library",
+    "saved": "Saved",
+    "remove": "Remove from My Library",
+    "myTitle": "My Library",
+    "mySubtitle": "Objects you've saved — kept on this device so you have them anywhere.",
+    "sharedTitle": "Shared Library",
+    "sharedSubtitle": "The growing collective library — reconstructed once, reused by everyone."
   }
 }
