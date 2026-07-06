@@ -342,3 +342,96 @@
 .animate-slide-down {
   animation: chat-slide-down 150ms ease-in forwards;
 }
+
+/* ── Visual Dictionary — diagram render styles ─────────────────────────── */
+/* Frame-level tokens; markers/callouts read them so a style swap re-themes
+   the whole diagram. Blueprint and Sketch deliberately commit to one look and
+   ignore the app light/dark theme; Technical follows the app theme. */
+.dict-frame {
+  --dict-ink: #374151;
+  --dict-frame-bg: linear-gradient(180deg, #f9fafb, #ffffff);
+  --dict-leader: #9ca3af;
+  --dict-marker-fill: #ffffff;
+  --dict-marker-stroke: #2563eb;
+  --dict-marker-text: #2563eb;
+  --dict-label: #6b7280;
+  --dict-sel-fill: #2563eb;
+  --dict-sel-stroke: #ffffff;
+  --dict-sel-text: #ffffff;
+  --dict-dot: #9ca3af;
+  --dict-tick: #9ca3af;
+  background: var(--dict-frame-bg);
+  color: var(--dict-ink);
+}
+.dark .dict-frame {
+  --dict-ink: #e5e7eb;
+  --dict-frame-bg: linear-gradient(180deg, #1f2937, #111827);
+  --dict-leader: #4b5563;
+  --dict-marker-fill: #1f2937;
+  --dict-marker-stroke: #60a5fa;
+  --dict-marker-text: #93c5fd;
+  --dict-label: #9ca3af;
+  --dict-sel-fill: #2563eb;
+  --dict-dot: #6b7280;
+  --dict-tick: #4b5563;
+}
+.dict-frame[data-style="blueprint"],
+.dark .dict-frame[data-style="blueprint"] {
+  --dict-ink: #eaf2fb;
+  --dict-frame-bg: #0b3d66;
+  --dict-leader: rgba(234, 242, 251, 0.5);
+  --dict-marker-fill: #0b3d66;
+  --dict-marker-stroke: #eaf2fb;
+  --dict-marker-text: #eaf2fb;
+  --dict-label: #cfe0f2;
+  --dict-sel-fill: #eaf2fb;
+  --dict-sel-stroke: #0b3d66;
+  --dict-sel-text: #0b3d66;
+  --dict-dot: rgba(234, 242, 251, 0.75);
+  --dict-tick: rgba(234, 242, 251, 0.5);
+}
+.dict-frame[data-style="sketch"],
+.dark .dict-frame[data-style="sketch"] {
+  --dict-ink: #3b3a38;
+  --dict-frame-bg: #f4f1ea;
+  --dict-leader: #b7b1a4;
+  --dict-marker-fill: #fbfaf6;
+  --dict-marker-stroke: #6b655b;
+  --dict-marker-text: #4a463e;
+  --dict-label: #5c574d;
+  --dict-sel-fill: #4a463e;
+  --dict-sel-stroke: #fbfaf6;
+  --dict-sel-text: #fbfaf6;
+  --dict-dot: #8a8478;
+  --dict-tick: #b7b1a4;
+}
+
+.dict-illo { color: var(--dict-ink); }
+.dict-frame[data-style="sketch"] .dict-illo { filter: url(#dict-rough); }
+
+.dict-grid {
+  opacity: 0;
+  transition: opacity 0.25s;
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 23px, rgba(234, 242, 251, 0.11) 23px 24px),
+    repeating-linear-gradient(90deg, transparent 0 23px, rgba(234, 242, 251, 0.11) 23px 24px);
+}
+.dict-frame[data-style="blueprint"] .dict-grid { opacity: 1; }
+
+.dict-marker-c { fill: var(--dict-marker-fill); stroke: var(--dict-marker-stroke); stroke-width: 2; }
+.dict-marker-t { fill: var(--dict-marker-text); }
+.dict-marker.is-selected .dict-marker-c { fill: var(--dict-sel-fill); stroke: var(--dict-sel-stroke); }
+.dict-marker.is-selected .dict-marker-t { fill: var(--dict-sel-text); }
+.dict-marker-halo { fill: var(--dict-marker-stroke); opacity: 0.16; }
+
+.dict-lead { stroke: var(--dict-leader); stroke-width: 1.4; fill: none; }
+.dict-dot { fill: var(--dict-dot); }
+.dict-badge-c { fill: var(--dict-marker-fill); stroke: var(--dict-marker-stroke); stroke-width: 1.6; }
+.dict-badge-t { fill: var(--dict-marker-text); }
+.dict-lbl { fill: var(--dict-label); }
+.dict-callout.is-selected .dict-lead { stroke: var(--dict-sel-fill); stroke-width: 1.8; }
+.dict-callout.is-selected .dict-badge-c { fill: var(--dict-sel-fill); stroke: var(--dict-sel-stroke); }
+.dict-callout.is-selected .dict-badge-t { fill: var(--dict-sel-text); }
+.dict-callout.is-selected .dict-lbl { fill: var(--dict-ink); font-weight: 700; }
+
+.dict-tick { border-color: var(--dict-tick); }

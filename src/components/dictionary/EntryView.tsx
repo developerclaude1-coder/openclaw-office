@@ -1,8 +1,8 @@
-import { Layers, Maximize2, Tag } from "lucide-react";
+import { Grid3x3, Layers, Maximize2, PencilLine, Ruler, Tag } from "lucide-react";
 import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CitationsList } from "./CitationsList";
-import { PartsDiagram, type DiagramMode } from "./PartsDiagram";
+import { PartsDiagram, type DiagramMode, type RenderStyle } from "./PartsDiagram";
 import { RepairPanel } from "./RepairPanel";
 import { WarrantyCard } from "./WarrantyCard";
 import type { DictionaryEntry } from "./types";
@@ -21,6 +21,7 @@ export function EntryView({ entry }: EntryViewProps) {
     entry.parts[0]?.id ?? null,
   );
   const [mode, setMode] = useState<DiagramMode>("labeled");
+  const [renderStyle, setRenderStyle] = useState<RenderStyle>("technical");
 
   const selectedPart = entry.parts.find((p) => p.id === selectedPartId) ?? null;
 
@@ -61,23 +62,49 @@ export function EntryView({ entry }: EntryViewProps) {
               {t("entry.partsTitle")}
             </h3>
           </div>
-          <div
-            role="group"
-            aria-label={t("entry.viewModeLabel")}
-            className="flex items-center gap-1 rounded-lg border border-gray-200 bg-gray-50 p-0.5 dark:border-gray-700 dark:bg-gray-800"
-          >
-            <ModeButton
-              active={mode === "labeled"}
-              onClick={() => setMode("labeled")}
-              icon={<Tag className="h-3.5 w-3.5" />}
-              label={t("entry.modeLabeled")}
-            />
-            <ModeButton
-              active={mode === "exploded"}
-              onClick={() => setMode("exploded")}
-              icon={<Maximize2 className="h-3.5 w-3.5" />}
-              label={t("entry.modeExploded")}
-            />
+          <div className="flex flex-wrap items-center gap-2">
+            <div
+              role="group"
+              aria-label={t("entry.viewModeLabel")}
+              className="flex items-center gap-1 rounded-lg border border-gray-200 bg-gray-50 p-0.5 dark:border-gray-700 dark:bg-gray-800"
+            >
+              <ModeButton
+                active={mode === "labeled"}
+                onClick={() => setMode("labeled")}
+                icon={<Tag className="h-3.5 w-3.5" />}
+                label={t("entry.modeLabeled")}
+              />
+              <ModeButton
+                active={mode === "exploded"}
+                onClick={() => setMode("exploded")}
+                icon={<Maximize2 className="h-3.5 w-3.5" />}
+                label={t("entry.modeExploded")}
+              />
+            </div>
+            <div
+              role="group"
+              aria-label={t("entry.renderStyleLabel")}
+              className="flex items-center gap-1 rounded-lg border border-gray-200 bg-gray-50 p-0.5 dark:border-gray-700 dark:bg-gray-800"
+            >
+              <ModeButton
+                active={renderStyle === "technical"}
+                onClick={() => setRenderStyle("technical")}
+                icon={<Ruler className="h-3.5 w-3.5" />}
+                label={t("entry.styleTechnical")}
+              />
+              <ModeButton
+                active={renderStyle === "blueprint"}
+                onClick={() => setRenderStyle("blueprint")}
+                icon={<Grid3x3 className="h-3.5 w-3.5" />}
+                label={t("entry.styleBlueprint")}
+              />
+              <ModeButton
+                active={renderStyle === "sketch"}
+                onClick={() => setRenderStyle("sketch")}
+                icon={<PencilLine className="h-3.5 w-3.5" />}
+                label={t("entry.styleSketch")}
+              />
+            </div>
           </div>
         </div>
         <p className="mb-4 text-xs text-gray-500 dark:text-gray-400">
@@ -85,15 +112,14 @@ export function EntryView({ entry }: EntryViewProps) {
         </p>
 
         <div className="grid gap-6 lg:grid-cols-2">
-          {/* Diagram */}
-          <div className="rounded-2xl border border-gray-200 bg-gradient-to-b from-gray-50 to-white p-4 dark:border-gray-700 dark:from-gray-800 dark:to-gray-900">
-            <PartsDiagram
-              entry={entry}
-              mode={mode}
-              selectedPartId={selectedPartId}
-              onSelectPart={setSelectedPartId}
-            />
-          </div>
+          {/* Diagram (self-framing — style-aware) */}
+          <PartsDiagram
+            entry={entry}
+            mode={mode}
+            renderStyle={renderStyle}
+            selectedPartId={selectedPartId}
+            onSelectPart={setSelectedPartId}
+          />
 
           {/* Parts list + detail */}
           <div className="flex flex-col gap-4">
