@@ -3,6 +3,8 @@ import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CitationsList } from "./CitationsList";
 import { PartsDiagram, type DiagramMode } from "./PartsDiagram";
+import { RepairPanel } from "./RepairPanel";
+import { WarrantyCard } from "./WarrantyCard";
 import type { DictionaryEntry } from "./types";
 
 interface EntryViewProps {
@@ -158,6 +160,12 @@ export function EntryView({ entry }: EntryViewProps) {
           </div>
         </div>
       </section>
+
+      {/* Repair & fixes */}
+      {entry.repair && <RepairPanel repair={entry.repair} />}
+
+      {/* Warranty tracker (personal) */}
+      <WarrantyCard key={entry.id} entry={entry} />
 
       {/* Citations */}
       <CitationsList citations={entry.citations} />
