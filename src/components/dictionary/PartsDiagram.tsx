@@ -2,62 +2,102 @@ import { useTranslation } from "react-i18next";
 import type { DictionaryEntry, DictionaryPart } from "./types";
 
 export type DiagramMode = "labeled" | "exploded";
+export type RenderStyle = "technical" | "blueprint" | "sketch";
 
 interface PartsDiagramProps {
   entry: DictionaryEntry;
   mode: DiagramMode;
+  renderStyle: RenderStyle;
   selectedPartId: string | null;
   onSelectPart: (partId: string) => void;
 }
 
 /**
- * Renders the schematic illustration with part annotations in one of two modes:
- *
- * - `labeled`  — a numbered marker sits directly on each part hotspot.
- * - `exploded` — part names are moved out to the side gutters with leader lines
- *   drawn back to their hotspots, echoing an exploded parts diagram.
+ * Renders the schematic illustration inside a themeable drawing frame. `mode`
+ * switches between numbered markers and an exploded callout layout; `renderStyle`
+ * re-skins the whole frame (clean technical, blue CAD blueprint, or pencil
+ * sketch) via the `.dict-frame` token block in globals.css.
  */
-export function PartsDiagram({ entry, mode, selectedPartId, onSelectPart }: PartsDiagramProps) {
+export function PartsDiagram({
+  entry,
+  mode,
+  renderStyle,
+  selectedPartId,
+  onSelectPart,
+}: PartsDiagramProps) {
   const { t } = useTranslation("dictionary");
   const { Illustration } = entry;
-  const overlayViewBox = mode === "exploded" ? explodedViewBox(entry.viewBox) : entry.viewBox;
+  const exploded = mode === "exploded";
+  const overlayViewBox = exploded ? explodedViewBox(entry.viewBox) : entry.viewBox;
 
   return (
-    <div className="relative w-full">
-      <div
-        className="transition-transform duration-500"
-        style={{ transform: mode === "exploded" ? "scale(0.72)" : "scale(1)" }}
-      >
-        <Illustration
-          className="h-auto w-full text-gray-700 dark:text-gray-200"
-          aria-hidden
-        />
-      </div>
-      <svg
-        viewBox={overlayViewBox}
-        className="absolute inset-0 h-full w-full"
-        role="group"
-        aria-label={t("entry.partsTitle")}
-      >
-        {mode === "labeled"
-          ? entry.parts.map((part, index) => (
-              <PartMarker
-                key={part.id}
-                part={part}
-                index={index + 1}
-                selected={selectedPartId === part.id}
-                onSelect={() => onSelectPart(part.id)}
-              />
-            ))
-          : buildCallouts(entry).map((callout) => (
-              <PartCallout
-                key={callout.part.id}
-                callout={callout}
-                selected={selectedPartId === callout.part.id}
-                onSelect={() => onSelectPart(callout.part.id)}
-              />
-            ))}
+    <div
+      className="dict-frame relative overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700"
+      data-style={renderStyle}
+    >
+      {/* Blueprint grid (shown only in blueprint style) */}
+      <div className="dict-grid pointer-events-none absolute inset-0" />
+
+      {/* Roughen filter used by the sketch style */}
+      <svg width="0" height="0" className="absolute" aria-hidden="true">
+        <defs>
+          <filter id="dict-rough">
+            <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves={2} seed={7} result="n" />
+            <feDisplacementMap in="SourceGraphic" in2="n" scale={2.2} xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
       </svg>
+
+      {/* Stage: illustration + annotation overlay */}
+      <div className="relative p-5">
+        <div
+          className="transition-transform duration-500"
+          style={{ transform: exploded ? "scale(0.72)" : "scale(1)" }}
+        >
+          <Illustration className="dict-illo h-auto w-full" aria-hidden />
+        </div>
+        <svg
+          viewBox={overlayViewBox}
+          className="absolute inset-5 h-[calc(100%-2.5rem)] w-[calc(100%-2.5rem)]"
+          role="group"
+          aria-label={t("entry.partsTitle")}
+        >
+          {mode === "labeled"
+            ? entry.parts.map((part, index) => (
+                <PartMarker
+                  key={part.id}
+                  part={part}
+                  index={index + 1}
+                  selected={selectedPartId === part.id}
+                  onSelect={() => onSelectPart(part.id)}
+                />
+              ))
+            : buildCallouts(entry).map((callout) => (
+                <PartCallout
+                  key={callout.part.id}
+                  callout={callout}
+                  selected={selectedPartId === callout.part.id}
+                  onSelect={() => onSelectPart(callout.part.id)}
+                />
+              ))}
+        </svg>
+      </div>
+
+      {/* Drafting chrome: corner ticks + title block */}
+      <div className="pointer-events-none absolute inset-2.5 opacity-60">
+        <span className="dict-tick absolute left-0 top-0 h-2.5 w-2.5 border-l border-t" />
+        <span className="dict-tick absolute right-0 top-0 h-2.5 w-2.5 border-r border-t" />
+        <span className="dict-tick absolute bottom-0 left-0 h-2.5 w-2.5 border-b border-l" />
+        <span className="dict-tick absolute bottom-0 right-0 h-2.5 w-2.5 border-b border-r" />
+      </div>
+      <div
+        className="pointer-events-none absolute bottom-2.5 right-2.5 text-right font-mono text-[9px] uppercase leading-tight tracking-[0.1em] opacity-60"
+        style={{ color: "var(--dict-ink)" }}
+      >
+        {entry.name}
+        <br />
+        {t("entry.figLabel")}
+      </div>
     </div>
   );
 }
@@ -76,7 +116,7 @@ function PartMarker({ part, index, selected, onSelect }: PartMarkerProps) {
   return (
     <g
       transform={`translate(${x} ${y})`}
-      className="cursor-pointer"
+      className={`dict-marker cursor-pointer ${selected ? "is-selected" : ""}`}
       role="button"
       tabIndex={0}
       aria-pressed={selected}
@@ -85,25 +125,15 @@ function PartMarker({ part, index, selected, onSelect }: PartMarkerProps) {
       onKeyDown={(e) => handleActivate(e, onSelect)}
     >
       {selected && (
-        <circle r={16} className="fill-blue-500/20 stroke-none">
+        <circle r={16} className="dict-marker-halo">
           <animate attributeName="r" values="13;18;13" dur="1.6s" repeatCount="indefinite" />
         </circle>
       )}
-      <circle
-        r={12}
-        className={
-          selected
-            ? "fill-blue-600 stroke-white"
-            : "fill-white stroke-blue-600 hover:fill-blue-50 dark:fill-gray-800 dark:hover:fill-gray-700"
-        }
-        strokeWidth={2}
-      />
+      <circle r={12} className="dict-marker-c" />
       <text
         textAnchor="middle"
         dominantBaseline="central"
-        className={`select-none text-[13px] font-bold ${
-          selected ? "fill-white" : "fill-blue-600 dark:fill-blue-300"
-        }`}
+        className="dict-marker-t select-none text-[13px] font-bold"
       >
         {index}
       </text>
@@ -134,11 +164,10 @@ function PartCallout({
 }) {
   const { part, index, labelY, badgeX, textX, anchor } = callout;
   const { x: hx, y: hy } = part.hotspot;
-  const leaderColor = selected ? "stroke-blue-500" : "stroke-gray-300 dark:stroke-gray-600";
 
   return (
     <g
-      className="cursor-pointer animate-[fadeIn_0.4s_ease]"
+      className={`dict-callout cursor-pointer animate-[fadeIn_0.4s_ease] ${selected ? "is-selected" : ""}`}
       role="button"
       tabIndex={0}
       aria-pressed={selected}
@@ -148,29 +177,16 @@ function PartCallout({
     >
       <polyline
         points={`${hx},${hy} ${badgeX + (anchor === "start" ? -12 : 12)},${labelY}`}
-        className={`fill-none ${leaderColor}`}
-        strokeWidth={1.4}
+        className="dict-lead"
       />
-      <circle cx={hx} cy={hy} r={3} className={selected ? "fill-blue-500" : "fill-gray-400"} />
-      <circle
-        cx={badgeX}
-        cy={labelY}
-        r={9}
-        className={
-          selected
-            ? "fill-blue-600 stroke-white"
-            : "fill-white stroke-blue-500 dark:fill-gray-800"
-        }
-        strokeWidth={1.6}
-      />
+      <circle cx={hx} cy={hy} r={3} className="dict-dot" />
+      <circle cx={badgeX} cy={labelY} r={9} className="dict-badge-c" />
       <text
         x={badgeX}
         y={labelY}
         textAnchor="middle"
         dominantBaseline="central"
-        className={`select-none text-[11px] font-bold ${
-          selected ? "fill-white" : "fill-blue-600 dark:fill-blue-300"
-        }`}
+        className="dict-badge-t select-none text-[11px] font-bold"
       >
         {index}
       </text>
@@ -179,11 +195,7 @@ function PartCallout({
         y={labelY}
         textAnchor={anchor}
         dominantBaseline="central"
-        className={`select-none text-[12px] ${
-          selected
-            ? "fill-gray-900 font-semibold dark:fill-white"
-            : "fill-gray-600 dark:fill-gray-300"
-        }`}
+        className="dict-lbl select-none text-[12px]"
       >
         {part.name}
       </text>
