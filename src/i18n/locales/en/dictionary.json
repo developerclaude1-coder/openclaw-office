@@ -43,5 +43,33 @@
     "mySubtitle": "Objects you've saved — kept on this device so you have them anywhere.",
     "sharedTitle": "Shared Library",
     "sharedSubtitle": "The growing collective library — reconstructed once, reused by everyone."
+  },
+  "repair": {
+    "title": "Repair & fixes",
+    "hint": "Manual, tutorials, and the faults this object most often develops.",
+    "manual": "Official manual",
+    "commonFaults": "Common faults",
+    "cause": "Likely cause",
+    "fix": "Fix",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Moderate",
+      "hard": "Pro job"
+    }
+  },
+  "warranty": {
+    "title": "Warranty",
+    "hint": "Track this unit's warranty on your device — handy when something breaks.",
+    "purchaseDate": "Purchase date",
+    "warrantyMonths": "Warranty (months)",
+    "retailer": "Retailer",
+    "serial": "Model / serial",
+    "notes": "Notes",
+    "saveDetails": "Save warranty details",
+    "savedDetails": "Saved ✓",
+    "statusNone": "Add a purchase date and warranty length to track coverage.",
+    "statusIncomplete": "Add a purchase date and warranty length to compute coverage.",
+    "statusActive": "Under warranty · expires {{date}} · {{days}} days left",
+    "statusExpired": "Warranty expired on {{date}}"
   }
 }

@@ -134,4 +134,53 @@ export const bicycle: DictionaryEntry = {
       url: "https://www.britannica.com/technology/bicycle",
     },
   ],
+  repair: {
+    manualUrl: "https://www.parktool.com/en-us/blog/repair-help",
+    tutorials: [
+      {
+        id: "fix-flat",
+        title: "How to fix a flat bicycle tyre",
+        source: "Park Tool (YouTube)",
+        kind: "video",
+        url: "https://www.youtube.com/results?search_query=how+to+fix+a+flat+bicycle+tyre",
+      },
+      {
+        id: "adjust-brakes",
+        title: "Rim brake adjustment",
+        source: "Park Tool",
+        kind: "article",
+        url: "https://www.parktool.com/en-us/blog/repair-help/rim-brake-adjustment",
+      },
+      {
+        id: "chain-clean",
+        title: "Clean and lube a bicycle chain",
+        source: "GCN (YouTube)",
+        kind: "video",
+        url: "https://www.youtube.com/results?search_query=clean+and+lube+bicycle+chain",
+      },
+    ],
+    commonFaults: [
+      {
+        id: "flat",
+        symptom: "Tyre goes soft or flat",
+        cause: "Punctured inner tube or failed valve",
+        fix: "Remove the wheel, patch or replace the inner tube, check the tyre for the culprit, and re-inflate to the pressure printed on the sidewall.",
+        difficulty: "easy",
+      },
+      {
+        id: "chain-skip",
+        symptom: "Chain skips or won't shift cleanly",
+        cause: "Cable stretch or a worn/dirty chain",
+        fix: "Clean and lube the chain, then fine-tune the derailleur barrel adjuster. Replace the chain if a chain-checker shows >0.75% wear.",
+        difficulty: "medium",
+      },
+      {
+        id: "brake-squeal",
+        symptom: "Brakes squeal or feel weak",
+        cause: "Glazed/worn pads or misalignment",
+        fix: "Clean the rim, sand or replace the pads, and toe them in slightly so the front edge contacts first.",
+        difficulty: "easy",
+      },
+    ],
+  },
 };

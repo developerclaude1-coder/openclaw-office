@@ -43,4 +43,25 @@ describe("library-store", () => {
     expect(useLibraryStore.getState().has("bicycle")).toBe(false);
     expect(useLibraryStore.getState().items).toHaveLength(1);
   });
+
+  it("setWarranty saves the entry if it is not yet in the library", () => {
+    useLibraryStore.getState().setWarranty(bicycle, { purchaseDate: "2025-01-01", warrantyMonths: 24 });
+    expect(useLibraryStore.getState().has("bicycle")).toBe(true);
+    expect(useLibraryStore.getState().getWarranty("bicycle")).toMatchObject({
+      purchaseDate: "2025-01-01",
+      warrantyMonths: 24,
+    });
+  });
+
+  it("setWarranty merges into an existing saved item without duplicating it", () => {
+    const { save, setWarranty } = useLibraryStore.getState();
+    save(bicycle);
+    setWarranty(bicycle, { retailer: "Local Shop" });
+    setWarranty(bicycle, { warrantyMonths: 12 });
+    expect(useLibraryStore.getState().items).toHaveLength(1);
+    expect(useLibraryStore.getState().getWarranty("bicycle")).toMatchObject({
+      retailer: "Local Shop",
+      warrantyMonths: 12,
+    });
+  });
 });

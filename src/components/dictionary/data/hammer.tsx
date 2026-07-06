@@ -122,4 +122,38 @@ export const hammer: DictionaryEntry = {
       url: "https://www.familyhandyman.com/",
     },
   ],
+  repair: {
+    tutorials: [
+      {
+        id: "rehandle",
+        title: "How to replace a hammer handle",
+        source: "YouTube",
+        kind: "video",
+        url: "https://www.youtube.com/results?search_query=how+to+replace+a+hammer+handle",
+      },
+      {
+        id: "wedge",
+        title: "Re-wedging a loose hammer head",
+        source: "YouTube",
+        kind: "video",
+        url: "https://www.youtube.com/results?search_query=re-wedge+loose+hammer+head",
+      },
+    ],
+    commonFaults: [
+      {
+        id: "loose-head",
+        symptom: "Head wobbles or slides on the handle",
+        cause: "Wood handle has shrunk and the wedge has loosened",
+        fix: "Drive the head fully onto the handle, then set a new steel wedge across the existing wooden wedge to expand the eye.",
+        difficulty: "medium",
+      },
+      {
+        id: "cracked-handle",
+        symptom: "Handle is cracked or splintered",
+        cause: "Overstrike or dried-out timber",
+        fix: "Replace the handle entirely — a compromised handle can let the head fly off. Never tape over a crack.",
+        difficulty: "medium",
+      },
+    ],
+  },
 };

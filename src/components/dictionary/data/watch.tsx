@@ -129,4 +129,45 @@ export const watch: DictionaryEntry = {
       url: "https://www.hodinkee.com/",
     },
   ],
+  repair: {
+    tutorials: [
+      {
+        id: "hand-wind",
+        title: "How to wind and set a mechanical watch",
+        source: "Teddy Baldassarre (YouTube)",
+        kind: "video",
+        url: "https://www.youtube.com/results?search_query=how+to+wind+a+mechanical+watch",
+      },
+      {
+        id: "strap-change",
+        title: "Change a watch strap with a spring bar tool",
+        source: "WatchGecko",
+        kind: "article",
+        url: "https://www.watchgecko.com/blogs/news",
+      },
+    ],
+    commonFaults: [
+      {
+        id: "stopped",
+        symptom: "Watch stops after sitting overnight",
+        cause: "Mainspring has run down (manual/automatic not worn enough)",
+        fix: "Hand-wind the crown ~30 turns; for an automatic, wear it more or use a winder. Persistent stopping means it's due for a service.",
+        difficulty: "easy",
+      },
+      {
+        id: "fast-slow",
+        symptom: "Runs consistently fast or slow",
+        cause: "Magnetisation or a movement out of regulation",
+        fix: "Demagnetise with an inexpensive demagnetiser; if it persists, a watchmaker can regulate the balance.",
+        difficulty: "medium",
+      },
+      {
+        id: "fog",
+        symptom: "Condensation under the crystal",
+        cause: "Failed gaskets letting moisture in",
+        fix: "Stop wearing it and have the gaskets replaced and the case pressure-tested — trapped moisture corrodes the movement.",
+        difficulty: "hard",
+      },
+    ],
+  },
 };
