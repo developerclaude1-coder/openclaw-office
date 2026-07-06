@@ -109,6 +109,7 @@ function TopNav({ currentPage }: { currentPage: PageId }) {
     { active: isChatPage, label: t("topbar.chat"), onClick: () => navigate("/chat") },
     { active: isWorkbenchPage, label: t("topbar.workbench"), onClick: () => navigate("/skill-workbench") },
     { active: isConsolePage, label: t("topbar.console"), onClick: () => navigate("/dashboard") },
+    { active: false, label: t("topbar.dictionary"), onClick: () => navigate("/dictionary") },
   ];
 
   return (
