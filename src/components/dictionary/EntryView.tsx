@@ -1,8 +1,8 @@
-import { Layers } from "lucide-react";
-import { useState } from "react";
+import { Layers, Maximize2, Tag } from "lucide-react";
+import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CitationsList } from "./CitationsList";
-import { PartsDiagram } from "./PartsDiagram";
+import { PartsDiagram, type DiagramMode } from "./PartsDiagram";
 import type { DictionaryEntry } from "./types";
 
 interface EntryViewProps {
@@ -18,6 +18,7 @@ export function EntryView({ entry }: EntryViewProps) {
   const [selectedPartId, setSelectedPartId] = useState<string | null>(
     entry.parts[0]?.id ?? null,
   );
+  const [mode, setMode] = useState<DiagramMode>("labeled");
 
   const selectedPart = entry.parts.find((p) => p.id === selectedPartId) ?? null;
 
@@ -48,17 +49,37 @@ export function EntryView({ entry }: EntryViewProps) {
 
       {/* Parts diagram + list */}
       <section aria-labelledby="dictionary-parts-title">
-        <div className="mb-2 flex items-center gap-2">
-          <Layers className="h-4 w-4 text-gray-400" />
-          <h3
-            id="dictionary-parts-title"
-            className="text-sm font-semibold text-gray-800 dark:text-gray-100"
+        <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <Layers className="h-4 w-4 text-gray-400" />
+            <h3
+              id="dictionary-parts-title"
+              className="text-sm font-semibold text-gray-800 dark:text-gray-100"
+            >
+              {t("entry.partsTitle")}
+            </h3>
+          </div>
+          <div
+            role="group"
+            aria-label={t("entry.viewModeLabel")}
+            className="flex items-center gap-1 rounded-lg border border-gray-200 bg-gray-50 p-0.5 dark:border-gray-700 dark:bg-gray-800"
           >
-            {t("entry.partsTitle")}
-          </h3>
+            <ModeButton
+              active={mode === "labeled"}
+              onClick={() => setMode("labeled")}
+              icon={<Tag className="h-3.5 w-3.5" />}
+              label={t("entry.modeLabeled")}
+            />
+            <ModeButton
+              active={mode === "exploded"}
+              onClick={() => setMode("exploded")}
+              icon={<Maximize2 className="h-3.5 w-3.5" />}
+              label={t("entry.modeExploded")}
+            />
+          </div>
         </div>
         <p className="mb-4 text-xs text-gray-500 dark:text-gray-400">
-          {t("entry.partsHint")}
+          {mode === "exploded" ? t("entry.explodedHint") : t("entry.partsHint")}
         </p>
 
         <div className="grid gap-6 lg:grid-cols-2">
@@ -66,6 +87,7 @@ export function EntryView({ entry }: EntryViewProps) {
           <div className="rounded-2xl border border-gray-200 bg-gradient-to-b from-gray-50 to-white p-4 dark:border-gray-700 dark:from-gray-800 dark:to-gray-900">
             <PartsDiagram
               entry={entry}
+              mode={mode}
               selectedPartId={selectedPartId}
               onSelectPart={setSelectedPartId}
             />
@@ -140,5 +162,33 @@ export function EntryView({ entry }: EntryViewProps) {
       {/* Citations */}
       <CitationsList citations={entry.citations} />
     </div>
+  );
+}
+
+function ModeButton({
+  active,
+  onClick,
+  icon,
+  label,
+}: {
+  active: boolean;
+  onClick: () => void;
+  icon: ReactNode;
+  label: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+        active
+          ? "bg-white text-blue-600 shadow-sm dark:bg-gray-900 dark:text-blue-300"
+          : "text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+      }`}
+    >
+      {icon}
+      {label}
+    </button>
   );
 }

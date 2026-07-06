@@ -21,6 +21,10 @@
     "summaryTitle": "概述",
     "partsTitle": "部件图解",
     "partsHint": "点击编号标记或下方部件，了解它的作用。",
+    "explodedHint": "爆炸视图——部件标注环绕在物件四周。点击标注了解其作用。",
+    "viewModeLabel": "图解视图",
+    "modeLabeled": "标注",
+    "modeExploded": "爆炸图",
     "partsListTitle": "部件列表",
     "selectPrompt": "选择一个部件以查看其功能。",
     "functionLabel": "功能",
@@ -30,5 +34,14 @@
     "citationsSource": "来源",
     "openReference": "打开来源",
     "categoryLabel": "类别"
+  },
+  "library": {
+    "save": "保存到我的词库",
+    "saved": "已保存",
+    "remove": "从我的词库移除",
+    "myTitle": "我的词库",
+    "mySubtitle": "你保存的物件——存储在本设备上，随身可查。",
+    "sharedTitle": "共享词库",
+    "sharedSubtitle": "不断增长的集体词库——重建一次，人人共享。"
   }
 }

@@ -1,9 +1,11 @@
-import { ArrowLeft, BookOpen, ScanSearch } from "lucide-react";
+import { ArrowLeft, BookOpen, Check, Plus, ScanSearch } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { EntryView } from "@/components/dictionary/EntryView";
+import { LibraryShelf } from "@/components/dictionary/LibraryShelf";
 import { PhotoUpload } from "@/components/dictionary/PhotoUpload";
+import { useLibraryStore } from "@/components/dictionary/store/library-store";
 import type { DictionaryEntry } from "@/components/dictionary/types";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 
@@ -19,6 +21,10 @@ interface Recognition {
 export function DictionaryPage() {
   const { t } = useTranslation("dictionary");
   const [recognition, setRecognition] = useState<Recognition | null>(null);
+  const saveToLibrary = useLibraryStore((s) => s.save);
+  const removeFromLibrary = useLibraryStore((s) => s.remove);
+  const savedIds = useLibraryStore((s) => s.items);
+  const isSaved = recognition ? savedIds.some((i) => i.id === recognition.entry.id) : false;
 
   function handleRecognized(entry: DictionaryEntry, previewUrl: string | null) {
     setRecognition((prev) => {
@@ -84,14 +90,33 @@ export function DictionaryPage() {
                   <div className="text-lg font-bold">{recognition.entry.name}</div>
                 </div>
               </div>
-              <button
-                type="button"
-                onClick={handleReset}
-                className="inline-flex items-center gap-1.5 self-start rounded-xl border border-gray-200 px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:border-blue-400 hover:text-blue-600 dark:border-gray-700 dark:text-gray-300 dark:hover:border-blue-500 sm:self-auto"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                {t("backToScan")}
-              </button>
+              <div className="flex items-center gap-2 self-start sm:self-auto">
+                <button
+                  type="button"
+                  onClick={() =>
+                    isSaved
+                      ? removeFromLibrary(recognition.entry.id)
+                      : saveToLibrary(recognition.entry)
+                  }
+                  aria-pressed={isSaved}
+                  className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                    isSaved
+                      ? "bg-blue-600 text-white hover:bg-blue-700"
+                      : "border border-gray-200 text-gray-600 hover:border-blue-400 hover:text-blue-600 dark:border-gray-700 dark:text-gray-300 dark:hover:border-blue-500"
+                  }`}
+                >
+                  {isSaved ? <Check className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                  {isSaved ? t("library.saved") : t("library.save")}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleReset}
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-gray-200 px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:border-blue-400 hover:text-blue-600 dark:border-gray-700 dark:text-gray-300 dark:hover:border-blue-500"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  {t("backToScan")}
+                </button>
+              </div>
             </div>
 
             <EntryView entry={recognition.entry} />
@@ -105,6 +130,7 @@ export function DictionaryPage() {
               </p>
             </div>
             <PhotoUpload onRecognized={handleRecognized} />
+            <LibraryShelf onOpen={(entry) => handleRecognized(entry, null)} />
           </div>
         )}
       </main>
