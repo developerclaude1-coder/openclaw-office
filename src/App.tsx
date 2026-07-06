@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet, useLocation } from "react-router-dom";
 import { AppShell } from "@/components/layout/AppShell";
 import { AuthGate } from "@/components/auth/AuthGate";
 import { ConsoleLayout } from "@/components/layout/ConsoleLayout";
@@ -9,6 +9,7 @@ import { ChannelsPage } from "@/components/pages/ChannelsPage";
 import { CronPage } from "@/components/pages/CronPage";
 import { DashboardPage } from "@/components/pages/DashboardPage";
 import { ChatPage } from "@/components/pages/ChatPage";
+import { DictionaryPage } from "@/components/pages/DictionaryPage";
 import { SettingsPage } from "@/components/pages/SettingsPage";
 import { SkillsPage } from "@/components/pages/SkillsPage";
 import { SkillWorkbenchLayout } from "@/components/pages/SkillWorkbenchLayout";
@@ -119,9 +120,11 @@ export function App() {
     <>
       <ThemeSync />
       <PageTracker />
-      <AuthGate>
-        <ChatWorkspaceBootstrap wsClient={wsClient} />
-        <Routes>
+      <Routes>
+        {/* Standalone Visual Dictionary — accessible without a Gateway connection. */}
+        <Route path="/dictionary" element={<DictionaryPage />} />
+        {/* Everything else runs inside the authenticated OpenClaw Office shell. */}
+        <Route element={<AuthedShell wsClient={wsClient} />}>
           <Route path="/" element={<AppShell isMobile={isMobile}><FloorPlan /></AppShell>} />
           <Route element={<ConsoleLayout />}>
             <Route path="/chat" element={<ChatPage />} />
@@ -138,8 +141,26 @@ export function App() {
             <Route path="/settings" element={<SettingsPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </AuthGate>
+        </Route>
+      </Routes>
     </>
+  );
+}
+
+/**
+ * Layout route that guards the OpenClaw Office application behind the Gateway
+ * auth handshake and bootstraps the chat workspace. Standalone routes (e.g.
+ * the Visual Dictionary) are mounted outside this shell.
+ */
+function AuthedShell({
+  wsClient,
+}: {
+  wsClient: ReturnType<typeof useGatewayConnection>["wsClient"];
+}) {
+  return (
+    <AuthGate>
+      <ChatWorkspaceBootstrap wsClient={wsClient} />
+      <Outlet />
+    </AuthGate>
   );
 }

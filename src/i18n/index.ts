@@ -5,12 +5,14 @@ import enAuth from "./locales/en/auth.json";
 import enChat from "./locales/en/chat.json";
 import enCommon from "./locales/en/common.json";
 import enConsole from "./locales/en/console.json";
+import enDictionary from "./locales/en/dictionary.json";
 import enLayout from "./locales/en/layout.json";
 import enOffice from "./locales/en/office.json";
 import enPanels from "./locales/en/panels.json";
 import zhChat from "./locales/zh/chat.json";
 import zhCommon from "./locales/zh/common.json";
 import zhConsole from "./locales/zh/console.json";
+import zhDictionary from "./locales/zh/dictionary.json";
 import zhLayout from "./locales/zh/layout.json";
 import zhOffice from "./locales/zh/office.json";
 import zhPanels from "./locales/zh/panels.json";
@@ -19,7 +21,16 @@ import zhAuth from "./locales/zh/auth.json";
 export const supportedLngs = ["zh", "en"] as const;
 export type SupportedLng = (typeof supportedLngs)[number];
 
-export const namespaces = ["common", "layout", "office", "panels", "chat", "console", "auth"] as const;
+export const namespaces = [
+  "common",
+  "layout",
+  "office",
+  "panels",
+  "chat",
+  "console",
+  "auth",
+  "dictionary",
+] as const;
 
 i18n
   .use(LanguageDetector)
@@ -34,6 +45,7 @@ i18n
         chat: zhChat,
         console: zhConsole,
         auth: zhAuth,
+        dictionary: zhDictionary,
       },
       en: {
         common: enCommon,
@@ -43,6 +55,7 @@ i18n
         chat: enChat,
         console: enConsole,
         auth: enAuth,
+        dictionary: enDictionary,
       },
     },
     supportedLngs: [...supportedLngs],

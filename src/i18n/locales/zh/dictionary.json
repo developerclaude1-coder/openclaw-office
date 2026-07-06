@@ -1,0 +1,34 @@
+{
+  "nav": "视觉词典",
+  "title": "视觉词典",
+  "tagline": "拍下任意人造物件，探索它是如何被制造的——一部关于人造之物的维基百科。",
+  "backToScan": "扫描其它物件",
+  "upload": {
+    "dropTitle": "拖入照片，或点击上传",
+    "dropHint": "任意人造物件的 PNG 或 JPG 图片",
+    "button": "上传照片",
+    "analyzing": "正在识别物件…",
+    "recognizedAs": "识别为",
+    "confidence": "匹配",
+    "searchLabel": "或按名称查询",
+    "searchPlaceholder": "例如：自行车、手表、锤子…",
+    "searchButton": "查询",
+    "noMatch": "暂无相关词条——请尝试下方的示例。",
+    "samplesTitle": "试试示例",
+    "mockNotice": "演示模式：识别由内置的小型离线词库模拟，后续可接入真实视觉模型。"
+  },
+  "entry": {
+    "summaryTitle": "概述",
+    "partsTitle": "部件图解",
+    "partsHint": "点击编号标记或下方部件，了解它的作用。",
+    "partsListTitle": "部件列表",
+    "selectPrompt": "选择一个部件以查看其功能。",
+    "functionLabel": "功能",
+    "materialLabel": "常见材料",
+    "citationsTitle": "参考资料",
+    "citationsHint": "以上信息的来源。",
+    "citationsSource": "来源",
+    "openReference": "打开来源",
+    "categoryLabel": "类别"
+  }
+}

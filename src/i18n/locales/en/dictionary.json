@@ -1,0 +1,34 @@
+{
+  "nav": "Dictionary",
+  "title": "Visual Dictionary",
+  "tagline": "Photograph any man-made object and explore how it's built — a Wikipedia for things made by hand.",
+  "backToScan": "Scan another object",
+  "upload": {
+    "dropTitle": "Drop a photo, or click to upload",
+    "dropHint": "PNG or JPG of any man-made object",
+    "button": "Upload photo",
+    "analyzing": "Recognising object…",
+    "recognizedAs": "Recognised as",
+    "confidence": "match",
+    "searchLabel": "Or look it up by name",
+    "searchPlaceholder": "e.g. bicycle, watch, hammer…",
+    "searchButton": "Look up",
+    "noMatch": "No entry yet for that — try one of the samples below.",
+    "samplesTitle": "Try a sample",
+    "mockNotice": "Demo mode: recognition is simulated from a small offline library. A real vision model can be wired in later."
+  },
+  "entry": {
+    "summaryTitle": "Overview",
+    "partsTitle": "Parts diagram",
+    "partsHint": "Tap a numbered marker or a part below to learn what it does.",
+    "partsListTitle": "Parts list",
+    "selectPrompt": "Select a part to see its function.",
+    "functionLabel": "Function",
+    "materialLabel": "Typical material",
+    "citationsTitle": "References",
+    "citationsHint": "Where this information comes from.",
+    "citationsSource": "Source",
+    "openReference": "Open reference",
+    "categoryLabel": "Category"
+  }
+}
