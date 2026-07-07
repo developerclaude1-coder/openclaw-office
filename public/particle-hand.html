@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hand-Tracked 3D Particle System</title>
+    <style>
+      :root {
+        --bg: #05060a;
+        --panel: rgba(16, 18, 28, 0.72);
+        --panel-border: rgba(120, 140, 200, 0.22);
+        --text: #e8ecf6;
+        --muted: #8b93a7;
+        --accent: #5b8cff;
+        --accent-2: #ff5b8c;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #scene {
+        position: fixed;
+        inset: 0;
+        display: block;
+      }
+
+      /* ---------- Settings panel ---------- */
+      #panel {
+        position: fixed;
+        top: 18px;
+        left: 18px;
+        width: 268px;
+        padding: 18px 18px 20px;
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: 16px;
+        backdrop-filter: blur(18px) saturate(140%);
+        -webkit-backdrop-filter: blur(18px) saturate(140%);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+        z-index: 10;
+        user-select: none;
+      }
+
+      #panel h1 {
+        margin: 0 0 2px;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+      }
+
+      #panel .sub {
+        margin: 0 0 16px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .shapes {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+
+      .shape-btn {
+        appearance: none;
+        border: 1px solid var(--panel-border);
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text);
+        padding: 9px 6px;
+        border-radius: 10px;
+        font-size: 12.5px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.18s, border-color 0.18s, transform 0.06s;
+      }
+
+      .shape-btn:hover {
+        background: rgba(91, 140, 255, 0.14);
+      }
+
+      .shape-btn:active {
+        transform: scale(0.97);
+      }
+
+      .shape-btn.active {
+        background: linear-gradient(135deg, rgba(91, 140, 255, 0.32), rgba(255, 91, 140, 0.24));
+        border-color: rgba(120, 160, 255, 0.6);
+      }
+
+      .control {
+        margin-bottom: 15px;
+      }
+
+      .control .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 6px;
+      }
+
+      .control label {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .control .val {
+        font-size: 12px;
+        font-variant-numeric: tabular-nums;
+        color: var(--text);
+      }
+
+      input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 4px;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.12);
+        outline: none;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: 2px solid #0a0c14;
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(91, 140, 255, 0.7);
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: 2px solid #0a0c14;
+        cursor: pointer;
+      }
+
+      /* ---------- Webcam preview + status ---------- */
+      #hud {
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        width: 180px;
+        z-index: 10;
+      }
+
+      #cam-wrap {
+        position: relative;
+        width: 180px;
+        height: 135px;
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid var(--panel-border);
+        background: #000;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      #cam {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scaleX(-1); /* mirror */
+      }
+
+      #overlay {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        transform: scaleX(-1);
+      }
+
+      #status {
+        margin-top: 10px;
+        padding: 9px 12px;
+        border-radius: 10px;
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        font-size: 11.5px;
+        line-height: 1.5;
+      }
+
+      #status .dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-right: 6px;
+        background: var(--muted);
+        vertical-align: middle;
+      }
+
+      #status .gesture {
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      #enable {
+        margin-top: 10px;
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid rgba(120, 160, 255, 0.5);
+        background: linear-gradient(135deg, rgba(91, 140, 255, 0.35), rgba(255, 91, 140, 0.28));
+        color: var(--text);
+        font-size: 12.5px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      #enable:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+
+      #hint {
+        position: fixed;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 11.5px;
+        color: var(--muted);
+        z-index: 10;
+        text-align: center;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="scene"></canvas>
+
+    <!-- Settings panel -->
+    <div id="panel">
+      <h1>Particle Field</h1>
+      <p class="sub">Three.js + MediaPipe Hands</p>
+
+      <div class="shapes" id="shapes">
+        <button class="shape-btn active" data-shape="sphere">Sphere</button>
+        <button class="shape-btn" data-shape="heart">Heart</button>
+        <button class="shape-btn" data-shape="cube">Cube</button>
+        <button class="shape-btn" data-shape="spiral">Spiral</button>
+      </div>
+
+      <div class="control">
+        <div class="row">
+          <label for="count">Particle count</label>
+          <span class="val" id="count-val">20000</span>
+        </div>
+        <input type="range" id="count" min="2000" max="40000" step="1000" value="20000" />
+      </div>
+
+      <div class="control">
+        <div class="row">
+          <label for="force">Force strength</label>
+          <span class="val" id="force-val">1.0</span>
+        </div>
+        <input type="range" id="force" min="0" max="3" step="0.05" value="1" />
+      </div>
+
+      <div class="control">
+        <div class="row">
+          <label for="radius">Interaction radius</label>
+          <span class="val" id="radius-val">3.0</span>
+        </div>
+        <input type="range" id="radius" min="0.5" max="8" step="0.1" value="3" />
+      </div>
+    </div>
+
+    <!-- Webcam HUD -->
+    <div id="hud">
+      <div id="cam-wrap">
+        <video id="cam" playsinline muted></video>
+        <canvas id="overlay"></canvas>
+      </div>
+      <div id="status">
+        <span class="dot" id="status-dot"></span>
+        <span id="status-text">Camera off</span><br />
+        Gesture: <span class="gesture" id="gesture-text">—</span>
+      </div>
+      <button id="enable">Enable camera</button>
+    </div>
+
+    <div id="hint">
+      Open hand → push particles away · Make a fist → pull them in
+    </div>
+
+    <!-- Three.js as ES module -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+        }
+      }
+    </script>
+
+    <!-- MediaPipe Hands via standard CDN scripts -->
+    <script
+      crossorigin="anonymous"
+      src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/hands.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1675466862/camera_utils.js"
+    ></script>
+
+    <script type="module">
+      import * as THREE from "three";
+
+      /* =====================================================================
+       * Config (mutated live from the settings panel)
+       * ===================================================================*/
+      const config = {
+        count: 20000,
+        maxCount: 40000,
+        force: 1.0,
+        radius: 3.0,
+        shape: "sphere",
+      };
+
+      /* =====================================================================
+       * Shape generators — each returns [x, y, z] for particle i of n
+       * ===================================================================*/
+      const SCALE = 6;
+
+      function shapeSphere(i, n, out) {
+        // Fibonacci sphere for even distribution
+        const golden = Math.PI * (3 - Math.sqrt(5));
+        const y = 1 - (i / (n - 1)) * 2;
+        const r = Math.sqrt(1 - y * y);
+        const theta = golden * i;
+        out[0] = Math.cos(theta) * r * SCALE;
+        out[1] = y * SCALE;
+        out[2] = Math.sin(theta) * r * SCALE;
+      }
+
+      function shapeHeart(i, n, out) {
+        const t = (i / n) * Math.PI * 2;
+        // Parametric heart curve, extruded on z with a little jitter
+        const x = 16 * Math.pow(Math.sin(t), 3);
+        const y =
+          13 * Math.cos(t) -
+          5 * Math.cos(2 * t) -
+          2 * Math.cos(3 * t) -
+          Math.cos(4 * t);
+        const layer = ((i * 2654435761) % 1000) / 1000; // pseudo-random 0..1
+        const depth = (layer - 0.5) * 4;
+        const shrink = 0.35 + 0.65 * (1 - Math.abs(depth) / 2.2);
+        out[0] = (x / 16) * SCALE * shrink;
+        out[1] = (y / 16) * SCALE * shrink + 0.6;
+        out[2] = depth;
+      }
+
+      function shapeCube(i, n, out) {
+        // Distribute on the 6 faces of a cube shell
+        const face = i % 6;
+        const u = (((i * 2654435761) % 10007) / 10007) * 2 - 1;
+        const v = (((i * 40503) % 10007) / 10007) * 2 - 1;
+        const s = SCALE * 0.85;
+        switch (face) {
+          case 0: out[0] = u * s; out[1] = v * s; out[2] = s; break;
+          case 1: out[0] = u * s; out[1] = v * s; out[2] = -s; break;
+          case 2: out[0] = s; out[1] = u * s; out[2] = v * s; break;
+          case 3: out[0] = -s; out[1] = u * s; out[2] = v * s; break;
+          case 4: out[0] = u * s; out[1] = s; out[2] = v * s; break;
+          default: out[0] = u * s; out[1] = -s; out[2] = v * s; break;
+        }
+      }
+
+      function shapeSpiral(i, n, out) {
+        const turns = 6;
+        const t = i / n;
+        const angle = t * Math.PI * 2 * turns;
+        const r = t * SCALE * 1.1;
+        out[0] = Math.cos(angle) * r;
+        out[1] = (t - 0.5) * SCALE * 2.2;
+        out[2] = Math.sin(angle) * r;
+      }
+
+      const SHAPES = {
+        sphere: shapeSphere,
+        heart: shapeHeart,
+        cube: shapeCube,
+        spiral: shapeSpiral,
+      };
+
+      /* =====================================================================
+       * Three.js scene
+       * ===================================================================*/
+      const canvas = document.getElementById("scene");
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        alpha: false,
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x05060a, 0.028);
+
+      const camera = new THREE.PerspectiveCamera(
+        60,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        200
+      );
+      camera.position.set(0, 0, 20);
+
+      // Buffers sized to the maximum particle count; `config.count` gates
+      // how many are drawn so the slider never reallocates GPU memory.
+      const MAX = config.maxCount;
+      const positions = new Float32Array(MAX * 3);
+      const colors = new Float32Array(MAX * 3);
+      const targets = new Float32Array(MAX * 3);
+      const velocities = new Float32Array(MAX * 3);
+      const tmp = [0, 0, 0];
+
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+      geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+      // Soft circular sprite so particles read as glowing dots, not squares.
+      function makeSprite() {
+        const size = 64;
+        const c = document.createElement("canvas");
+        c.width = c.height = size;
+        const ctx = c.getContext("2d");
+        const g = ctx.createRadialGradient(
+          size / 2, size / 2, 0,
+          size / 2, size / 2, size / 2
+        );
+        g.addColorStop(0, "rgba(255,255,255,1)");
+        g.addColorStop(0.25, "rgba(255,255,255,0.85)");
+        g.addColorStop(0.55, "rgba(255,255,255,0.25)");
+        g.addColorStop(1, "rgba(255,255,255,0)");
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, size, size);
+        const tex = new THREE.CanvasTexture(c);
+        tex.needsUpdate = true;
+        return tex;
+      }
+
+      const material = new THREE.PointsMaterial({
+        size: 0.14,
+        map: makeSprite(),
+        vertexColors: true,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      });
+
+      const points = new THREE.Points(geometry, material);
+      scene.add(points);
+
+      const color = new THREE.Color();
+
+      // (Re)build target positions for the active shape and seed colours.
+      function buildShape() {
+        const fn = SHAPES[config.shape];
+        const n = config.count;
+        for (let i = 0; i < n; i++) {
+          fn(i, n, tmp);
+          const i3 = i * 3;
+          targets[i3] = tmp[0];
+          targets[i3 + 1] = tmp[1];
+          targets[i3 + 2] = tmp[2];
+
+          // Gradient palette based on height for a cohesive dark-theme look.
+          const h = (tmp[1] / SCALE) * 0.5 + 0.5; // 0..1
+          color.setHSL(0.58 + h * 0.22, 0.85, 0.5 + h * 0.12);
+          colors[i3] = color.r;
+          colors[i3 + 1] = color.g;
+          colors[i3 + 2] = color.b;
+        }
+        geometry.setDrawRange(0, n);
+        geometry.attributes.color.needsUpdate = true;
+      }
+
+      // Randomly scatter starting positions so the first shape "assembles".
+      function seedPositions() {
+        for (let i = 0; i < MAX; i++) {
+          const i3 = i * 3;
+          positions[i3] = (Math.random() - 0.5) * 40;
+          positions[i3 + 1] = (Math.random() - 0.5) * 40;
+          positions[i3 + 2] = (Math.random() - 0.5) * 40;
+          velocities[i3] = velocities[i3 + 1] = velocities[i3 + 2] = 0;
+        }
+      }
+
+      seedPositions();
+      buildShape();
+
+      /* =====================================================================
+       * Hand interaction state (updated by MediaPipe callback)
+       * ===================================================================*/
+      const hand = {
+        active: false,
+        gesture: "none", // "open" | "fist" | "none"
+        // World-space position of the palm, mapped into the scene.
+        pos: new THREE.Vector3(),
+      };
+
+      // Map a normalized landmark (x,y in [0,1]) onto a plane in front of the
+      // camera so the hand pushes/pulls particles where it visually appears.
+      function landmarkToWorld(nx, ny, out) {
+        // Mirror x to match the mirrored webcam preview.
+        const sx = (1 - nx) * 2 - 1; // -1..1
+        const sy = (1 - ny) * 2 - 1; // flip y for screen->world
+        const spread = 11;
+        out.set(sx * spread * (camera.aspect || 1) * 0.6, sy * spread, 0);
+      }
+
+      /* =====================================================================
+       * Animation loop — spring back to targets, damping, hand force
+       * ===================================================================*/
+      const clock = new THREE.Clock();
+      const dir = new THREE.Vector3();
+      const pPos = new THREE.Vector3();
+
+      function animate() {
+        requestAnimationFrame(animate);
+        const dt = Math.min(clock.getDelta(), 0.05);
+        const n = config.count;
+
+        const spring = 4.0; // pull toward target
+        const damping = 0.86; // velocity retention per frame
+        const radius = config.radius;
+        const radiusSq = radius * radius;
+        const strength = config.force * 26;
+
+        const handActive = hand.active && hand.gesture !== "none";
+        const push = hand.gesture === "open" ? 1 : -1; // open pushes, fist pulls
+
+        for (let i = 0; i < n; i++) {
+          const i3 = i * 3;
+          let px = positions[i3];
+          let py = positions[i3 + 1];
+          let pz = positions[i3 + 2];
+
+          // Spring toward the shape's target position.
+          let ax = (targets[i3] - px) * spring;
+          let ay = (targets[i3 + 1] - py) * spring;
+          let az = (targets[i3 + 2] - pz) * spring;
+
+          // Hand force within the interaction radius.
+          if (handActive) {
+            const dx = px - hand.pos.x;
+            const dy = py - hand.pos.y;
+            const dz = pz - hand.pos.z;
+            const distSq = dx * dx + dy * dy + dz * dz;
+            if (distSq < radiusSq && distSq > 0.0001) {
+              const dist = Math.sqrt(distSq);
+              const falloff = 1 - dist / radius; // 1 at center → 0 at edge
+              const f = (strength * falloff * push) / dist;
+              ax += dx * f;
+              ay += dy * f;
+              az += dz * f;
+            }
+          }
+
+          // Integrate velocity with damping.
+          let vx = (velocities[i3] + ax * dt) * damping;
+          let vy = (velocities[i3 + 1] + ay * dt) * damping;
+          let vz = (velocities[i3 + 2] + az * dt) * damping;
+
+          velocities[i3] = vx;
+          velocities[i3 + 1] = vy;
+          velocities[i3 + 2] = vz;
+
+          positions[i3] = px + vx * dt;
+          positions[i3 + 1] = py + vy * dt;
+          positions[i3 + 2] = pz + vz * dt;
+        }
+
+        geometry.attributes.position.needsUpdate = true;
+
+        // Gentle idle rotation for depth.
+        points.rotation.y += dt * 0.08;
+
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      /* =====================================================================
+       * Settings panel wiring
+       * ===================================================================*/
+      const countInput = document.getElementById("count");
+      const forceInput = document.getElementById("force");
+      const radiusInput = document.getElementById("radius");
+      const countVal = document.getElementById("count-val");
+      const forceVal = document.getElementById("force-val");
+      const radiusVal = document.getElementById("radius-val");
+
+      countInput.addEventListener("input", () => {
+        config.count = parseInt(countInput.value, 10);
+        countVal.textContent = config.count.toLocaleString();
+        buildShape();
+      });
+
+      forceInput.addEventListener("input", () => {
+        config.force = parseFloat(forceInput.value);
+        forceVal.textContent = config.force.toFixed(2);
+      });
+
+      radiusInput.addEventListener("input", () => {
+        config.radius = parseFloat(radiusInput.value);
+        radiusVal.textContent = config.radius.toFixed(1);
+      });
+
+      document.getElementById("shapes").addEventListener("click", (e) => {
+        const btn = e.target.closest(".shape-btn");
+        if (!btn) return;
+        config.shape = btn.dataset.shape;
+        document
+          .querySelectorAll(".shape-btn")
+          .forEach((b) => b.classList.toggle("active", b === btn));
+        buildShape();
+      });
+
+      /* =====================================================================
+       * Resize
+       * ===================================================================*/
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      /* =====================================================================
+       * MediaPipe Hands
+       * ===================================================================*/
+      const video = document.getElementById("cam");
+      const overlay = document.getElementById("overlay");
+      const octx = overlay.getContext("2d");
+      const enableBtn = document.getElementById("enable");
+      const statusDot = document.getElementById("status-dot");
+      const statusText = document.getElementById("status-text");
+      const gestureText = document.getElementById("gesture-text");
+
+      // Classify open hand vs fist from 21 landmarks. We compare each
+      // fingertip's distance from the wrist against the middle-finger MCP
+      // reference length; extended fingers sit far from the wrist.
+      function classifyGesture(lm) {
+        const wrist = lm[0];
+        const midMcp = lm[9];
+        const refLen = Math.hypot(
+          midMcp.x - wrist.x,
+          midMcp.y - wrist.y
+        ) || 0.0001;
+        const tips = [8, 12, 16, 20]; // index, middle, ring, pinky tips
+        let extended = 0;
+        for (const t of tips) {
+          const d = Math.hypot(lm[t].x - wrist.x, lm[t].y - wrist.y) / refLen;
+          if (d > 1.6) extended++;
+        }
+        if (extended >= 3) return "open";
+        if (extended <= 1) return "fist";
+        return "none";
+      }
+
+      function drawOverlay(lm) {
+        octx.clearRect(0, 0, overlay.width, overlay.height);
+        if (!lm) return;
+        octx.fillStyle = hand.gesture === "open" ? "#5b8cff" : "#ff5b8c";
+        for (const p of lm) {
+          octx.beginPath();
+          octx.arc(p.x * overlay.width, p.y * overlay.height, 3, 0, Math.PI * 2);
+          octx.fill();
+        }
+      }
+
+      function onResults(results) {
+        const lms = results.multiHandLandmarks;
+        if (lms && lms.length > 0) {
+          const lm = lms[0];
+          hand.active = true;
+          hand.gesture = classifyGesture(lm);
+          // Use the palm center (average of wrist + finger MCPs) for stability.
+          const palm = lm[9];
+          landmarkToWorld(palm.x, palm.y, hand.pos);
+          gestureText.textContent =
+            hand.gesture === "open"
+              ? "Open ✋ (push)"
+              : hand.gesture === "fist"
+                ? "Fist ✊ (pull)"
+                : "Neutral";
+          drawOverlay(lm);
+        } else {
+          hand.active = false;
+          hand.gesture = "none";
+          gestureText.textContent = "—";
+          drawOverlay(null);
+        }
+      }
+
+      let hands = null;
+      let mpCamera = null;
+
+      async function enableCamera() {
+        enableBtn.disabled = true;
+        statusText.textContent = "Starting…";
+        try {
+          hands = new Hands({
+            locateFile: (file) =>
+              `https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/${file}`,
+          });
+          hands.setOptions({
+            maxNumHands: 1,
+            modelComplexity: 1,
+            minDetectionConfidence: 0.6,
+            minTrackingConfidence: 0.6,
+          });
+          hands.onResults(onResults);
+
+          mpCamera = new Camera(video, {
+            onFrame: async () => {
+              await hands.send({ image: video });
+            },
+            width: 640,
+            height: 480,
+          });
+          await mpCamera.start();
+
+          // Match overlay canvas to preview box.
+          overlay.width = 180;
+          overlay.height = 135;
+
+          statusDot.style.background = "#4ade80";
+          statusText.textContent = "Tracking";
+          enableBtn.textContent = "Camera on";
+        } catch (err) {
+          console.error(err);
+          statusDot.style.background = "#ff5b5b";
+          statusText.textContent = "Camera failed";
+          gestureText.textContent = String(err && err.message ? err.message : err);
+          enableBtn.disabled = false;
+          enableBtn.textContent = "Retry";
+        }
+      }
+
+      enableBtn.addEventListener("click", enableCamera);
+    </script>
+  </body>
+</html>
