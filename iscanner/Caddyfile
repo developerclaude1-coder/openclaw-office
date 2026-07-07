@@ -1,0 +1,6 @@
+# Caddy reverse proxy — automatic HTTPS for Scanly.
+# {$SCANLY_DOMAIN} must be a DNS name pointing at this VM's public IP.
+{$SCANLY_DOMAIN} {
+	encode gzip
+	reverse_proxy scanly:80
+}
