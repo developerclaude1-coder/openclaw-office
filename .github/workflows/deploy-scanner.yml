@@ -36,6 +36,10 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        with:
+          # Enable Pages automatically so the first run doesn't require the
+          # repo owner to flip Settings → Pages by hand.
+          enablement: true
 
       - name: Upload iscanner as artifact
         uses: actions/upload-pages-artifact@v3
