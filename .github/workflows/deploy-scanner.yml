@@ -35,11 +35,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Pages
+        # Requires Pages to be enabled once via Settings → Pages → Source:
+        # "GitHub Actions". The Actions token cannot enable Pages itself on
+        # this repo, so that first toggle is a manual, one-time step.
         uses: actions/configure-pages@v5
-        with:
-          # Enable Pages automatically so the first run doesn't require the
-          # repo owner to flip Settings → Pages by hand.
-          enablement: true
 
       - name: Upload iscanner as artifact
         uses: actions/upload-pages-artifact@v3
