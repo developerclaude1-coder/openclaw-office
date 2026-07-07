@@ -1,6 +1,6 @@
 // sw.js — service worker for offline support. Caches the app shell so Scanly
 // works with no network once installed. Bump CACHE on any asset change.
-const CACHE = "scanly-v1";
+const CACHE = "scanly-v2";
 const ASSETS = [
   "./",
   "./index.html",
@@ -20,6 +20,13 @@ const ASSETS = [
   "./js/crop-editor.js",
   "./js/filter-editor.js",
   "./js/export.js",
+  "./js/capture.js",
+  "./js/annotate.js",
+  "./js/qr-scanner.js",
+  "./js/counter.js",
+  "./js/ocr.js",
+  "./js/page-tools.js",
+  "./js/doc-actions.js",
 ];
 
 self.addEventListener("install", (e) => {

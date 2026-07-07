@@ -17,9 +17,21 @@ and contains no code or assets from, any commercial scanner app.
 - ✨ **Scan filters** — Enhance (magic color), Original, Grayscale, adaptive B & W
 - 🎚️ **Brightness / contrast** fine-tuning
 - 📄 **Multi-page documents** — add, remove and reorder pages
-- 🧾 **Export to PDF** and share via the native share sheet, or download
+- ✍️ **Sign & annotate** — draw a saved signature, freehand pen, and text stamps
+- 🔤 **OCR** — extract & copy text from a scan (recognition engine loads on first use)
+- 🔳 **QR & barcode reader** — live camera scan (via the browser's BarcodeDetector)
+- 🔢 **Object counter (beta)** — count separated objects in a photo, with tap-to-correct
+- 🪪 **ID-card mode** — place a card's front & back on a single page
+- 🔗 **Merge** documents together
+- 🧾 **Export to PDF** / share, or export a page as **JPG**
 - 💾 **Local storage** (IndexedDB) — your scans stay on your device
 - 📴 **Offline** — installable PWA with a service worker
+
+> **Not included:** AR room/area measurement and real-time on-screen object
+> identification. Those depend on ARKit/ARCore and on-device ML models that a
+> cross-platform web app can't provide reliably (iOS Safari has no AR API); a
+> native app is the right tool for those. The photo **object counter** above is
+> an image-processing approximation of "counting", not AR.
 
 ## Use it on your phone
 
