@@ -1,0 +1,45 @@
+name: Deploy Scanly (iscanner) to GitHub Pages
+
+# Optional/fallback publisher for the Scanly PWA to GitHub Pages. The primary
+# hosting path is self-hosting on your own server VM (see iscanner/README.md and
+# iscanner/docker-compose.yml). This runs ONLY when triggered manually, so it no
+# longer fails CI on every push. To use it: enable Pages (Settings → Pages →
+# Source: GitHub Actions), then run this workflow from the Actions tab.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment; cancel in-progress runs for the same ref.
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        # Requires Pages to be enabled once via Settings → Pages → Source:
+        # "GitHub Actions". The Actions token cannot enable Pages itself on
+        # this repo, so that first toggle is a manual, one-time step.
+        uses: actions/configure-pages@v5
+
+      - name: Upload iscanner as artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./iscanner
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
