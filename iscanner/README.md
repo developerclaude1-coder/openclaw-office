@@ -33,40 +33,48 @@ and contains no code or assets from, any commercial scanner app.
 > native app is the right tool for those. The photo **object counter** above is
 > an image-processing approximation of "counting", not AR.
 
-## Use it on your phone
+## Host it on your own server / VM
 
-Camera access requires **HTTPS**, so the app must be served over https (or
-`localhost`). Two easy options:
+Scanly is static files, so it runs on any always-on box — your server VM — with
+no build step and no external services. Camera access requires **HTTPS** (or
+`localhost`), so for phone use terminate TLS with the bundled Caddy option.
 
-### Option A — GitHub Pages (recommended)
+### Option A — Docker + automatic HTTPS (recommended for phone use)
 
-This repo includes a workflow at `.github/workflows/deploy-scanner.yml` that
-publishes the `iscanner/` folder to GitHub Pages.
-
-1. In your repository, go to **Settings → Pages** and set
-   **Build and deployment → Source** to **GitHub Actions**.
-2. Push this branch (or merge to `main`). The **Deploy Scanly** workflow runs
-   and prints the published URL (something like
-   `https://<user>.github.io/<repo>/`).
-3. Open that URL on your phone → the app loads at
-   `.../iscanner/` (open `.../index.html` if needed).
-4. **Add to Home Screen**:
-   - iOS Safari: Share → *Add to Home Screen*
-   - Android Chrome: ⋮ menu → *Install app* / *Add to Home screen*
-
-### Option B — run it locally
-
-From the repo root:
+On the VM, with a DNS name pointing at it:
 
 ```bash
-# any static server works; must be reachable over https for camera on a phone
-npx serve iscanner
-# or
-python3 -m http.server -d iscanner 8080
+git clone <this-repo> && cd <repo>/iscanner
+export SCANLY_DOMAIN=scan.example.com   # A record must point at this VM
+docker compose --profile tls up -d
 ```
 
-Open `http://localhost:8080` on the same machine, or expose it over https
-(e.g. with a tunneling tool) to reach it from your phone's camera.
+Caddy fetches a real certificate automatically. Open `https://scan.example.com/`
+on your phone → **Add to Home Screen** (iOS Safari: Share → *Add to Home
+Screen*; Android Chrome: ⋮ → *Install app*).
+
+HTTP only (behind an existing proxy, or for LAN testing):
+
+```bash
+docker compose up -d scanly     # -> http://<vm-host>:8080/
+```
+
+### Option B — no Docker, just Node
+
+```bash
+node iscanner/serve.mjs          # binds 0.0.0.0:8080 by default
+# PORT=9000 HOST=0.0.0.0 node iscanner/serve.mjs
+```
+
+Run it under a process manager (systemd / pm2) so it stays up. Put it behind a
+TLS-terminating reverse proxy (Caddy/nginx/Traefik) for phone camera access.
+
+### Option C — GitHub Pages
+
+A manual workflow at `.github/workflows/deploy-scanner.yml` can publish
+`iscanner/` to GitHub Pages (Settings → Pages → Source: *GitHub Actions*, then
+run the **Deploy Scanly** workflow). Kept as a fallback; self-hosting on your VM
+is the primary path.
 
 ## How it works
 
@@ -74,16 +82,21 @@ Everything runs in the browser with **zero dependencies**:
 
 | File | Responsibility |
 | --- | --- |
-| `js/app.js` | App shell, routing, capture flow, library & document views |
+| `js/app.js` | App shell, routing, library & document views, `+` menu |
+| `js/capture.js` | Shared capture pipeline (pick → crop → filter) |
 | `js/crop-editor.js` | Full-screen corner-adjust UI |
 | `js/edge-detect.js` | Automatic document-corner detection (Sobel-based) |
 | `js/geometry.js` | Homography solve + perspective warp (bilinear) |
-| `js/filter-editor.js` | Filter picker with live preview |
-| `js/filters.js` | Enhance / grayscale / adaptive B & W / adjustments |
+| `js/filter-editor.js` / `js/filters.js` | Filter picker + Enhance / grayscale / adaptive B & W |
+| `js/annotate.js` | Sign & annotate (signature pad, pen, text) |
+| `js/qr-scanner.js` | Live QR / barcode reader (BarcodeDetector) |
+| `js/counter.js` | Photo object counter (connected-component blobs) |
+| `js/ocr.js` | Text extraction (Tesseract.js, lazy-loaded) |
+| `js/page-tools.js` / `js/doc-actions.js` | ID-card compose, JPG export, reorder, merge |
 | `js/pdf.js` | Minimal PDF writer that embeds JPEG pages |
-| `js/db.js` | IndexedDB persistence |
-| `js/export.js` | PDF build + Web Share / download |
+| `js/db.js` / `js/export.js` | IndexedDB persistence, PDF build + share |
 | `sw.js` | Offline service worker |
+| `serve.mjs` / `Dockerfile` / `docker-compose.yml` / `Caddyfile` | Self-hosting on your VM |
 
 ## Privacy
 

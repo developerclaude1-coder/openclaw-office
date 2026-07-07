@@ -1,17 +1,12 @@
 name: Deploy Scanly (iscanner) to GitHub Pages
 
-# Publishes the self-contained document-scanner PWA in ./iscanner to GitHub
-# Pages, giving you an HTTPS URL you can open on your phone and "Add to Home
-# Screen". Camera access requires HTTPS, which Pages provides.
+# Optional/fallback publisher for the Scanly PWA to GitHub Pages. The primary
+# hosting path is self-hosting on your own server VM (see iscanner/README.md and
+# iscanner/docker-compose.yml). This runs ONLY when triggered manually, so it no
+# longer fails CI on every push. To use it: enable Pages (Settings → Pages →
+# Source: GitHub Actions), then run this workflow from the Actions tab.
 
 on:
-  push:
-    branches:
-      - claude/iscanner-app-clone-mj6rph
-      - main
-    paths:
-      - "iscanner/**"
-      - ".github/workflows/deploy-scanner.yml"
   workflow_dispatch:
 
 permissions:
