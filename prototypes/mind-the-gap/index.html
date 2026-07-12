@@ -1,0 +1,920 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mind the Gap — the art world, at every resolution</title>
+<meta name="description" content="A one-stop instrument connecting artists and the industry: collectors, public commissions, residencies, and a map of museums and galleries — curated from cosmos to atom." />
+<style>
+  /* ============================================================
+     MIND THE GAP — an observatory for the art world
+     Tri-voice type system:
+       serif  = art / the human
+       mono   = industry / the index
+       sans   = the connective tissue that bridges the gap
+     ============================================================ */
+
+  :root{
+    /* --- deep-space / dark is the native ground --- */
+    --ground:#0A0D18;
+    --surface:#111527;
+    --surface-2:#171C33;
+    --ink:#EDEFF7;
+    --muted:#8A93B4;
+    --faint:#59617F;
+    --line:rgba(160,172,214,0.14);
+    --line-strong:rgba(160,172,214,0.28);
+    --accent:#F2A93B;          /* aperture amber */
+    --accent-soft:rgba(242,169,59,0.14);
+    --accent-2:#7FB2D9;        /* spectral cyan */
+    --accent-2-soft:rgba(127,178,217,0.14);
+
+    --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
+
+    --maxw:1180px;
+    --gutter:clamp(20px,5vw,64px);
+    --radius:14px;
+  }
+
+  @media (prefers-color-scheme: light){
+    :root{
+      --ground:#F3F4F8;
+      --surface:#FFFFFF;
+      --surface-2:#EBEEF5;
+      --ink:#131727;
+      --muted:#565E79;
+      --faint:#8990A8;
+      --line:rgba(20,26,52,0.12);
+      --line-strong:rgba(20,26,52,0.22);
+      --accent:#BE7413;
+      --accent-soft:rgba(190,116,19,0.12);
+      --accent-2:#2C688F;
+      --accent-2-soft:rgba(44,104,143,0.12);
+    }
+  }
+  /* explicit toggle wins in both directions */
+  :root[data-theme="dark"]{
+    --ground:#0A0D18; --surface:#111527; --surface-2:#171C33;
+    --ink:#EDEFF7; --muted:#8A93B4; --faint:#59617F;
+    --line:rgba(160,172,214,0.14); --line-strong:rgba(160,172,214,0.28);
+    --accent:#F2A93B; --accent-soft:rgba(242,169,59,0.14);
+    --accent-2:#7FB2D9; --accent-2-soft:rgba(127,178,217,0.14);
+  }
+  :root[data-theme="light"]{
+    --ground:#F3F4F8; --surface:#FFFFFF; --surface-2:#EBEEF5;
+    --ink:#131727; --muted:#565E79; --faint:#8990A8;
+    --line:rgba(20,26,52,0.12); --line-strong:rgba(20,26,52,0.22);
+    --accent:#BE7413; --accent-soft:rgba(190,116,19,0.12);
+    --accent-2:#2C688F; --accent-2-soft:rgba(44,104,143,0.12);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px; line-height:1.6;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--accent);color:#0A0D18}
+  a{color:inherit}
+  img{max-width:100%}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
+
+  /* ---- shared type helpers ---- */
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.72rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--muted); display:flex; align-items:center; gap:.7em;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none;box-shadow:0 0 12px var(--accent)}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;text-wrap:balance;line-height:1.08;margin:0}
+  .lede{font-size:clamp(1.05rem,1.6vw,1.28rem);color:var(--muted);max-width:60ch;text-wrap:pretty}
+
+  .btn{
+    font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;
+    text-decoration:none;display:inline-flex;align-items:center;gap:.6em;
+    padding:.7em 1.15em;border-radius:999px;border:1px solid var(--line-strong);
+    color:var(--ink);background:transparent;cursor:pointer;transition:.2s ease;
+  }
+  .btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+  .btn--solid{background:var(--accent);color:#0A0D18;border-color:var(--accent)}
+  .btn--solid:hover{color:#0A0D18;filter:brightness(1.08)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+  /* ============================ NAV ============================ */
+  header.nav{
+    position:sticky;top:0;z-index:60;
+    backdrop-filter:blur(14px);
+    background:color-mix(in srgb, var(--ground) 78%, transparent);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.85rem}
+  .brand{display:flex;align-items:baseline;gap:.05em;font-family:var(--mono);font-weight:600;
+    letter-spacing:.12em;font-size:.92rem;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+  .brand .gap{display:inline-block;width:1.5ch;position:relative}
+  .brand .gap::after{content:"";position:absolute;left:.2ch;right:.2ch;bottom:.28em;height:2px;background:var(--accent)}
+  .nav-links{display:flex;gap:.35rem;align-items:center}
+  .nav-links a{font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+    text-decoration:none;color:var(--muted);padding:.5em .7em;border-radius:8px;transition:.18s}
+  .nav-links a:hover{color:var(--ink);background:var(--surface-2)}
+  .theme-toggle{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+    background:transparent;border:1px solid var(--line-strong);color:var(--muted);
+    border-radius:999px;padding:.5em .8em;cursor:pointer;transition:.18s}
+  .theme-toggle:hover{color:var(--accent);border-color:var(--accent)}
+  @media(max-width:840px){ .nav-links a[data-opt]{display:none} }
+
+  /* ============================ HERO ============================ */
+  .hero{position:relative;min-height:clamp(620px,92vh,900px);display:flex;align-items:flex-end;
+    overflow:hidden;border-bottom:1px solid var(--line)}
+  #field{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .hero-veil{position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(120% 80% at 50% -10%, transparent 40%, color-mix(in srgb,var(--ground) 55%, transparent) 100%),
+      linear-gradient(to bottom, transparent 40%, var(--ground) 99%);}
+  .hero-inner{position:relative;z-index:2;width:100%;padding-block:clamp(2rem,6vh,4rem) clamp(2.2rem,7vh,4.5rem)}
+  .hero h1{font-size:clamp(2.6rem,7vw,5.4rem);letter-spacing:-.01em;max-width:16ch}
+  .hero h1 em{font-style:italic;color:var(--accent)}
+  .hero .lede{margin-top:1.2rem}
+  .hero-cta{margin-top:1.8rem;display:flex;gap:.7rem;flex-wrap:wrap}
+
+  /* HUD readout over the field */
+  .hud{position:absolute;z-index:2;top:calc(1rem + 68px);right:var(--gutter);
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--muted);
+    display:flex;flex-direction:column;gap:.3rem;pointer-events:none;text-align:right;
+    max-width:min(300px,44vw);align-items:flex-end}
+  .hud .big{color:var(--ink);font-size:.95rem;letter-spacing:.18em;text-transform:uppercase}
+  .hud .amber{color:var(--accent)}
+  .hud .cap{color:var(--faint);text-transform:none;letter-spacing:.02em;line-height:1.4}
+  .hud::before{content:"⊹ RESOLUTION SCOPE";font-size:.6rem;letter-spacing:.2em;color:var(--faint);opacity:.7}
+  @media(max-width:640px){ .hud{max-width:60vw;font-size:.66rem} .hud .cap{display:none} }
+
+  /* resolution slider */
+  .res{position:relative;z-index:3;margin-top:2rem;max-width:560px}
+  .res-labels{display:flex;justify-content:space-between;font-family:var(--mono);
+    font-size:.6rem;letter-spacing:.1em;color:var(--faint);text-transform:uppercase;margin-bottom:.5rem}
+  .res-labels span.on{color:var(--accent)}
+  input[type=range].dial{-webkit-appearance:none;appearance:none;width:100%;height:3px;border-radius:2px;
+    background:linear-gradient(to right,var(--accent) var(--fill,40%), var(--line-strong) var(--fill,40%));
+    cursor:pointer;outline-offset:6px}
+  input[type=range].dial::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;
+    background:var(--ground);border:2px solid var(--accent);box-shadow:0 0 0 4px var(--accent-soft),0 0 16px var(--accent);cursor:grab}
+  input[type=range].dial::-moz-range-thumb{width:18px;height:18px;border-radius:50%;
+    background:var(--ground);border:2px solid var(--accent);box-shadow:0 0 0 4px var(--accent-soft);cursor:grab}
+  .res-hint{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--faint);
+    text-transform:uppercase;margin-top:.55rem}
+
+  /* ============================ MARQUEE ============================ */
+  .ticker{border-bottom:1px solid var(--line);overflow:hidden;background:var(--surface)}
+  .ticker-track{display:flex;gap:3rem;white-space:nowrap;padding-block:.75rem;font-family:var(--mono);
+    font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+    animation:scrollx 46s linear infinite;width:max-content}
+  .ticker-track span{display:inline-flex;gap:.6em;align-items:center}
+  .ticker-track b{color:var(--accent);font-weight:600}
+  @keyframes scrollx{to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion: reduce){ .ticker-track{animation:none} }
+
+  /* ============================ SECTION SCAFFOLD ============================ */
+  section.level{padding-block:clamp(4rem,9vw,7rem);border-bottom:1px solid var(--line);position:relative}
+  .level-head{display:flex;flex-direction:column;gap:1rem;margin-bottom:clamp(2rem,5vw,3.5rem);max-width:74ch}
+  .level-head .scale{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;color:var(--faint);
+    text-transform:uppercase;display:flex;gap:1em;align-items:center;flex-wrap:wrap}
+  .level-head .scale b{color:var(--accent-2)}
+  .level-head h2{font-size:clamp(1.9rem,4vw,3.1rem)}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease, transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1;transform:none;transition:none} }
+
+  /* ---- Artists & Collectors : the bridge ---- */
+  .bridge{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(1rem,3vw,2.5rem);align-items:stretch}
+  @media(max-width:760px){ .bridge{grid-template-columns:1fr} .bridge .gapcol{display:none} }
+  .pole{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem;
+    display:flex;flex-direction:column;gap:.9rem}
+  .pole h3{font-size:1.5rem}
+  .pole ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.7rem}
+  .pole li{display:flex;gap:.7em;color:var(--muted);font-size:.94rem;line-height:1.45}
+  .pole li::before{content:"";width:7px;height:7px;margin-top:.5em;border-radius:2px;background:var(--accent);flex:none;transform:rotate(45deg)}
+  .pole.collectors li::before{background:var(--accent-2)}
+  .gapcol{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;min-width:64px}
+  .gapcol .line{flex:1;width:1px;background:linear-gradient(var(--accent),var(--accent-2))}
+  .gapcol .mindgap{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;color:var(--faint);
+    writing-mode:vertical-rl;text-transform:uppercase}
+
+  /* ---- generic card grid ---- */
+  .grid{display:grid;gap:1rem}
+  .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+  .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:880px){ .grid.cols-3{grid-template-columns:1fr 1fr} }
+  @media(max-width:600px){ .grid.cols-2,.grid.cols-3{grid-template-columns:1fr} }
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:1.4rem;display:flex;flex-direction:column;gap:.7rem;transition:.22s ease;position:relative;overflow:hidden}
+  .card:hover{border-color:var(--line-strong);transform:translateY(-3px)}
+  .card .tag{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent);display:inline-flex;align-items:center;gap:.5em;align-self:flex-start;
+    padding:.32em .6em;border:1px solid var(--accent-soft);background:var(--accent-soft);border-radius:6px}
+  .card .tag.cyan{color:var(--accent-2);border-color:var(--accent-2-soft);background:var(--accent-2-soft)}
+  .card h3{font-size:1.22rem;line-height:1.2}
+  .card .meta{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--faint);
+    display:flex;gap:.5em;flex-wrap:wrap;text-transform:uppercase}
+  .card p{margin:0;color:var(--muted);font-size:.92rem}
+  .card .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:.6rem;
+    font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;color:var(--muted);padding-top:.4rem}
+  .card .deadline{color:var(--accent)}
+  .card .arrow{opacity:0;transform:translateX(-4px);transition:.2s;color:var(--accent)}
+  .card:hover .arrow{opacity:1;transform:none}
+
+  /* filter chips */
+  .chips{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.6rem}
+  .chip{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+    padding:.5em .9em;border-radius:999px;border:1px solid var(--line-strong);background:transparent;
+    color:var(--muted);cursor:pointer;transition:.16s}
+  .chip:hover{color:var(--ink)}
+  .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#0A0D18}
+
+  /* ---- MAP ---- */
+  .map-shell{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    background:radial-gradient(140% 120% at 20% 0%, var(--surface-2), var(--surface));aspect-ratio:16/9;min-height:360px}
+  #atlas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .map-legend{position:absolute;left:14px;bottom:14px;z-index:3;display:flex;gap:1rem;flex-wrap:wrap;
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+    background:color-mix(in srgb,var(--surface) 82%,transparent);border:1px solid var(--line);
+    padding:.5rem .75rem;border-radius:10px;backdrop-filter:blur(6px)}
+  .map-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.5em;vertical-align:middle}
+  .map-tip{position:absolute;z-index:4;pointer-events:none;opacity:0;transform:translate(-50%,-125%);
+    background:var(--ground);border:1px solid var(--line-strong);border-radius:10px;padding:.6rem .8rem;
+    min-width:160px;transition:opacity .14s;box-shadow:0 12px 40px rgba(0,0,0,.4)}
+  .map-tip .t{font-family:var(--serif);font-size:1rem;line-height:1.15}
+  .map-tip .s{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-top:.25rem;display:flex;gap:.5em;align-items:center}
+  .map-note{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;color:var(--faint);
+    text-transform:uppercase;margin-top:.9rem}
+
+  /* ---- CTA / newsletter ---- */
+  .join{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(1.5rem,4vw,3rem);align-items:center;
+    background:linear-gradient(120deg,var(--surface),var(--surface-2));border:1px solid var(--line);
+    border-radius:calc(var(--radius) + 6px);padding:clamp(1.8rem,4vw,3rem)}
+  @media(max-width:760px){ .join{grid-template-columns:1fr} }
+  .join h2{font-size:clamp(1.7rem,3.4vw,2.6rem)}
+  .join form{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.2rem}
+  .join input[type=email]{flex:1;min-width:200px;background:var(--ground);border:1px solid var(--line-strong);
+    border-radius:999px;padding:.85em 1.2em;color:var(--ink);font-family:var(--mono);font-size:.82rem}
+  .join input[type=email]::placeholder{color:var(--faint)}
+  .join .roles{display:flex;flex-direction:column;gap:.6rem;font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+  .join .roles div{display:flex;gap:.6em;align-items:center;padding:.7em .9em;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+  .join .roles b{color:var(--ink);font-weight:600}
+  .msg{font-family:var(--mono);font-size:.72rem;color:var(--accent-2);margin-top:.6rem;min-height:1em}
+
+  /* ---- FOOTER ---- */
+  footer{padding-block:clamp(3rem,6vw,4.5rem) 2.5rem;color:var(--muted)}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
+  @media(max-width:760px){ .foot-grid{grid-template-columns:1fr 1fr} }
+  @media(max-width:460px){ .foot-grid{grid-template-columns:1fr} }
+  .foot-grid h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin:0 0 1rem}
+  .foot-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.6rem}
+  .foot-grid a{text-decoration:none;color:var(--muted);font-size:.9rem;transition:.16s}
+  .foot-grid a:hover{color:var(--accent)}
+  .foot-brand{font-family:var(--serif);font-size:1.4rem;color:var(--ink)}
+  .foot-brand + p{max-width:34ch;font-size:.9rem;margin:.7rem 0 0}
+  .colophon{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+</style>
+</head>
+<body>
+
+<!-- ============================ NAV ============================ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">MIND&nbsp;THE<span class="gap">&nbsp;</span>GAP</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#connect" data-opt>Artists · Collectors</a>
+      <a href="#commissions" data-opt>Commissions</a>
+      <a href="#residencies" data-opt>Residencies</a>
+      <a href="#atlas-sec">Atlas</a>
+      <a href="#join" class="btn" style="padding:.5em .9em">Join</a>
+    </nav>
+    <button class="theme-toggle" id="themeBtn" aria-label="Toggle colour theme">◐ Theme</button>
+  </div>
+</header>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero" id="top">
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="hero-veil" aria-hidden="true"></div>
+
+  <div class="hud" aria-live="polite">
+    <span class="big">RES · <span id="hudBand">CITY</span></span>
+    <span><span class="amber" id="hudScale">10³ m</span> &nbsp;/&nbsp; resolving…</span>
+    <span class="cap" id="hudCap">Gallery districts and the people who move between them.</span>
+  </div>
+
+  <div class="wrap hero-inner">
+    <p class="eyebrow"><span class="dot"></span>One instrument for the whole art world</p>
+    <h1>The art world, brought into <em>focus</em> — from the field to a single work.</h1>
+    <p class="lede">Mind the Gap connects everything that usually lives in separate tabs and closed inboxes:
+      artists and collectors, public commissions, residencies, and the museums and galleries that hold it all —
+      one continuously refining resolution of curated information.</p>
+
+    <div class="res" aria-hidden="false">
+      <div class="res-labels" id="resLabels"></div>
+      <input type="range" min="0" max="100" value="42" class="dial" id="dial"
+             aria-label="Resolution — drag to zoom from the cosmos to a single atom" />
+      <div class="res-hint">◀ drag to change resolution — cosmos → atom ▶</div>
+    </div>
+
+    <div class="hero-cta">
+      <a href="#connect" class="btn btn--solid">Explore the network →</a>
+      <a href="#commissions" class="btn">Open commissions</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TICKER ============================ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="ticker"></div>
+</div>
+
+<!-- ============================ 01 — CONNECT ============================ -->
+<section class="level" id="connect">
+  <div class="wrap">
+    <div class="level-head reveal">
+      <div class="scale"><span>RESOLUTION</span> <b>01 / INSTITUTION → PEOPLE</b> <span>10¹ m</span></div>
+      <h2>Artists &amp; collectors, on the same map.</h2>
+      <p class="lede">The gap is usually structural: artists don't see who's collecting, and collectors don't see who's
+        emerging until a gallery decides they should. Mind the Gap indexes both sides and shows the shortest honest path between them.</p>
+    </div>
+
+    <div class="bridge reveal">
+      <div class="pole artists">
+        <p class="eyebrow"><span class="dot"></span>For artists</p>
+        <h3>Be discoverable on your own terms.</h3>
+        <ul>
+          <li>A living portfolio that syncs to shows, prices, and provenance.</li>
+          <li>See who saved, followed, or acquired — with consent, not scraping.</li>
+          <li>Route directly to open commissions and residencies that fit your practice.</li>
+          <li>Keep your own contacts; galleries amplify, they don't gatekeep.</li>
+        </ul>
+      </div>
+      <div class="gapcol" aria-hidden="true">
+        <div class="line"></div>
+        <span class="mindgap">MIND THE GAP</span>
+        <div class="line"></div>
+      </div>
+      <div class="pole collectors">
+        <p class="eyebrow"><span class="dot" style="background:var(--accent-2);box-shadow:0 0 12px var(--accent-2)"></span>For collectors</p>
+        <h3>Collect with context, not FOMO.</h3>
+        <ul>
+          <li>Follow practices, not just names — track an artist from studio to survey.</li>
+          <li>Transparent provenance and edition data on every work.</li>
+          <li>Discover through residencies and commissions before the waitlist forms.</li>
+          <li>Build a collection thesis, then let the index surface what fits it.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 02 — COMMISSIONS ============================ -->
+<section class="level" id="commissions">
+  <div class="wrap">
+    <div class="level-head reveal">
+      <div class="scale"><span>RESOLUTION</span> <b>02 / PUBLIC CALLS</b> <span>10² m</span></div>
+      <h2>Public commissions, in one open feed.</h2>
+      <p class="lede">Percent-for-art programmes, biennial pavilions, civic murals, and institutional commissions —
+        the opportunities that fund real work but hide across a hundred procurement portals. Here they're one filterable feed.</p>
+    </div>
+
+    <div class="chips reveal" role="group" aria-label="Filter commissions">
+      <button class="chip" data-filter="all" aria-pressed="true">All</button>
+      <button class="chip" data-filter="public" aria-pressed="false">Public art</button>
+      <button class="chip" data-filter="institution" aria-pressed="false">Institutional</button>
+      <button class="chip" data-filter="digital" aria-pressed="false">Digital</button>
+      <button class="chip" data-filter="civic" aria-pressed="false">Civic</button>
+    </div>
+
+    <div class="grid cols-3 reveal" id="commGrid"></div>
+  </div>
+</section>
+
+<!-- ============================ 03 — RESIDENCIES ============================ -->
+<section class="level" id="residencies">
+  <div class="wrap">
+    <div class="level-head reveal">
+      <div class="scale"><span>RESOLUTION</span> <b>03 / STUDIO &amp; TIME</b> <span>10⁰ m</span></div>
+      <h2>Residencies — time, space, and a room to think.</h2>
+      <p class="lede">From remote landscapes to city-centre studios, residencies are where practices shift.
+        Compare stipends, duration, and disciplines side by side, with deadlines you won't miss.</p>
+    </div>
+    <div class="grid cols-3 reveal" id="resGrid"></div>
+  </div>
+</section>
+
+<!-- ============================ 04 — ATLAS ============================ -->
+<section class="level" id="atlas-sec">
+  <div class="wrap">
+    <div class="level-head reveal">
+      <div class="scale"><span>RESOLUTION</span> <b>04 / THE ATLAS</b> <span>10⁶ m</span></div>
+      <h2>A map of museums &amp; galleries.</h2>
+      <p class="lede">Every institution as a point of light. Hover a node to read it; the atlas zooms from continents
+        down to a single gallery door — the same instrument, at the other end of the scale.</p>
+    </div>
+
+    <div class="map-shell reveal">
+      <canvas id="atlas" role="img" aria-label="Constellation map of major museums and galleries worldwide"></canvas>
+      <div class="map-legend">
+        <span><i style="background:#F2A93B"></i>Museum</span>
+        <span><i style="background:#7FB2D9"></i>Gallery</span>
+        <span><i style="background:#C77DFF"></i>Biennial / Fair</span>
+      </div>
+      <div class="map-tip" id="mapTip"><div class="t"></div><div class="s"></div></div>
+    </div>
+    <p class="map-note">Illustrative atlas · 18 anchor institutions plotted — the live index tracks thousands.</p>
+  </div>
+</section>
+
+<!-- ============================ JOIN ============================ -->
+<section class="level" id="join" style="border-bottom:none">
+  <div class="wrap">
+    <div class="join reveal">
+      <div>
+        <p class="eyebrow"><span class="dot"></span>Close the gap</p>
+        <h2>Join the index. Pick your resolution.</h2>
+        <p class="lede" style="margin-top:.8rem">One account connects your practice, your collection, or your programme
+          to everything else on the map. No fee to be listed — the network is the point.</p>
+        <form id="joinForm" novalidate>
+          <input type="email" id="joinEmail" placeholder="you@studio.art" aria-label="Email address" required />
+          <button class="btn btn--solid" type="submit">Request access →</button>
+        </form>
+        <div class="msg" id="joinMsg" role="status"></div>
+      </div>
+      <div class="roles">
+        <div><b>Artist</b> — portfolio, commissions, residencies</div>
+        <div><b>Collector</b> — provenance, discovery, following</div>
+        <div><b>Institution</b> — post calls, list on the atlas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Mind the Gap</div>
+        <p>A one-stop instrument connecting artists and the industry — resolving the whole field from cosmos to atom.</p>
+      </div>
+      <div>
+        <h4>Network</h4>
+        <ul>
+          <li><a href="#connect">Artists</a></li>
+          <li><a href="#connect">Collectors</a></li>
+          <li><a href="#atlas-sec">The Atlas</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Opportunities</h4>
+        <ul>
+          <li><a href="#commissions">Commissions</a></li>
+          <li><a href="#residencies">Residencies</a></li>
+          <li><a href="#join">Post a call</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Studio</h4>
+        <ul>
+          <li><a href="#join">Request access</a></li>
+          <li><a href="#top">About the instrument</a></li>
+          <li><a href="#join">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="colophon">
+      <span>© 2026 Mind the Gap — prototype</span>
+      <span>Curated resolution · Cosmos → Atom</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- THEME TOGGLE ---------- */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById("themeBtn");
+  function currentDark(){
+    var attr = root.getAttribute("data-theme");
+    if(attr) return attr === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  themeBtn.addEventListener("click", function(){
+    var next = currentDark() ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    themeBtn.textContent = (next === "dark" ? "◐" : "◑") + " Theme";
+  });
+
+  /* ---------- RESOLUTION BANDS ---------- */
+  var BANDS = [
+    {name:"COSMOS",      scale:"10²¹ m", cap:"The whole field — every scene, at once."},
+    {name:"REGION",      scale:"10⁶ m",  cap:"Art capitals and the routes between them."},
+    {name:"CITY",        scale:"10³ m",  cap:"Gallery districts and the people who move between them."},
+    {name:"INSTITUTION", scale:"10¹ m",  cap:"A museum, its walls, its programme."},
+    {name:"ARTIST",      scale:"10⁰ m",  cap:"One studio — a practice taking shape."},
+    {name:"WORK",        scale:"10⁻² m", cap:"A single work, held to the light."},
+    {name:"MATTER",      scale:"10⁻⁹ m", cap:"Pigment, canvas, gesture — down to the atom."}
+  ];
+  var dial = document.getElementById("dial");
+  var hudBand = document.getElementById("hudBand");
+  var hudScale = document.getElementById("hudScale");
+  var hudCap = document.getElementById("hudCap");
+  var resLabels = document.getElementById("resLabels");
+
+  BANDS.forEach(function(b,i){
+    var s = document.createElement("span");
+    s.textContent = b.name.slice(0,4);
+    s.dataset.i = i;
+    resLabels.appendChild(s);
+  });
+  var labelEls = resLabels.querySelectorAll("span");
+
+  function bandFromDial(v){
+    var idx = Math.round((v/100) * (BANDS.length-1));
+    return Math.max(0, Math.min(BANDS.length-1, idx));
+  }
+  function updateHUD(v){
+    var b = bandFromDial(v);
+    hudBand.textContent = BANDS[b].name;
+    hudScale.textContent = BANDS[b].scale;
+    hudCap.textContent = BANDS[b].cap;
+    dial.style.setProperty("--fill", v + "%");
+    labelEls.forEach(function(el){ el.classList.toggle("on", +el.dataset.i === b); });
+  }
+
+  /* ---------- HERO STARFIELD (zoom instrument) ---------- */
+  var cv = document.getElementById("field");
+  var ctx = cv.getContext("2d");
+  var W=0,H=0,DPR=Math.min(window.devicePixelRatio||1, 2);
+  var stars=[];
+  var STAR_N = 520;
+
+  function palette(){
+    var cs = getComputedStyle(root);
+    return {
+      amber: cs.getPropertyValue("--accent").trim() || "#F2A93B",
+      cyan: cs.getPropertyValue("--accent-2").trim() || "#7FB2D9",
+      ink: cs.getPropertyValue("--ink").trim() || "#EDEFF7",
+      dark: currentDark()
+    };
+  }
+  var pal = palette();
+
+  function resize(){
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = Math.floor(W*DPR); cv.height = Math.floor(H*DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  function seed(){
+    stars = [];
+    for(var i=0;i<STAR_N;i++){
+      stars.push({
+        x:(Math.random()*2-1),
+        y:(Math.random()*2-1),
+        z:Math.random(),
+        c: Math.random(),
+        r: 0.4 + Math.random()*1.5
+      });
+    }
+  }
+
+  // target zoom derived from dial (0..1); smoothed each frame
+  var zoomTarget = 0.42, zoom = 0.42, autoT = 0;
+  function setZoomFromDial(){ zoomTarget = (+dial.value)/100; }
+
+  function draw(){
+    pal = palette();
+    ctx.clearRect(0,0,W,H);
+    var cx=W/2, cy=H*0.46;
+    // ambient auto-drift only when user hasn't touched it recently
+    zoom += (zoomTarget - zoom)*0.06;
+    var speed = 0.0016 + zoom*0.006;
+
+    // faint connective grid rings (institutions as constellation)
+    ctx.save();
+    ctx.globalAlpha = pal.dark ? 0.10 : 0.16;
+    ctx.strokeStyle = pal.cyan;
+    for(var g=1; g<=4; g++){
+      ctx.beginPath();
+      ctx.arc(cx,cy, (Math.min(W,H)*0.11)*g*(0.7+zoom*0.9), 0, Math.PI*2);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    for(var i=0;i<stars.length;i++){
+      var s = stars[i];
+      s.z -= speed;
+      if(s.z <= 0.02){ s.z = 1; s.x = Math.random()*2-1; s.y=Math.random()*2-1; s.c=Math.random(); }
+      var k = (0.4 + zoom*1.4) / s.z;
+      var px = cx + s.x * k * (W*0.55);
+      var py = cy + s.y * k * (H*0.55);
+      if(px< -20||px>W+20||py< -20||py>H+20) continue;
+      var size = s.r * (0.5 + (1-s.z)*2.2) * (0.6+zoom);
+      var a = Math.min(1, (1-s.z)*1.3);
+      var col = s.c < 0.72 ? pal.ink : (s.c < 0.9 ? pal.amber : pal.cyan);
+      ctx.globalAlpha = a * (pal.dark ? 0.9 : 0.55);
+      ctx.fillStyle = col;
+      ctx.beginPath();
+      ctx.arc(px,py,Math.max(0.3,size),0,Math.PI*2);
+      ctx.fill();
+      // streak at high zoom for hyperspace feel
+      if(zoom > 0.55 && size > 1.2){
+        var px2 = cx + s.x * ((0.4+zoom*1.4)/Math.min(1,s.z+0.05)) * (W*0.55);
+        var py2 = cy + s.y * ((0.4+zoom*1.4)/Math.min(1,s.z+0.05)) * (H*0.55);
+        ctx.globalAlpha = a*0.35;
+        ctx.strokeStyle = col; ctx.lineWidth = Math.max(0.4,size*0.5);
+        ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(px2,py2); ctx.stroke();
+      }
+    }
+    ctx.globalAlpha = 1;
+    // central aperture
+    ctx.strokeStyle = pal.amber;
+    ctx.globalAlpha = 0.5 + zoom*0.4;
+    ctx.lineWidth = 1.2;
+    var ap = 22 + (1-zoom)*46;
+    ctx.beginPath(); ctx.arc(cx,cy,ap,0,Math.PI*2); ctx.stroke();
+    // crosshair ticks
+    ctx.globalAlpha = 0.6;
+    [[0,-1],[0,1],[-1,0],[1,0]].forEach(function(d){
+      ctx.beginPath();
+      ctx.moveTo(cx+d[0]*(ap+5), cy+d[1]*(ap+5));
+      ctx.lineTo(cx+d[0]*(ap+13), cy+d[1]*(ap+13));
+      ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+  }
+
+  var rafId=null;
+  function loop(){
+    // gentle auto-descent on load, then user drives
+    if(autoT < 1 && !userTouched){
+      autoT += 0.004;
+      var v = 8 + autoT*40; // ease from cosmos toward city
+      dial.value = v;
+      setZoomFromDial(); updateHUD(v);
+    }
+    draw();
+    rafId = requestAnimationFrame(loop);
+  }
+
+  var userTouched=false;
+  dial.addEventListener("input", function(){
+    userTouched=true; setZoomFromDial(); updateHUD(dial.value);
+  });
+
+  function initField(){
+    resize(); seed();
+    updateHUD(dial.value); setZoomFromDial();
+    if(reduce){
+      // static, mid-resolution frame
+      zoom = zoomTarget = 0.5; draw();
+    } else {
+      loop();
+    }
+  }
+  window.addEventListener("resize", function(){ resize(); if(reduce) draw(); });
+  initField();
+
+  /* ---------- TICKER ---------- */
+  var tickItems = [
+    ["OPEN","High Line Plinth · public sculpture commission"],
+    ["NEW","Rijksakademie · applications close 1 Feb"],
+    ["ATLAS","Tate Modern added to Bankside cluster"],
+    ["OPEN","Artangel Open · site-specific proposals"],
+    ["RES","ISCP New York · 6-month studio residency"],
+    ["CALL","Percent for Art · civic transit murals"],
+    ["NEW","Skowhegan · summer session shortlist"],
+    ["OPEN","Sharjah Biennial · curatorial open call"]
+  ];
+  var track = document.getElementById("ticker");
+  var html = tickItems.map(function(it){
+    return '<span><b>'+it[0]+'</b> '+it[1]+'</span>';
+  }).join('<span style="color:var(--faint)">◆</span>');
+  track.innerHTML = html + '<span style="color:var(--faint)">◆</span>' + html;
+
+  /* ---------- COMMISSIONS DATA ---------- */
+  var COMMISSIONS = [
+    {tag:"public", type:"Public art", title:"The High Line Plinth", org:"Friends of the High Line · New York",
+     desc:"A rotating monumental commission on the Spur — major new work for one of the world's most-visited public parks.",
+     deadline:"Rolling", budget:"$—", cta:"View brief"},
+    {tag:"institution", type:"Institutional", title:"Turbine Hall Commission", org:"Tate Modern · London",
+     desc:"The annual large-scale commission for the 3,400 m² Turbine Hall — proposals via invited nomination pool.",
+     deadline:"By nomination", budget:"Major", cta:"View brief"},
+    {tag:"civic", type:"Civic", title:"Percent for Art — Transit", org:"City Arts Programme",
+     desc:"Permanent integrated artwork for a new transit interchange. Open to artists at all career stages.",
+     deadline:"14 Aug 2026", budget:"$180k", cta:"Apply"},
+    {tag:"public", type:"Public art", title:"Artangel Open", org:"Artangel · UK-wide",
+     desc:"Extraordinary, ambitious, site-responsive projects in unexpected places. No medium restrictions.",
+     deadline:"30 Sep 2026", budget:"Produced", cta:"Submit"},
+    {tag:"digital", type:"Digital", title:"Facade Media Commission", org:"Ars Electronica · Linz",
+     desc:"Generative work for a permanent architectural LED facade. Coders, artists, and collectives welcome.",
+     deadline:"02 Oct 2026", budget:"€45k", cta:"Apply"},
+    {tag:"institution", type:"Institutional", title:"Atrium Hanging Commission", org:"SFMOMA · San Francisco",
+     desc:"A suspended work for the museum's five-storey atrium. Feasibility support and fabrication budget included.",
+     deadline:"20 Nov 2026", budget:"$220k", cta:"View brief"}
+  ];
+  var commGrid = document.getElementById("commGrid");
+  function commCard(c){
+    return '<article class="card" data-tag="'+c.tag+'">'+
+      '<span class="tag">'+c.type+'</span>'+
+      '<h3>'+c.title+'</h3>'+
+      '<div class="meta">'+c.org+'</div>'+
+      '<p>'+c.desc+'</p>'+
+      '<div class="foot"><span class="deadline">⏱ '+c.deadline+'</span>'+
+      '<span>'+c.cta+' <span class="arrow">→</span></span></div>'+
+      '</article>';
+  }
+  function renderComm(filter){
+    commGrid.innerHTML = COMMISSIONS
+      .filter(function(c){ return filter==="all" || c.tag===filter; })
+      .map(commCard).join("");
+  }
+  renderComm("all");
+  document.querySelectorAll('.chip').forEach(function(chip){
+    chip.addEventListener("click", function(){
+      document.querySelectorAll('.chip').forEach(function(c){ c.setAttribute("aria-pressed","false"); });
+      chip.setAttribute("aria-pressed","true");
+      renderComm(chip.dataset.filter);
+    });
+  });
+
+  /* ---------- RESIDENCIES DATA ---------- */
+  var RES = [
+    {name:"Rijksakademie", place:"Amsterdam, NL", len:"12 months", stipend:"Stipend + studio",
+     desc:"Research-led residency with technical workshops and advisors — a launchpad for international practices.", disc:"All media"},
+    {name:"Skowhegan", place:"Maine, USA", len:"9 weeks", stipend:"Fully funded",
+     desc:"Summer residency in the woods; intensive peer community and visiting-artist critiques.", disc:"Painting · Sculpture"},
+    {name:"ISCP", place:"New York, USA", len:"3–12 months", stipend:"Studio + programme",
+     desc:"International studio programme in Brooklyn with open studios and curatorial visits.", disc:"All media"},
+    {name:"Cité internationale", place:"Paris, FR", len:"2–12 months", stipend:"Studio-apartment",
+     desc:"Historic residency with 300+ studios across disciplines in the heart of Paris.", disc:"All media"},
+    {name:"Fogo Island", place:"Newfoundland, CA", len:"1–3 months", stipend:"Funded + travel",
+     desc:"Remote Atlantic residency in award-winning studios — space, silence, and the sea.", disc:"All media"},
+    {name:"Delfina Foundation", place:"London, UK", len:"3 months", stipend:"Living costs",
+     desc:"Thematic residency cycles connecting artists, curators, and collectors in central London.", disc:"Cross-disciplinary"}
+  ];
+  var resGrid = document.getElementById("resGrid");
+  resGrid.innerHTML = RES.map(function(r){
+    return '<article class="card">'+
+      '<span class="tag cyan">Residency</span>'+
+      '<h3>'+r.name+'</h3>'+
+      '<div class="meta"><span>◎ '+r.place+'</span><span>· '+r.len+'</span></div>'+
+      '<p>'+r.desc+'</p>'+
+      '<div class="foot"><span>'+r.disc+'</span><span class="deadline">'+r.stipend+'</span></div>'+
+      '</article>';
+  }).join("");
+
+  /* ---------- ATLAS MAP ---------- */
+  // normalized coords (x,y in 0..1) on an abstract equirectangular field
+  var PLACES = [
+    {n:"MoMA", c:"New York", t:"Museum", x:0.26, y:0.40},
+    {n:"The Met", c:"New York", t:"Museum", x:0.265, y:0.405},
+    {n:"Gagosian", c:"New York", t:"Gallery", x:0.255, y:0.395},
+    {n:"Tate Modern", c:"London", t:"Museum", x:0.47, y:0.34},
+    {n:"White Cube", c:"London", t:"Gallery", x:0.475, y:0.345},
+    {n:"Centre Pompidou", c:"Paris", t:"Museum", x:0.49, y:0.37},
+    {n:"Reina Sofía", c:"Madrid", t:"Museum", x:0.455, y:0.44},
+    {n:"Venice Biennale", c:"Venice", t:"Biennial", x:0.515, y:0.40},
+    {n:"documenta", c:"Kassel", t:"Biennial", x:0.505, y:0.35},
+    {n:"Hamburger Bahnhof", c:"Berlin", t:"Museum", x:0.515, y:0.335},
+    {n:"Zeitz MOCAA", c:"Cape Town", t:"Museum", x:0.53, y:0.78},
+    {n:"Sharjah Art Foundation", c:"Sharjah", t:"Biennial", x:0.60, y:0.50},
+    {n:"Mori Art Museum", c:"Tokyo", t:"Museum", x:0.86, y:0.44},
+    {n:"M+", c:"Hong Kong", t:"Museum", x:0.80, y:0.52},
+    {n:"National Gallery Singapore", c:"Singapore", t:"Museum", x:0.79, y:0.62},
+    {n:"MCA", c:"Sydney", t:"Museum", x:0.92, y:0.80},
+    {n:"MALBA", c:"Buenos Aires", t:"Museum", x:0.33, y:0.82},
+    {n:"Inhotim", c:"Brumadinho", t:"Museum", x:0.36, y:0.74}
+  ];
+  var COLORS = {Museum:"#F2A93B", Gallery:"#7FB2D9", Biennial:"#C77DFF"};
+  var atlas = document.getElementById("atlas");
+  var actx = atlas.getContext("2d");
+  var aW=0,aH=0, nodes=[], tPhase=0, hoverIdx=-1;
+  var mapTip = document.getElementById("mapTip");
+
+  function aResize(){
+    aW = atlas.clientWidth; aH = atlas.clientHeight;
+    atlas.width = Math.floor(aW*DPR); atlas.height=Math.floor(aH*DPR);
+    actx.setTransform(DPR,0,0,DPR,0,0);
+    nodes = PLACES.map(function(p){
+      return {p:p, x:p.x*aW, y:p.y*aH, base: 2.6 + (p.t==="Museum"?1.4:0)};
+    });
+  }
+  function drawAtlas(){
+    var cs = getComputedStyle(root);
+    var line = cs.getPropertyValue("--line-strong").trim();
+    var faint = cs.getPropertyValue("--faint").trim();
+    actx.clearRect(0,0,aW,aH);
+    // graticule
+    actx.strokeStyle = line; actx.lineWidth = 1; actx.globalAlpha = 0.5;
+    for(var gx=1; gx<8; gx++){ actx.beginPath(); actx.moveTo(aW*gx/8,0); actx.lineTo(aW*gx/8,aH); actx.stroke(); }
+    for(var gy=1; gy<5; gy++){ actx.beginPath(); actx.moveTo(0,aH*gy/5); actx.lineTo(aW,aH*gy/5); actx.stroke(); }
+    actx.globalAlpha=1;
+
+    // connective lines between near nodes (constellation)
+    actx.strokeStyle = faint; actx.globalAlpha=0.25; actx.lineWidth=1;
+    for(var i=0;i<nodes.length;i++){
+      for(var j=i+1;j<nodes.length;j++){
+        var dx=nodes[i].x-nodes[j].x, dy=nodes[i].y-nodes[j].y;
+        var d=Math.sqrt(dx*dx+dy*dy);
+        if(d < aW*0.13){
+          actx.beginPath(); actx.moveTo(nodes[i].x,nodes[i].y); actx.lineTo(nodes[j].x,nodes[j].y); actx.stroke();
+        }
+      }
+    }
+    actx.globalAlpha=1;
+
+    tPhase += reduce ? 0 : 0.03;
+    nodes.forEach(function(nd,idx){
+      var pulse = reduce ? 0 : Math.sin(tPhase + idx)*0.6;
+      var col = COLORS[nd.p.t] || "#F2A93B";
+      var r = nd.base + (idx===hoverIdx?3:0) + pulse*0.5;
+      // glow
+      var grd = actx.createRadialGradient(nd.x,nd.y,0,nd.x,nd.y,r*4);
+      grd.addColorStop(0, col); grd.addColorStop(1, "transparent");
+      actx.globalAlpha = idx===hoverIdx?0.55:0.30; actx.fillStyle=grd;
+      actx.beginPath(); actx.arc(nd.x,nd.y,r*4,0,Math.PI*2); actx.fill();
+      // core
+      actx.globalAlpha=1; actx.fillStyle=col;
+      actx.beginPath(); actx.arc(nd.x,nd.y,r,0,Math.PI*2); actx.fill();
+      if(idx===hoverIdx){
+        actx.strokeStyle=col; actx.globalAlpha=0.8; actx.lineWidth=1.5;
+        actx.beginPath(); actx.arc(nd.x,nd.y,r+6,0,Math.PI*2); actx.stroke();
+        actx.globalAlpha=1;
+      }
+    });
+  }
+  var aRaf=null;
+  function aLoop(){ drawAtlas(); aRaf=requestAnimationFrame(aLoop); }
+
+  function pickNode(mx,my){
+    var best=-1, bd=18;
+    for(var i=0;i<nodes.length;i++){
+      var dx=nodes[i].x-mx, dy=nodes[i].y-my, d=Math.sqrt(dx*dx+dy*dy);
+      if(d<bd){ bd=d; best=i; }
+    }
+    return best;
+  }
+  atlas.addEventListener("mousemove", function(e){
+    var rect=atlas.getBoundingClientRect();
+    var mx=e.clientX-rect.left, my=e.clientY-rect.top;
+    hoverIdx = pickNode(mx,my);
+    if(hoverIdx>=0){
+      var nd=nodes[hoverIdx];
+      atlas.style.cursor="pointer";
+      mapTip.querySelector(".t").textContent = nd.p.n;
+      mapTip.querySelector(".s").innerHTML = '<i style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+(COLORS[nd.p.t])+'"></i>'+nd.p.c+' · '+nd.p.t;
+      mapTip.style.left = nd.x+"px"; mapTip.style.top = nd.y+"px"; mapTip.style.opacity="1";
+    } else {
+      atlas.style.cursor="default"; mapTip.style.opacity="0";
+    }
+  });
+  atlas.addEventListener("mouseleave", function(){ hoverIdx=-1; mapTip.style.opacity="0"; });
+  window.addEventListener("resize", aResize);
+  aResize();
+  if(reduce){ drawAtlas(); } else { aLoop(); }
+
+  /* ---------- REVEAL ON SCROLL ---------- */
+  if("IntersectionObserver" in window && !reduce){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, {threshold:0.12});
+    document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("in"); });
+  }
+
+  /* ---------- JOIN FORM ---------- */
+  var form=document.getElementById("joinForm");
+  var email=document.getElementById("joinEmail");
+  var msg=document.getElementById("joinMsg");
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var v=(email.value||"").trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){
+      msg.style.color="var(--accent)"; msg.textContent="Enter a valid email to request access.";
+      return;
+    }
+    msg.style.color="var(--accent-2)";
+    msg.textContent="◇ Request received — we'll place you on the map shortly.";
+    email.value="";
+  });
+})();
+</script>
+</body>
+</html>
