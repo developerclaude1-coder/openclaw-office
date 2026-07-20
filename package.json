@@ -37,7 +37,7 @@
   "scripts": {
     "build": "tsc -b && vite build",
     "check": "pnpm lint && pnpm format:check",
-    "dev": "vite",
+    "dev": "vite --port 5177",
     "platform": "node bin/platform.js",
     "format": "oxfmt --write src/",
     "format:check": "oxfmt --check src/",
