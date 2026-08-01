@@ -1,0 +1,124 @@
+{
+ "items": [
+  {
+   "name": "Fourth Plinth Commission",
+   "org": "Mayor of London / Greater London Authority, with the independent Fourth Plinth Commissioning Group",
+   "city": "London",
+   "country": "United Kingdom",
+   "category": "public",
+   "summary": "A rotating commission for the empty fourth plinth in Trafalgar Square. The programme is led by the Mayor of London's office, but the winning works are chosen independently by the Fourth Plinth Commissioning Group, informed by public consultation on the shortlist. Tschabalala Self's Lady in Blue is the 2026 commission, with Andra Ursuta to follow in 2028.",
+   "budgetNote": "Funded by the Mayor of London with support from Arts Council England and Bloomberg Philanthropies, so production is delivered through the programme rather than financed by the artist. Per-commission budgets are not published; earlier claims of specific six-figure sums could not be verified and have been removed.",
+   "cycleNote": "By nomination and invitation, not general open call. Shortlisted artists produce maquettes that are exhibited publicly at the National Gallery for public comment, which feeds into the Commissioning Group's decision. One round selects two commissions at once (the 2024 shortlist of seven artists produced the 2026 and 2028 works), and sculptures rotate roughly every two years.",
+   "confidence": "high",
+   "sourceUrl": "https://www.london.gov.uk/programmes-strategies/arts-and-culture/current-culture-projects/fourth-plinth-trafalgar-square/fourth-plinth-winners-2026-and-2028"
+  },
+  {
+   "name": "Hyundai Commission, Turbine Hall",
+   "org": "Tate Modern, in partnership with Hyundai Motor",
+   "city": "London",
+   "country": "United Kingdom",
+   "category": "institutional",
+   "summary": "The annual large-scale commission for Tate Modern's Turbine Hall. One artist a year is invited to make an ambitious new site-specific work for the space. Maret Anne Sara was the tenth commission (October 2025 to April 2026) and Tarek Atoui is the eleventh, running October 2026 to April 2027.",
+   "budgetNote": "Produced by Tate and underwritten by the Hyundai Motor partnership, which launched in 2014 and has been extended until 2036. Per-commission budgets are not disclosed.",
+   "cycleNote": "Invitation only, with no open call or application route. Tate curators select the artist and the commission is announced well in advance, opening each October and running to the following April.",
+   "confidence": "high",
+   "sourceUrl": "https://www.tate.org.uk/press/press-releases/tarek-atoui-to-create-the-next-hyundai-commission-for-tate-moderns-turbine-hall"
+  },
+  {
+   "name": "High Line Plinth",
+   "org": "High Line Art, Friends of the High Line",
+   "city": "New York",
+   "country": "United States",
+   "category": "public",
+   "summary": "A dedicated pedestal on the High Line's Spur at 30th Street and 10th Avenue given over to a single major new sculpture, on view for 18 months at a time. The current commission is Tuan Andrew Nguyen's The Light That Shines Through the Universe, installed in spring 2026 and running into autumn 2027.",
+   "budgetNote": "Commissioned, fabricated and installed by High Line Art; the organisation does not publish per-commission figures. Shortlisted artists develop worked-up proposals and maquettes before final selection.",
+   "cycleNote": "Not an open call. An international advisory group (the Plinth Committee) of artists, curators and arts professionals nominates artists, who are invited to submit proposals; a shortlist of around twelve is presented in a public exhibition with public feedback invited, and two commissions are selected per cycle, running roughly every two to three years.",
+   "confidence": "high",
+   "sourceUrl": "https://www.thehighline.org/art/plinth/"
+  },
+  {
+   "name": "Midnight Moment",
+   "org": "Times Square Arts (Times Square Alliance) with the Times Square Advertising Coalition",
+   "city": "New York",
+   "country": "United States",
+   "category": "digital",
+   "summary": "A monthly moving-image commission shown simultaneously on more than 90 Times Square billboards and newspaper kiosks every night from 11.57pm to midnight. It is billed as the largest and longest-running digital art exhibition in the world.",
+   "budgetNote": "Screen time is donated by participating billboard operators, so the programme covers an artist fee and technical preparation rather than fabrication. Fees are not published. There is no submission fee.",
+   "cycleNote": "Rolling open call with no fixed deadline. Proposals are accepted year-round through SlideRoom and reviewed by Times Square Arts, with a new artist programmed each month for an approximately one-month run. Open internationally; work must be original moving image.",
+   "confidence": "high",
+   "sourceUrl": "https://www.timessquarenyc.org/arts/midnight-moment"
+  },
+  {
+   "name": "Percent for Art",
+   "org": "New York City Department of Cultural Affairs (DCLA)",
+   "city": "New York",
+   "country": "United States",
+   "category": "civic",
+   "summary": "New York City's percent-for-art law sets aside a share of the budget of eligible city-funded construction and substantial renovation projects on city-owned property for permanent public artwork, attached to libraries, schools, firehouses, parks and other civic buildings.",
+   "budgetNote": "Budget is a percentage of each eligible capital construction project, so it varies widely by project; the commission covers design, fabrication and installation of a permanent work. Specific percentage and cap figures were not verified and are not asserted here.",
+   "cycleNote": "No deadlines and no single annual call. Artists self-submit materials to the Percent for Art Artist Directory on an ongoing basis; the Directory is not public-facing, and DCLA draws on it to invite artists to submit proposals for specific projects. Inclusion does not guarantee an invitation, and final selection is made through a panel process reviewing submitted proposals.",
+   "confidence": "high",
+   "sourceUrl": "https://www.nyc.gov/site/dclapercentforart/registry/registry-about.page"
+  },
+  {
+   "name": "CIRCA and the CIRCA PRIZE",
+   "org": "CIRCA",
+   "city": "London",
+   "country": "United Kingdom",
+   "category": "digital",
+   "summary": "A public art broadcast on the Piccadilly Lights screen in London and partner screens in other cities, shown at the same minute each evening across the network. The associated CIRCA PRIZE is a global open call that funds an artist to make a major new work for the screens.",
+   "budgetNote": "A published figure: the CIRCA PRIZE awards GBP 30,000 to the winning artist, which must fund the creation of a new ten-minute moving image work premiering on the Piccadilly Lights, plus a separate GBP 10,000 Public Prize decided by online vote. Screen time is provided by the platform.",
+   "cycleNote": "The nightly programme is curator-invited. The CIRCA PRIZE is a genuine global open call: recent editions have launched around May, with roughly thirty finalists screened on the Piccadilly Lights through September and a winner announced in the autumn. Editions ran in 2023, 2024 and 2025 (won by Adham Faramawy); a 2026 edition could not be confirmed at the time of checking, so treat annual recurrence as likely but unconfirmed.",
+   "confidence": "medium",
+   "sourceUrl": "https://circa.art/circa-prize/2025/"
+  },
+  {
+   "name": "M+ Facade Commission",
+   "org": "M+, West Kowloon Cultural District Authority",
+   "city": "Hong Kong",
+   "country": "Hong Kong SAR, China",
+   "category": "digital",
+   "summary": "New moving-image works made for the museum's LED media facade, 65 metres tall by 110 metres wide and visible up to 1.5 kilometres away from Hong Kong Island, shown nightly across Victoria Harbour. Commissioned artists come from visual art, film and interactive media backgrounds.",
+   "budgetNote": "Commissioned and produced by M+, in some cases with a co-commissioning partner: Shahzia Sikander's 3 to 12 Nautical Miles (2026) was co-commissioned by M+ and Art Basel and presented by UBS. Budgets are not published.",
+   "cycleNote": "Curator-led; no public open call is advertised. Works run in blocks of around three months and rotate through the year, announced alongside the museum's wider exhibition and moving image programme.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.mplus.org.hk/en/mplus-facade/"
+  },
+  {
+   "name": "Tuwaiq Sculpture",
+   "org": "Riyadh Art, Royal Commission for Riyadh City",
+   "city": "Riyadh",
+   "country": "Saudi Arabia",
+   "category": "public",
+   "summary": "An international sculpture symposium in which selected artists spend several weeks carving new work on site in Riyadh in front of the public. Finished pieces are permanently installed across the city as part of Riyadh Art's public art collection. The 2026 edition, the seventh, is themed Traces of What Will Be and brings together 25 artists from 18 countries.",
+   "budgetNote": "Selected artists receive an honorarium plus full travel and accommodation support; on-site fabrication support is provided by the organisers. Fee amounts are not published.",
+   "cycleNote": "International open call run through the Riyadh Art website. The cycle runs roughly annually, with submissions opening in late summer for a live sculpting programme and public exhibition the following winter: the 2026 round's open call ran from late August to early October 2025, with the exhibition opening in February 2026. Around 25 artists are selected per edition.",
+   "confidence": "high",
+   "sourceUrl": "https://riyadhart.sa/en/opencall/tuwaiq-sculpture-2026-open-call/"
+  },
+  {
+   "name": "Art & About Sydney",
+   "org": "City of Sydney",
+   "city": "Sydney",
+   "country": "Australia",
+   "category": "civic",
+   "summary": "The City of Sydney's programme supporting artists through grants and temporary public art projects in streets, parks and public spaces. It ran for 13 years as a month-long festival and now operates as a year-round calendar of projects rather than a single event.",
+   "budgetNote": "Amounts vary by round and by the scale and form of the proposal. Earlier rounds advertised commissions of up to around A$100,000 per project; this figure was not confirmed for the current round. Applicants submit an indicative budget covering artist fees, design, manufacture, materials, engineering, labour, installation, maintenance and deinstallation.",
+   "cycleNote": "Open expression of interest, advertised by the City for each programme year through its opportunities page, with separate strands (for example precinct project commissions and a banner gallery) that open and close on their own dates. Eligibility is set per round: the general programme supports local and international artists, but the 2026 Oxford Street and Taylor Square round was directed at local artists and organisations.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.cityofsydney.nsw.gov.au/opportunities/expression-of-interest-art-and-about"
+  },
+  {
+   "name": "KORO — Public Art Norway (Kunst i offentlege rom)",
+   "org": "KORO / Public Art Norway",
+   "city": "Oslo (national programme)",
+   "country": "Norway",
+   "category": "civic",
+   "summary": "Norway's national body for art in public buildings and public space, responsible for curating, producing and managing public art across the country. It manages a collection of roughly 8,000 artworks at around 1,000 sites in Norway and abroad.",
+   "budgetNote": "Norway's percent-for-art rule sets aside between 0.5 and 1.5 percent of the budget of government building projects for art, and KORO has principal responsibility for managing those funds. The often-quoted 0.75 percent average could not be verified and has been removed.",
+   "cycleNote": "Open calls and pre-qualification rounds are published on KORO's own site as building projects come forward, rather than on one fixed annual date. Details of the current application routes were only partially verified.",
+   "confidence": "low",
+   "sourceUrl": "https://forecastpublicart.org/northern-regeneration/"
+  }
+ ]
+}
