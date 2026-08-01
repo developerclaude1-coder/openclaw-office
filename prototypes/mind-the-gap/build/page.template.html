@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mind the Gap — the art world, at every resolution</title>
+<meta name="description" content="A one-stop index connecting artists and the industry: collectors, public commissions, residencies, and a live map of museums, galleries and biennials — curated from cosmos to atom." />
+<style>
+  /* ============================================================
+     MIND THE GAP — an observatory for the art world
+     Tri-voice type system:
+       serif  = art / the human
+       mono   = industry / the index
+       sans   = the connective tissue that bridges the gap
+     ============================================================ */
+
+  :root{
+    --ground:#0A0D18;
+    --surface:#111527;
+    --surface-2:#171C33;
+    --ink:#EDEFF7;
+    --muted:#8A93B4;
+    --faint:#59617F;
+    --line:rgba(160,172,214,0.14);
+    --line-strong:rgba(160,172,214,0.28);
+    --accent:#F2A93B;
+    --accent-soft:rgba(242,169,59,0.14);
+    --accent-2:#7FB2D9;
+    --accent-2-soft:rgba(127,178,217,0.14);
+    --accent-3:#C77DFF;
+    --accent-3-soft:rgba(199,125,255,0.14);
+    --ocean:#0C1122;
+    --land:#151B31;
+
+    --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
+
+    --maxw:1180px;
+    --gutter:clamp(20px,5vw,64px);
+    --radius:14px;
+  }
+
+  @media (prefers-color-scheme: light){
+    :root{
+      --ground:#F3F4F8; --surface:#FFFFFF; --surface-2:#EBEEF5;
+      --ink:#131727; --muted:#565E79; --faint:#7C849E;
+      --line:rgba(20,26,52,0.12); --line-strong:rgba(20,26,52,0.22);
+      --accent:#A8620C; --accent-soft:rgba(168,98,12,0.12);
+      --accent-2:#26607F; --accent-2-soft:rgba(38,96,127,0.12);
+      --accent-3:#7A3FA8; --accent-3-soft:rgba(122,63,168,0.12);
+      --ocean:#DFE5F0; --land:#FBFCFE;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0A0D18; --surface:#111527; --surface-2:#171C33;
+    --ink:#EDEFF7; --muted:#8A93B4; --faint:#59617F;
+    --line:rgba(160,172,214,0.14); --line-strong:rgba(160,172,214,0.28);
+    --accent:#F2A93B; --accent-soft:rgba(242,169,59,0.14);
+    --accent-2:#7FB2D9; --accent-2-soft:rgba(127,178,217,0.14);
+    --accent-3:#C77DFF; --accent-3-soft:rgba(199,125,255,0.14);
+    --ocean:#0C1122; --land:#151B31;
+  }
+  :root[data-theme="light"]{
+    --ground:#F3F4F8; --surface:#FFFFFF; --surface-2:#EBEEF5;
+    --ink:#131727; --muted:#565E79; --faint:#7C849E;
+    --line:rgba(20,26,52,0.12); --line-strong:rgba(20,26,52,0.22);
+    --accent:#A8620C; --accent-soft:rgba(168,98,12,0.12);
+    --accent-2:#26607F; --accent-2-soft:rgba(38,96,127,0.12);
+    --accent-3:#7A3FA8; --accent-3-soft:rgba(122,63,168,0.12);
+    --ocean:#DFE5F0; --land:#FBFCFE;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{
+    margin:0;background:var(--ground);color:var(--ink);
+    font-family:var(--sans);font-size:16px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;
+  }
+  ::selection{background:var(--accent);color:#0A0D18}
+  a{color:inherit}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
+
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--muted);display:flex;align-items:center;gap:.7em;margin:0}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none;box-shadow:0 0 12px var(--accent)}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;text-wrap:balance;line-height:1.08;margin:0}
+  .lede{font-size:clamp(1.05rem,1.6vw,1.28rem);color:var(--muted);max-width:62ch;text-wrap:pretty;margin:0}
+
+  .btn{font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;
+    text-decoration:none;display:inline-flex;align-items:center;gap:.6em;padding:.7em 1.15em;
+    border-radius:999px;border:1px solid var(--line-strong);color:var(--ink);background:transparent;
+    cursor:pointer;transition:.2s ease}
+  .btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+  .btn--solid{background:var(--accent);color:#0A0D18;border-color:var(--accent)}
+  :root[data-theme="light"] .btn--solid, :root:not([data-theme]) .btn--solid{color:#fff}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme]) .btn--solid{color:#0A0D18} }
+  :root[data-theme="dark"] .btn--solid{color:#0A0D18}
+  .btn--solid:hover{filter:brightness(1.08)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+  /* ---------------- NAV ---------------- */
+  header.nav{position:sticky;top:0;z-index:60;backdrop-filter:blur(14px);
+    background:color-mix(in srgb, var(--ground) 80%, transparent);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.85rem}
+  .brand{display:flex;align-items:baseline;font-family:var(--mono);font-weight:600;letter-spacing:.12em;
+    font-size:.92rem;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+  .brand .gap{display:inline-block;width:1.5ch;position:relative}
+  .brand .gap::after{content:"";position:absolute;left:.2ch;right:.2ch;bottom:.28em;height:2px;background:var(--accent)}
+  .nav-links{display:flex;gap:.3rem;align-items:center}
+  .nav-links a{font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+    text-decoration:none;color:var(--muted);padding:.5em .7em;border-radius:8px;transition:.18s}
+  .nav-links a:hover{color:var(--ink);background:var(--surface-2)}
+  .theme-toggle{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+    background:transparent;border:1px solid var(--line-strong);color:var(--muted);border-radius:999px;
+    padding:.5em .8em;cursor:pointer;transition:.18s}
+  .theme-toggle:hover{color:var(--accent);border-color:var(--accent)}
+  @media(max-width:900px){ .nav-links a[data-opt]{display:none} }
+
+  /* ---------------- HERO ---------------- */
+  .hero{position:relative;min-height:clamp(620px,92vh,900px);display:flex;align-items:flex-end;
+    overflow:hidden;border-bottom:1px solid var(--line)}
+  #field{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .hero-veil{position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(120% 80% at 50% -10%, transparent 40%, color-mix(in srgb,var(--ground) 55%, transparent) 100%),
+    linear-gradient(to bottom, transparent 40%, var(--ground) 99%)}
+  .hero-inner{position:relative;z-index:2;width:100%;padding-block:clamp(2rem,6vh,4rem) clamp(2.2rem,7vh,4.5rem);
+    display:flex;flex-direction:column;gap:1.2rem}
+  .hero h1{font-size:clamp(2.6rem,7vw,5.4rem);letter-spacing:-.01em;max-width:16ch}
+  .hero h1 em{font-style:italic;color:var(--accent)}
+  .hero-cta{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.4rem}
+
+  .hud{position:absolute;z-index:2;top:calc(1rem + 68px);right:var(--gutter);font-family:var(--mono);
+    font-size:.72rem;letter-spacing:.08em;color:var(--muted);display:flex;flex-direction:column;gap:.3rem;
+    pointer-events:none;text-align:right;max-width:min(300px,44vw);align-items:flex-end}
+  .hud::before{content:"⊹ RESOLUTION SCOPE";font-size:.6rem;letter-spacing:.2em;color:var(--faint);opacity:.75}
+  .hud .big{color:var(--ink);font-size:.95rem;letter-spacing:.18em;text-transform:uppercase}
+  .hud .amber{color:var(--accent)}
+  .hud .cap{color:var(--faint);text-transform:none;letter-spacing:.02em;line-height:1.4}
+  @media(max-width:640px){ .hud{max-width:58vw;font-size:.64rem} .hud .cap{display:none} }
+
+  .res{position:relative;z-index:3;max-width:560px}
+  .res-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.6rem;
+    letter-spacing:.1em;color:var(--faint);text-transform:uppercase;margin-bottom:.5rem}
+  .res-labels span.on{color:var(--accent)}
+  input[type=range].dial{-webkit-appearance:none;appearance:none;width:100%;height:3px;border-radius:2px;
+    background:linear-gradient(to right,var(--accent) var(--fill,40%), var(--line-strong) var(--fill,40%));
+    cursor:pointer;outline-offset:6px}
+  input[type=range].dial::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;
+    background:var(--ground);border:2px solid var(--accent);box-shadow:0 0 0 4px var(--accent-soft),0 0 16px var(--accent)}
+  input[type=range].dial::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--ground);
+    border:2px solid var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+  .res-hint{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--faint);
+    text-transform:uppercase;margin-top:.55rem}
+
+  /* ---------------- TICKER ---------------- */
+  .ticker{border-bottom:1px solid var(--line);overflow:hidden;background:var(--surface)}
+  .ticker-track{display:flex;gap:2.6rem;white-space:nowrap;padding-block:.75rem;font-family:var(--mono);
+    font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+    animation:scrollx 64s linear infinite;width:max-content}
+  .ticker-track b{color:var(--accent);font-weight:600}
+  .ticker-track i{color:var(--faint);font-style:normal}
+  @keyframes scrollx{to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion: reduce){ .ticker-track{animation:none} }
+
+  /* ---------------- SECTIONS ---------------- */
+  section.level{padding-block:clamp(4rem,9vw,7rem);border-bottom:1px solid var(--line)}
+  .level-head{display:flex;flex-direction:column;gap:1rem;margin-bottom:clamp(2rem,5vw,3.2rem);max-width:74ch}
+  .scale{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;color:var(--faint);
+    text-transform:uppercase;display:flex;gap:1em;align-items:center;flex-wrap:wrap}
+  .scale b{color:var(--accent-2);font-weight:600}
+  .level-head h2{font-size:clamp(1.9rem,4vw,3.1rem)}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease, transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1;transform:none;transition:none} }
+
+  /* bridge */
+  .bridge{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(1rem,3vw,2.5rem);align-items:stretch}
+  @media(max-width:820px){ .bridge{grid-template-columns:1fr} .gapcol{display:none} }
+  .pole{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem;
+    display:flex;flex-direction:column;gap:1rem}
+  .pole h3{font-size:1.45rem}
+  .pole ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1rem}
+  .pole li{display:flex;gap:.8em;font-size:.93rem;line-height:1.45}
+  .pole li::before{content:"";width:7px;height:7px;margin-top:.55em;border-radius:2px;background:var(--accent);
+    flex:none;transform:rotate(45deg)}
+  .pole.collectors li::before{background:var(--accent-2)}
+  .pole li strong{display:block;color:var(--ink);font-weight:600;font-size:.95rem;margin-bottom:.15rem}
+  .pole li span{color:var(--muted)}
+  .gapcol{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;min-width:64px}
+  .gapcol .line{flex:1;width:1px;background:linear-gradient(var(--accent),var(--accent-2))}
+  .gapcol .mindgap{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;color:var(--faint);
+    writing-mode:vertical-rl;text-transform:uppercase}
+
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1.6rem}
+  .fact{border:1px solid var(--line);border-left:2px solid var(--accent-3);border-radius:10px;
+    padding:1rem 1.1rem;background:var(--surface);display:flex;flex-direction:column;gap:.4rem}
+  .fact h4{font-family:var(--sans);font-size:.9rem;margin:0;font-weight:600;line-height:1.3}
+  .fact p{margin:0;font-size:.86rem;color:var(--muted);line-height:1.5}
+
+  /* cards */
+  .grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.35rem;
+    display:flex;flex-direction:column;gap:.65rem;transition:border-color .2s,transform .2s}
+  .card:hover{border-color:var(--line-strong);transform:translateY(-3px)}
+  .card-top{display:flex;gap:.45rem;flex-wrap:wrap;align-items:center}
+  .tag{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
+    padding:.34em .62em;border-radius:6px;color:var(--accent);border:1px solid var(--accent-soft);background:var(--accent-soft)}
+  .tag.cyan{color:var(--accent-2);border-color:var(--accent-2-soft);background:var(--accent-2-soft)}
+  .tag.violet{color:var(--accent-3);border-color:var(--accent-3-soft);background:var(--accent-3-soft)}
+  .tag.ghost{color:var(--muted);border-color:var(--line-strong);background:transparent}
+  .card h3{font-size:1.16rem;line-height:1.22}
+  .card .where{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--faint);text-transform:uppercase}
+  .card p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.55}
+  .card dl{margin:0;display:flex;flex-direction:column;gap:.45rem;padding-top:.2rem}
+  .card dl div{display:grid;grid-template-columns:5.4rem 1fr;gap:.6rem;align-items:start}
+  .card dt{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);padding-top:.15em}
+  .card dd{margin:0;font-size:.84rem;color:var(--muted);line-height:1.45}
+  .card .foot{margin-top:auto;padding-top:.7rem;border-top:1px solid var(--line);display:flex;
+    justify-content:space-between;align-items:center;gap:.6rem;font-family:var(--mono);font-size:.66rem;
+    letter-spacing:.08em;text-transform:uppercase}
+  .card .foot a{color:var(--accent);text-decoration:none}
+  .card .foot a:hover{text-decoration:underline}
+  .conf{color:var(--faint)}
+  .conf::before{content:"◍ "}
+
+  .chips{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.4rem;align-items:center}
+  .chip{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;padding:.5em .9em;
+    border-radius:999px;border:1px solid var(--line-strong);background:transparent;color:var(--muted);
+    cursor:pointer;transition:.16s}
+  .chip:hover{color:var(--ink)}
+  .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#0A0D18}
+  :root[data-theme="light"] .chip[aria-pressed="true"]{color:#fff}
+  @media (prefers-color-scheme: light){ :root:not([data-theme]) .chip[aria-pressed="true"]{color:#fff} }
+  .chips .count{font-family:var(--mono);font-size:.66rem;color:var(--faint);letter-spacing:.08em;margin-left:auto}
+
+  /* ---------------- ATLAS ---------------- */
+  .atlas-bar{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem}
+  .search{position:relative;flex:1;min-width:220px;max-width:340px}
+  .search input{width:100%;background:var(--surface);border:1px solid var(--line-strong);border-radius:999px;
+    padding:.6em 1em .6em 2.2em;color:var(--ink);font-family:var(--mono);font-size:.76rem;letter-spacing:.04em}
+  .search input::placeholder{color:var(--faint)}
+  .search::before{content:"⌕";position:absolute;left:.9em;top:50%;transform:translateY(-50%);color:var(--faint);font-size:.95rem}
+  .sresults{position:absolute;z-index:20;top:calc(100% + 6px);left:0;right:0;background:var(--ground);
+    border:1px solid var(--line-strong);border-radius:12px;overflow:hidden;display:none;max-height:280px;overflow-y:auto}
+  .sresults.on{display:block}
+  .sresults button{display:block;width:100%;text-align:left;background:transparent;border:0;color:var(--ink);
+    padding:.6em .9em;cursor:pointer;font-size:.86rem;border-bottom:1px solid var(--line)}
+  .sresults button:last-child{border-bottom:0}
+  .sresults button:hover,.sresults button:focus{background:var(--surface-2)}
+  .sresults .sub{display:block;font-family:var(--mono);font-size:.62rem;color:var(--faint);
+    letter-spacing:.08em;text-transform:uppercase;margin-top:.15rem}
+
+  .map-shell{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    background:var(--ocean);aspect-ratio:2/1;min-height:340px;touch-action:none}
+  #atlas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}
+  #atlas.dragging{cursor:grabbing}
+  .map-hud{position:absolute;top:12px;left:14px;z-index:3;font-family:var(--mono);font-size:.64rem;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--muted);pointer-events:none;
+    background:color-mix(in srgb,var(--ground) 72%,transparent);border:1px solid var(--line);
+    padding:.4rem .6rem;border-radius:8px;backdrop-filter:blur(6px)}
+  .map-hud b{color:var(--accent);font-weight:600}
+  .map-legend{position:absolute;left:14px;bottom:14px;z-index:3;display:flex;gap:.9rem;flex-wrap:wrap;
+    font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+    background:color-mix(in srgb,var(--ground) 72%,transparent);border:1px solid var(--line);
+    padding:.45rem .7rem;border-radius:8px;backdrop-filter:blur(6px)}
+  .map-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.45em;vertical-align:middle}
+  .map-zoom{position:absolute;right:14px;bottom:14px;z-index:3;display:flex;flex-direction:column;gap:.3rem}
+  .map-zoom button{width:32px;height:32px;border-radius:8px;border:1px solid var(--line-strong);
+    background:color-mix(in srgb,var(--ground) 80%,transparent);color:var(--ink);cursor:pointer;
+    font-size:1rem;line-height:1;backdrop-filter:blur(6px)}
+  .map-zoom button:hover{border-color:var(--accent);color:var(--accent)}
+  .map-tip{position:absolute;z-index:4;pointer-events:none;opacity:0;transform:translate(-50%,-128%);
+    background:var(--ground);border:1px solid var(--line-strong);border-radius:10px;padding:.55rem .75rem;
+    transition:opacity .12s;box-shadow:0 12px 40px rgba(0,0,0,.4);max-width:260px}
+  .map-tip .t{font-family:var(--serif);font-size:1rem;line-height:1.15}
+  .map-tip .s{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:var(--muted);
+    text-transform:uppercase;margin-top:.25rem}
+  .map-tip .n{font-size:.8rem;color:var(--muted);margin-top:.35rem;line-height:1.4}
+  .map-note{font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;color:var(--faint);
+    text-transform:uppercase;margin-top:.9rem;display:flex;gap:1.2rem;flex-wrap:wrap}
+
+  /* ---------------- JOIN ---------------- */
+  .join{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(1.5rem,4vw,3rem);align-items:center;
+    background:linear-gradient(120deg,var(--surface),var(--surface-2));border:1px solid var(--line);
+    border-radius:calc(var(--radius) + 6px);padding:clamp(1.8rem,4vw,3rem)}
+  @media(max-width:780px){ .join{grid-template-columns:1fr} }
+  .join h2{font-size:clamp(1.7rem,3.4vw,2.6rem)}
+  .join form{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.2rem}
+  .join input[type=email]{flex:1;min-width:200px;background:var(--ground);border:1px solid var(--line-strong);
+    border-radius:999px;padding:.85em 1.2em;color:var(--ink);font-family:var(--mono);font-size:.82rem}
+  .join input[type=email]::placeholder{color:var(--faint)}
+  .roles{display:flex;flex-direction:column;gap:.6rem;font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+  .roles div{display:flex;gap:.6em;align-items:center;padding:.7em .9em;border:1px solid var(--line);
+    border-radius:10px;background:var(--surface)}
+  .roles b{color:var(--ink);font-weight:600}
+  .msg{font-family:var(--mono);font-size:.72rem;color:var(--accent-2);margin-top:.6rem;min-height:1em}
+
+  /* ---------------- FOOTER ---------------- */
+  footer{padding-block:clamp(3rem,6vw,4.5rem) 2.5rem;color:var(--muted)}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
+  @media(max-width:780px){ .foot-grid{grid-template-columns:1fr 1fr} }
+  @media(max-width:470px){ .foot-grid{grid-template-columns:1fr} }
+  .foot-grid h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--faint);margin:0 0 1rem}
+  .foot-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.6rem}
+  .foot-grid a{text-decoration:none;color:var(--muted);font-size:.9rem;transition:.16s}
+  .foot-grid a:hover{color:var(--accent)}
+  .foot-brand{font-family:var(--serif);font-size:1.4rem;color:var(--ink)}
+  .foot-brand + p{max-width:36ch;font-size:.9rem;margin:.7rem 0 0}
+  .colophon{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--line);display:flex;
+    justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:var(--mono);font-size:.64rem;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+  .disclaimer{margin-top:1.2rem;font-family:var(--mono);font-size:.66rem;line-height:1.7;color:var(--faint);
+    letter-spacing:.03em;max-width:78ch;text-transform:none}
+  .disclaimer b{color:var(--muted);font-weight:600}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">MIND&nbsp;THE<span class="gap">&nbsp;</span>GAP</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#connect" data-opt>The Gap</a>
+      <a href="#commissions" data-opt>Commissions</a>
+      <a href="#residencies" data-opt>Residencies</a>
+      <a href="#atlas-sec">Atlas</a>
+      <a href="#join" class="btn" style="padding:.5em .9em">Join</a>
+    </nav>
+    <button class="theme-toggle" id="themeBtn" aria-label="Toggle colour theme">◐ Theme</button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="hero-veil" aria-hidden="true"></div>
+  <div class="hud" aria-live="polite">
+    <span class="big">RES · <span id="hudBand">CITY</span></span>
+    <span><span class="amber" id="hudScale">10³ m</span> / resolving…</span>
+    <span class="cap" id="hudCap">Gallery districts and the people who move between them.</span>
+  </div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow"><span class="dot"></span>One index for the whole art world</p>
+    <h1>The art world, brought into <em>focus</em> — from the field to a single work.</h1>
+    <p class="lede">Everything that usually lives in separate tabs and closed inboxes: artists and collectors,
+      public commissions, residencies, and a live map of the museums, galleries and biennials that hold it all —
+      one continuously refining resolution of curated information.</p>
+    <div class="res">
+      <div class="res-labels" id="resLabels"></div>
+      <input type="range" min="0" max="100" value="42" class="dial" id="dial"
+             aria-label="Resolution — drag to zoom from the cosmos to a single atom" />
+      <div class="res-hint">◀ drag to change resolution — cosmos → atom ▶</div>
+    </div>
+    <div class="hero-cta">
+      <a href="#atlas-sec" class="btn btn--solid">Open the atlas →</a>
+      <a href="#commissions" class="btn">Find an open call</a>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+
+<section class="level" id="connect">
+  <div class="wrap">
+    <div class="level-head reveal">
+      <div class="scale"><span>Resolution</span><b>01 / People</b><span>10⁰ m</span></div>
+      <h2>Artists and collectors, on the same map.</h2>
+      <p class="lede">The gap is structural, not personal. Artists can't see who is collecting; collectors can't
+        see who is emerging until someone else decides they should. Here is what each side is actually missing.</p>
+    </div>
+    <div class="bridge reveal">
+      <div class="pole artists">
+        <p class="eyebrow"><span class="dot"></span>For artists</p>
+        <h3>What the market hides from you.</h3>
+        <ul id="artistNeeds"></ul>
+      </div>
+      <div class="gapcol" aria-hidden="true">
+        <div class="line"></div><span class="mindgap">Mind the gap</span><div class="line"></div>
+      </div>
+      <div class="pole collectors">
+        <p class="eyebrow"><span class="dot" style="background:var(--accent-2);box-shadow:0 0 12px var(--accent-2)"></span>For collectors</p>
+        <h3>What you need before you buy.</h3>
+        <ul id="collectorNeeds"></ul>
+      </div>
+    </div>
+    <div class="facts reveal" id="gapFacts"></div>
+  </div>
+</section>
+
+<section class="level" id="commissions">
+  <div class="wrap">
+    <div class="level-head reveal">
+      <div class="scale"><span>Resolution</span><b>02 / Public calls</b><span>10² m</span></div>
+      <h2>Commissions — the work that gets funded.</h2>
+      <p class="lede">Percent-for-art schemes, plinths, facades, biennial pavilions and museum commissions.
+        Most listings bury whether you can actually apply; this one leads with it.</p>
+    </div>
+    <div class="chips reveal" role="group" aria-label="Filter commissions" id="commChips"></div>
+    <div class="grid reveal" id="commGrid"></div>
+  </div>
+</section>
+
+<section class="level" id="residencies">
+  <div class="wrap">
+    <div class="level-head reveal">
+      <div class="scale"><span>Resolution</span><b>03 / Studio and time</b><span>10¹ m</span></div>
+      <h2>Residencies — time, space, and a room to think.</h2>
+      <p class="lede">Compare what is actually provided: duration, what is funded, what you pay for,
+        and whether the door is open to you.</p>
+    </div>
+    <div class="chips reveal" role="group" aria-label="Filter residencies" id="resChips"></div>
+    <div class="grid reveal" id="resGrid"></div>
+  </div>
+</section>
+
+<section class="level" id="atlas-sec">
+  <div class="wrap">
+    <div class="level-head reveal">
+      <div class="scale"><span>Resolution</span><b>04 / The atlas</b><span>10⁷ → 10² m</span></div>
+      <h2>A map of museums, galleries and biennials.</h2>
+      <p class="lede">Every institution as a point of light on real geography. Scroll to zoom, drag to pan,
+        search to fly. The same instrument as the hero — this time it actually resolves.</p>
+    </div>
+    <div class="atlas-bar reveal">
+      <div class="search">
+        <input type="text" id="mapSearch" placeholder="Search institutions…" autocomplete="off"
+               role="combobox" aria-expanded="false" aria-controls="sresults" aria-label="Search the atlas" />
+        <div class="sresults" id="sresults" role="listbox"></div>
+      </div>
+      <div class="chips" style="margin:0" role="group" aria-label="Filter atlas" id="mapChips"></div>
+    </div>
+    <div class="map-shell reveal">
+      <canvas id="atlas" role="img" aria-label="World map of museums, galleries and biennials"></canvas>
+      <div class="map-hud">Scale <b id="mapZ">1.0</b>× · <span id="mapBand">World</span></div>
+      <div class="map-legend">
+        <span><i style="background:#F2A93B"></i>Museum</span>
+        <span><i style="background:#7FB2D9"></i>Gallery</span>
+        <span><i style="background:#C77DFF"></i>Biennial / fair</span>
+      </div>
+      <div class="map-zoom">
+        <button type="button" id="zIn" aria-label="Zoom in">+</button>
+        <button type="button" id="zOut" aria-label="Zoom out">−</button>
+        <button type="button" id="zReset" aria-label="Reset view" style="font-size:.7rem">⤢</button>
+      </div>
+      <div class="map-tip" id="mapTip"><div class="t"></div><div class="s"></div><div class="n"></div></div>
+    </div>
+    <p class="map-note">
+      <span id="mapCount"></span>
+      <span>Coordinates verified by point-in-polygon against national boundaries</span>
+      <span>Coastlines: Natural Earth (public domain)</span>
+    </p>
+  </div>
+</section>
+
+<section class="level" id="join" style="border-bottom:none">
+  <div class="wrap">
+    <div class="join reveal">
+      <div>
+        <p class="eyebrow"><span class="dot"></span>Close the gap</p>
+        <h2>Join the index. Pick your resolution.</h2>
+        <p class="lede" style="margin-top:.8rem">One account connects your practice, your collection or your
+          programme to everything else on the map. No fee to be listed — the network is the point.</p>
+        <form id="joinForm" novalidate>
+          <input type="email" id="joinEmail" placeholder="you@studio.art" aria-label="Email address" required />
+          <button class="btn btn--solid" type="submit">Request access →</button>
+        </form>
+        <div class="msg" id="joinMsg" role="status"></div>
+      </div>
+      <div class="roles">
+        <div><b>Artist</b> — portfolio, commissions, residencies</div>
+        <div><b>Collector</b> — provenance, discovery, following</div>
+        <div><b>Institution</b> — post calls, list on the atlas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Mind the Gap</div>
+        <p>A one-stop index connecting artists and the industry — resolving the whole field from cosmos to atom.</p>
+      </div>
+      <div><h4>Network</h4><ul>
+        <li><a href="#connect">Artists</a></li><li><a href="#connect">Collectors</a></li><li><a href="#atlas-sec">The atlas</a></li>
+      </ul></div>
+      <div><h4>Opportunities</h4><ul>
+        <li><a href="#commissions">Commissions</a></li><li><a href="#residencies">Residencies</a></li><li><a href="#join">Post a call</a></li>
+      </ul></div>
+      <div><h4>Studio</h4><ul>
+        <li><a href="#join">Request access</a></li><li><a href="#top">About</a></li><li><a href="#join">Contact</a></li>
+      </ul></div>
+    </div>
+    <p class="disclaimer">
+      <b>About this data.</b> Every organisation, residency and commission listed here is real and was researched
+      and fact-checked against primary sources on <b>__ASOF__</b>. Map coordinates were verified independently by
+      point-in-polygon testing against national boundary data. Even so: <b>programmes change, funding changes, and
+      application windows move every year.</b> Nothing here is an application portal — always confirm current terms
+      and dates with the organisation directly using the source link on each card. Entries marked
+      <b>◍ medium</b> or <b>◍ low</b> carry details we could not fully confirm.
+    </p>
+    <div class="colophon">
+      <span>© 2026 Mind the Gap — prototype</span>
+      <span>Curated resolution · Cosmos → Atom</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var DATA = __DATA__;
+  var LAND_ENC = "__LAND__";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var root = document.documentElement;
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function host(u){ try{ return new URL(u).hostname.replace(/^www\./,""); }catch(e){ return "source"; } }
+
+  /* ---------- theme ---------- */
+  var themeBtn = document.getElementById("themeBtn");
+  function isDark(){
+    var a = root.getAttribute("data-theme");
+    return a ? a==="dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  themeBtn.addEventListener("click", function(){
+    var next = isDark() ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    themeBtn.textContent = (next==="dark"?"◐":"◑") + " Theme";
+    if(atlas) drawAtlas();
+  });
+
+  /* ---------- hero instrument ---------- */
+  var BANDS = [
+    {name:"COSMOS", scale:"10²¹ m", cap:"The whole field — every scene, at once."},
+    {name:"REGION", scale:"10⁶ m",  cap:"Art capitals and the routes between them."},
+    {name:"CITY",   scale:"10³ m",  cap:"Gallery districts and the people who move between them."},
+    {name:"INSTIT", scale:"10¹ m",  cap:"A museum, its walls, its programme."},
+    {name:"ARTIST", scale:"10⁰ m",  cap:"One studio — a practice taking shape."},
+    {name:"WORK",   scale:"10⁻² m", cap:"A single work, held to the light."},
+    {name:"MATTER", scale:"10⁻⁹ m", cap:"Pigment, canvas, gesture — down to the atom."}
+  ];
+  var dial=document.getElementById("dial"), hudBand=document.getElementById("hudBand"),
+      hudScale=document.getElementById("hudScale"), hudCap=document.getElementById("hudCap"),
+      resLabels=document.getElementById("resLabels");
+  BANDS.forEach(function(b,i){ var s=document.createElement("span"); s.textContent=b.name.slice(0,4);
+    s.dataset.i=i; resLabels.appendChild(s); });
+  var labelEls=resLabels.querySelectorAll("span");
+  function updateHUD(v){
+    var b=Math.max(0,Math.min(BANDS.length-1,Math.round((v/100)*(BANDS.length-1))));
+    hudBand.textContent=BANDS[b].name; hudScale.textContent=BANDS[b].scale; hudCap.textContent=BANDS[b].cap;
+    dial.style.setProperty("--fill", v+"%");
+    labelEls.forEach(function(el){ el.classList.toggle("on", +el.dataset.i===b); });
+  }
+  var cv=document.getElementById("field"), ctx=cv.getContext("2d");
+  var W=0,H=0,DPR=Math.min(window.devicePixelRatio||1,2), stars=[];
+  function pal(){ var cs=getComputedStyle(root); return {
+    amber:cs.getPropertyValue("--accent").trim(), cyan:cs.getPropertyValue("--accent-2").trim(),
+    ink:cs.getPropertyValue("--ink").trim(), dark:isDark() }; }
+  function resizeField(){ W=cv.clientWidth;H=cv.clientHeight;
+    cv.width=Math.floor(W*DPR);cv.height=Math.floor(H*DPR);ctx.setTransform(DPR,0,0,DPR,0,0); }
+  function seed(){ stars=[]; for(var i=0;i<520;i++) stars.push({
+    x:Math.random()*2-1, y:Math.random()*2-1, z:Math.random(), c:Math.random(), r:.4+Math.random()*1.5 }); }
+  var zoomTarget=.42, zoom=.42, autoT=0, touched=false;
+  function drawField(){
+    var p=pal(); ctx.clearRect(0,0,W,H);
+    var cx=W/2, cy=H*.46;
+    zoom += (zoomTarget-zoom)*.06;
+    var speed=.0016+zoom*.006;
+    ctx.save(); ctx.globalAlpha=p.dark?.10:.16; ctx.strokeStyle=p.cyan;
+    for(var g=1;g<=4;g++){ ctx.beginPath();
+      ctx.arc(cx,cy,(Math.min(W,H)*.11)*g*(.7+zoom*.9),0,6.2832); ctx.stroke(); }
+    ctx.restore();
+    for(var i=0;i<stars.length;i++){
+      var s=stars[i]; s.z-=speed;
+      if(s.z<=.02){ s.z=1; s.x=Math.random()*2-1; s.y=Math.random()*2-1; s.c=Math.random(); }
+      var k=(.4+zoom*1.4)/s.z, px=cx+s.x*k*(W*.55), py=cy+s.y*k*(H*.55);
+      if(px<-20||px>W+20||py<-20||py>H+20) continue;
+      var size=s.r*(.5+(1-s.z)*2.2)*(.6+zoom), a=Math.min(1,(1-s.z)*1.3);
+      var col=s.c<.72?p.ink:(s.c<.9?p.amber:p.cyan);
+      ctx.globalAlpha=a*(p.dark?.9:.5); ctx.fillStyle=col;
+      ctx.beginPath(); ctx.arc(px,py,Math.max(.3,size),0,6.2832); ctx.fill();
+      if(zoom>.55&&size>1.2){
+        var k2=(.4+zoom*1.4)/Math.min(1,s.z+.05);
+        ctx.globalAlpha=a*.35; ctx.strokeStyle=col; ctx.lineWidth=Math.max(.4,size*.5);
+        ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(cx+s.x*k2*(W*.55), cy+s.y*k2*(H*.55)); ctx.stroke();
+      }
+    }
+    ctx.globalAlpha=.5+zoom*.4; ctx.strokeStyle=p.amber; ctx.lineWidth=1.2;
+    var ap=22+(1-zoom)*46;
+    ctx.beginPath(); ctx.arc(cx,cy,ap,0,6.2832); ctx.stroke();
+    ctx.globalAlpha=.6;
+    [[0,-1],[0,1],[-1,0],[1,0]].forEach(function(d){ ctx.beginPath();
+      ctx.moveTo(cx+d[0]*(ap+5),cy+d[1]*(ap+5)); ctx.lineTo(cx+d[0]*(ap+13),cy+d[1]*(ap+13)); ctx.stroke(); });
+    ctx.globalAlpha=1;
+  }
+  function fieldLoop(){
+    if(autoT<1 && !touched){ autoT+=.004; var v=8+autoT*40; dial.value=v; zoomTarget=v/100; updateHUD(v); }
+    drawField(); requestAnimationFrame(fieldLoop);
+  }
+  dial.addEventListener("input", function(){ touched=true; zoomTarget=(+dial.value)/100; updateHUD(dial.value); });
+  resizeField(); seed(); updateHUD(dial.value); zoomTarget=(+dial.value)/100;
+  if(reduce){ zoom=zoomTarget=.5; drawField(); } else fieldLoop();
+  window.addEventListener("resize", function(){ resizeField(); if(reduce) drawField(); });
+
+  /* ---------- ticker: real, current entries ---------- */
+  var tick=[];
+  DATA.commissions.filter(function(c){return c.access==="open call"||c.access==="registry";})
+    .slice(0,5).forEach(function(c){ tick.push(["OPEN", c.name+" · "+c.city]); });
+  DATA.residencies.slice(0,5).forEach(function(r){ tick.push(["RESIDENCY", r.name+" · "+r.city]); });
+  DATA.places.filter(function(p){return p.type==="Biennial";}).slice(0,4)
+    .forEach(function(b){ tick.push(["BIENNIAL", b.name+" · "+b.city]); });
+  var tHTML = tick.map(function(t){ return "<span><b>"+esc(t[0])+"</b> "+esc(t[1])+"</span>"; }).join("<i>◆</i>");
+  document.getElementById("ticker").innerHTML = tHTML+"<i>◆</i>"+tHTML;
+
+  /* ---------- connect ---------- */
+  function liList(arr, key){
+    return arr.map(function(x){
+      return "<li><div><strong>"+esc(x[key])+"</strong><span>"+esc(x.detail)+"</span></div></li>";
+    }).join("");
+  }
+  document.getElementById("artistNeeds").innerHTML = liList(DATA.connect.artistNeeds,"point");
+  document.getElementById("collectorNeeds").innerHTML = liList(DATA.connect.collectorNeeds,"point");
+  document.getElementById("gapFacts").innerHTML = DATA.connect.gapFacts.map(function(f){
+    return '<div class="fact"><h4>'+esc(f.fact)+"</h4><p>"+esc(f.detail)+"</p></div>";
+  }).join("");
+
+  /* ---------- cards ---------- */
+  function confLabel(c){ return c==="high" ? "" : '<span class="conf">'+esc(c)+" confidence</span>"; }
+  function srcLink(u){ return u ? '<a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(host(u))+" ↗</a>" : ""; }
+  var ACCESS_TAG = {"open call":"cyan","registry":"cyan","mixed":"ghost","invitation":"ghost"};
+
+  function commCard(c){
+    return '<article class="card" data-cat="'+esc(c.category)+'" data-access="'+esc(c.access||"")+'">'
+      + '<div class="card-top"><span class="tag">'+esc(c.category)+"</span>"
+      + (c.access ? '<span class="tag '+(ACCESS_TAG[c.access]||"ghost")+'">'+esc(c.access)+"</span>" : "")
+      + "</div>"
+      + "<h3>"+esc(c.name)+"</h3>"
+      + '<div class="where">'+esc(c.org)+" — "+esc(c.city)+", "+esc(c.country)+"</div>"
+      + "<p>"+esc(c.summary)+"</p>"
+      + "<dl><div><dt>Funding</dt><dd>"+esc(c.budgetNote)+"</dd></div>"
+      + "<div><dt>How it opens</dt><dd>"+esc(c.cycleNote)+"</dd></div></dl>"
+      + '<div class="foot">'+confLabel(c.confidence)+srcLink(c.sourceUrl)+"</div></article>";
+  }
+  function resCard(r){
+    return '<article class="card" data-region="'+esc(r.region||"")+'">'
+      + '<div class="card-top"><span class="tag cyan">Residency</span>'
+      + (r.region ? '<span class="tag ghost">'+esc(r.region)+"</span>" : "") + "</div>"
+      + "<h3>"+esc(r.name)+"</h3>"
+      + '<div class="where">'+esc(r.city)+", "+esc(r.country)+"</div>"
+      + "<p>"+esc(r.summary)+"</p>"
+      + "<dl><div><dt>Length</dt><dd>"+esc(r.duration)+"</dd></div>"
+      + "<div><dt>Provides</dt><dd>"+esc(r.funding)+"</dd></div>"
+      + "<div><dt>For</dt><dd>"+esc(r.disciplines)+"</dd></div>"
+      + "<div><dt>Applying</dt><dd>"+esc(r.applicationNote)+"</dd></div></dl>"
+      + '<div class="foot">'+confLabel(r.confidence)+srcLink(r.sourceUrl)+"</div></article>";
+  }
+
+  function buildChips(host, defs, onPick){
+    host.innerHTML = defs.map(function(d,i){
+      return '<button class="chip" data-v="'+esc(d.v)+'" aria-pressed="'+(i===0)+'">'+esc(d.label)+"</button>";
+    }).join("") + '<span class="count"></span>';
+    host.querySelectorAll(".chip").forEach(function(ch){
+      ch.addEventListener("click", function(){
+        host.querySelectorAll(".chip").forEach(function(c){ c.setAttribute("aria-pressed","false"); });
+        ch.setAttribute("aria-pressed","true"); onPick(ch.dataset.v);
+      });
+    });
+  }
+  function setCount(host,n,total){
+    var el=host.querySelector(".count");
+    if(el) el.textContent = n===total ? total+" listed" : n+" of "+total;
+  }
+
+  var commGrid=document.getElementById("commGrid"), commChips=document.getElementById("commChips");
+  function renderComm(v){
+    var list = DATA.commissions.filter(function(c){
+      if(v==="all") return true;
+      if(v==="openable") return c.access==="open call"||c.access==="registry"||c.access==="mixed";
+      return c.category===v;
+    });
+    commGrid.innerHTML = list.map(commCard).join("");
+    setCount(commChips, list.length, DATA.commissions.length);
+  }
+  buildChips(commChips, [
+    {v:"all",label:"All"},{v:"openable",label:"You can apply"},{v:"public",label:"Public art"},
+    {v:"institutional",label:"Institutional"},{v:"digital",label:"Digital"},{v:"civic",label:"Civic"}
+  ], renderComm);
+  renderComm("all");
+
+  var resGrid=document.getElementById("resGrid"), resChips=document.getElementById("resChips");
+  var regions=[]; DATA.residencies.forEach(function(r){ if(r.region&&regions.indexOf(r.region)<0) regions.push(r.region); });
+  regions.sort();
+  function renderRes(v){
+    var list = DATA.residencies.filter(function(r){ return v==="all" || r.region===v; });
+    resGrid.innerHTML = list.map(resCard).join("");
+    setCount(resChips, list.length, DATA.residencies.length);
+  }
+  buildChips(resChips, [{v:"all",label:"Everywhere"}].concat(regions.map(function(r){return {v:r,label:r};})), renderRes);
+  renderRes("all");
+
+  /* ---------- ATLAS ---------- */
+  var RINGS = LAND_ENC.split(";").map(function(r){
+    var px=0,py=0;
+    return r.split(" ").map(function(p){ var a=p.split(",");
+      px+=parseInt(a[0],36); py+=parseInt(a[1],36); return [px/10,py/10]; });
+  });
+  var PLACES = DATA.places;
+  var COLORS = {Museum:"#F2A93B", Gallery:"#7FB2D9", Biennial:"#C77DFF"};
+  var atlas=document.getElementById("atlas"), actx=atlas.getContext("2d");
+  var mapTip=document.getElementById("mapTip"), mapZ=document.getElementById("mapZ"), mapBand=document.getElementById("mapBand");
+  var aW=0,aH=0, view={z:1,cx:.5,cy:.5}, hover=-1, filter="all", focusIdx=-1;
+
+  function aResize(){ aW=atlas.clientWidth; aH=atlas.clientHeight;
+    atlas.width=Math.floor(aW*DPR); atlas.height=Math.floor(aH*DPR); actx.setTransform(DPR,0,0,DPR,0,0); }
+  function mw(){ return aW*view.z; }
+  function mh(){ return (aW/2)*view.z; }
+  function proj(lon,lat){ return [ ((lon+180)/360-view.cx)*mw()+aW/2, ((90-lat)/180-view.cy)*mh()+aH/2 ]; }
+  function clampView(){
+    view.z=Math.max(1,Math.min(60,view.z));
+    var hx=(aW/2)/mw(), hy=(aH/2)/mh();
+    view.cx = hx>=.5 ? .5 : Math.max(hx,Math.min(1-hx,view.cx));
+    view.cy = hy>=.5 ? .5 : Math.max(hy,Math.min(1-hy,view.cy));
+  }
+  function bandName(){ return view.z<2?"World":view.z<6?"Region":view.z<16?"City":"Street"; }
+  function visible(p){ return filter==="all" || p.type===filter; }
+  function drawAtlas(){
+    clampView();
+    var cs=getComputedStyle(root);
+    var ocean=cs.getPropertyValue("--ocean").trim(), land=cs.getPropertyValue("--land").trim();
+    actx.clearRect(0,0,aW,aH);
+    actx.fillStyle=ocean; actx.fillRect(0,0,aW,aH);
+    actx.strokeStyle=cs.getPropertyValue("--line").trim(); actx.lineWidth=1;
+    for(var lo=-180;lo<=180;lo+=30){ var a=proj(lo,90),b=proj(lo,-90);
+      actx.beginPath();actx.moveTo(a[0],a[1]);actx.lineTo(b[0],b[1]);actx.stroke(); }
+    for(var la=-60;la<=60;la+=30){ var c=proj(-180,la),d=proj(180,la);
+      actx.beginPath();actx.moveTo(c[0],c[1]);actx.lineTo(d[0],d[1]);actx.stroke(); }
+    actx.fillStyle=land; actx.strokeStyle=cs.getPropertyValue("--line-strong").trim(); actx.lineWidth=.9;
+    RINGS.forEach(function(r){
+      actx.beginPath();
+      for(var i=0;i<r.length;i++){ var p=proj(r[i][0],r[i][1]); i?actx.lineTo(p[0],p[1]):actx.moveTo(p[0],p[1]); }
+      actx.closePath(); actx.fill(); actx.stroke();
+    });
+    PLACES.forEach(function(p,i){
+      if(!visible(p)) return;
+      var s=proj(p.lon,p.lat);
+      if(s[0]<-40||s[0]>aW+40||s[1]<-40||s[1]>aH+40) return;
+      var col=COLORS[p.type]||"#F2A93B";
+      var isF = (i===hover||i===focusIdx);
+      var r=(isF?6:3.6);
+      var g=actx.createRadialGradient(s[0],s[1],0,s[0],s[1],r*4);
+      g.addColorStop(0,col); g.addColorStop(1,"transparent");
+      actx.globalAlpha=isF?.6:.32; actx.fillStyle=g;
+      actx.beginPath(); actx.arc(s[0],s[1],r*4,0,6.2832); actx.fill();
+      actx.globalAlpha=1; actx.fillStyle=col;
+      actx.beginPath(); actx.arc(s[0],s[1],r,0,6.2832); actx.fill();
+      if(isF){ actx.strokeStyle=col; actx.globalAlpha=.85; actx.lineWidth=1.5;
+        actx.beginPath(); actx.arc(s[0],s[1],r+6,0,6.2832); actx.stroke(); actx.globalAlpha=1; }
+      if(view.z>=5){
+        actx.globalAlpha=.85; actx.fillStyle=cs.getPropertyValue("--ink").trim();
+        actx.font='500 11px '+cs.getPropertyValue("--sans").trim();
+        actx.fillText(p.name, s[0]+9, s[1]+3.5); actx.globalAlpha=1;
+      }
+    });
+    mapZ.textContent=view.z.toFixed(1); mapBand.textContent=bandName();
+  }
+  function pick(mx,my){
+    var best=-1,bd=15;
+    PLACES.forEach(function(p,i){ if(!visible(p)) return;
+      var s=proj(p.lon,p.lat), d=Math.hypot(s[0]-mx,s[1]-my); if(d<bd){bd=d;best=i;} });
+    return best;
+  }
+  function showTip(i){
+    var p=PLACES[i], s=proj(p.lon,p.lat);
+    mapTip.querySelector(".t").textContent=p.name;
+    mapTip.querySelector(".s").innerHTML='<i style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'
+      +COLORS[p.type]+';margin-right:.4em"></i>'+esc(p.city)+", "+esc(p.country)+" · "+esc(p.type);
+    mapTip.querySelector(".n").textContent=p.note||"";
+    mapTip.style.left=s[0]+"px"; mapTip.style.top=s[1]+"px"; mapTip.style.opacity="1";
+  }
+  var dragging=false,lx=0,ly=0;
+  atlas.addEventListener("mousedown",function(e){ dragging=true;lx=e.clientX;ly=e.clientY;atlas.classList.add("dragging"); });
+  window.addEventListener("mouseup",function(){ dragging=false;atlas.classList.remove("dragging"); });
+  atlas.addEventListener("mousemove",function(e){
+    var rc=atlas.getBoundingClientRect(), mx=e.clientX-rc.left, my=e.clientY-rc.top;
+    if(dragging){ view.cx-=(e.clientX-lx)/mw(); view.cy-=(e.clientY-ly)/mh(); lx=e.clientX;ly=e.clientY;
+      mapTip.style.opacity="0"; drawAtlas(); return; }
+    var h=pick(mx,my);
+    if(h!==hover){ hover=h; drawAtlas(); }
+    if(h>=0) showTip(h); else mapTip.style.opacity="0";
+  });
+  atlas.addEventListener("mouseleave",function(){ hover=-1; mapTip.style.opacity="0"; drawAtlas(); });
+  atlas.addEventListener("wheel",function(e){
+    e.preventDefault();
+    var rc=atlas.getBoundingClientRect(), mx=e.clientX-rc.left, my=e.clientY-rc.top;
+    var nx=view.cx+(mx-aW/2)/mw(), ny=view.cy+(my-aH/2)/mh();
+    view.z *= (e.deltaY<0?1.18:1/1.18); clampView();
+    view.cx=nx-(mx-aW/2)/mw(); view.cy=ny-(my-aH/2)/mh();
+    drawAtlas();
+  },{passive:false});
+  function zoomBy(f){ view.z*=f; clampView(); drawAtlas(); }
+  document.getElementById("zIn").addEventListener("click",function(){ zoomBy(1.6); });
+  document.getElementById("zOut").addEventListener("click",function(){ zoomBy(1/1.6); });
+  document.getElementById("zReset").addEventListener("click",function(){
+    view.z=1;view.cx=.5;view.cy=.5;focusIdx=-1;mapTip.style.opacity="0";drawAtlas(); });
+  function flyTo(i){
+    var p=PLACES[i];
+    view.z=9; view.cx=(p.lon+180)/360; view.cy=(90-p.lat)/180; focusIdx=i;
+    clampView(); drawAtlas(); showTip(i);
+  }
+  buildChips(document.getElementById("mapChips"), [
+    {v:"all",label:"All"},{v:"Museum",label:"Museums"},{v:"Gallery",label:"Galleries"},{v:"Biennial",label:"Biennials"}
+  ], function(v){ filter=v; hover=-1; focusIdx=-1; mapTip.style.opacity="0"; drawAtlas(); updateMapCount(); });
+  function updateMapCount(){
+    var n=PLACES.filter(visible).length;
+    document.getElementById("mapCount").textContent = n+" institutions plotted";
+    var el=document.getElementById("mapChips").querySelector(".count");
+    if(el) el.textContent = n===PLACES.length ? PLACES.length+" total" : n+" of "+PLACES.length;
+  }
+
+  var sInput=document.getElementById("mapSearch"), sBox=document.getElementById("sresults");
+  function closeSearch(){ sBox.classList.remove("on"); sBox.innerHTML=""; sInput.setAttribute("aria-expanded","false"); }
+  sInput.addEventListener("input",function(){
+    var q=sInput.value.trim().toLowerCase();
+    if(!q){ closeSearch(); return; }
+    var hits=[];
+    PLACES.forEach(function(p,i){
+      if((p.name+" "+p.city+" "+p.country).toLowerCase().indexOf(q)>=0) hits.push(i);
+    });
+    if(!hits.length){ sBox.innerHTML='<button type="button" disabled style="color:var(--faint)">No match</button>';
+      sBox.classList.add("on"); return; }
+    sBox.innerHTML = hits.slice(0,8).map(function(i){
+      var p=PLACES[i];
+      return '<button type="button" role="option" data-i="'+i+'">'+esc(p.name)
+        +'<span class="sub">'+esc(p.city)+", "+esc(p.country)+" · "+esc(p.type)+"</span></button>";
+    }).join("");
+    sBox.classList.add("on"); sInput.setAttribute("aria-expanded","true");
+    sBox.querySelectorAll("button[data-i]").forEach(function(b){
+      b.addEventListener("click",function(){ flyTo(+b.dataset.i); closeSearch(); sInput.value=PLACES[+b.dataset.i].name; });
+    });
+  });
+  sInput.addEventListener("keydown",function(e){
+    if(e.key==="Escape"){ closeSearch(); }
+    if(e.key==="Enter"){ var f=sBox.querySelector("button[data-i]"); if(f){ e.preventDefault(); f.click(); } }
+  });
+  document.addEventListener("click",function(e){ if(!sBox.contains(e.target)&&e.target!==sInput) closeSearch(); });
+
+  window.addEventListener("resize", function(){ aResize(); drawAtlas(); });
+  aResize(); drawAtlas(); updateMapCount();
+  window.__flyTo=flyTo;
+
+  /* ---------- reveal ---------- */
+  if("IntersectionObserver" in window && !reduce){
+    // threshold 0 + a small bottom margin: a card grid taller than the viewport
+    // must still reveal as soon as its first pixel scrolls into view.
+    var io=new IntersectionObserver(function(en){
+      en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } });
+    },{threshold:0, rootMargin:"0px 0px -40px 0px"});
+    document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+  } else document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("in"); });
+
+  /* ---------- join ---------- */
+  var form=document.getElementById("joinForm"), email=document.getElementById("joinEmail"), msg=document.getElementById("joinMsg");
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    var v=(email.value||"").trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){
+      msg.style.color="var(--accent)"; msg.textContent="Enter a valid email to request access."; return;
+    }
+    msg.style.color="var(--accent-2)";
+    msg.textContent="◇ Request received — we'll place you on the map shortly.";
+    email.value="";
+  });
+})();
+</script>
+</body>
+</html>

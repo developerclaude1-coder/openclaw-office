@@ -1,0 +1,290 @@
+{
+ "items": [
+  {
+   "name": "Gagosian",
+   "city": "New York",
+   "country": "United States",
+   "lat": 40.7489,
+   "lon": -74.0055,
+   "type": "Gallery",
+   "note": "Blue-chip postwar and contemporary programme; 555 West 24th Street is the main Chelsea space in a global network of around twenty galleries.",
+   "confidence": "high",
+   "sourceUrl": "https://gagosian.com/locations/west-24th/"
+  },
+  {
+   "name": "White Cube Bermondsey",
+   "city": "London",
+   "country": "United Kingdom",
+   "lat": 51.4995,
+   "lon": -0.0823,
+   "type": "Gallery",
+   "note": "Opened 2011 at 144-152 Bermondsey Street and billed as Europe's largest commercial gallery space; contemporary programme rooted in the YBA generation plus international mid-career artists.",
+   "confidence": "high",
+   "sourceUrl": "https://www.whitecube.com/locations/white-cube-bermondsey"
+  },
+  {
+   "name": "Hauser & Wirth Zurich",
+   "city": "Zurich",
+   "country": "Switzerland",
+   "lat": 47.3893,
+   "lon": 8.5185,
+   "type": "Gallery",
+   "note": "Founded in Zurich in 1992 and based in the Löwenbräukunst complex at Limmatstrasse 270; contemporary art plus major 20th-century estates, with a strong record on rediscovered women artists.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.hauserwirth.com/locations/10045-hauser-wirth-zurich/"
+  },
+  {
+   "name": "Perrotin Paris",
+   "city": "Paris",
+   "country": "France",
+   "lat": 48.8605,
+   "lon": 2.3641,
+   "type": "Gallery",
+   "note": "Founded 1990 by Emmanuel Perrotin, in an 18th-century Marais townhouse at 76 rue de Turenne; contemporary programme with a notable East Asian roster and roughly ten international spaces.",
+   "confidence": "high",
+   "sourceUrl": "https://www.perrotin.com/exhibitions/upcoming/paris/1"
+  },
+  {
+   "name": "Galleria Continua",
+   "city": "San Gimignano",
+   "country": "Italy",
+   "lat": 43.4673,
+   "lon": 11.044,
+   "type": "Gallery",
+   "note": "Founded 1990 in a Tuscan hill town rather than a capital; deliberately internationalist programme that has since opened spaces in Beijing, Havana, Paris, São Paulo and Dubai.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.galleriacontinua.com/contacts"
+  },
+  {
+   "name": "Goodman Gallery",
+   "city": "Johannesburg",
+   "country": "South Africa",
+   "lat": -26.1493,
+   "lon": 28.0344,
+   "type": "Gallery",
+   "note": "Founded 1966 with a significant anti-apartheid exhibition history; a leading platform for African and diaspora artists, now also in Cape Town, London and New York.",
+   "confidence": "high",
+   "sourceUrl": "https://goodman-gallery.com/contact"
+  },
+  {
+   "name": "Gallery 1957",
+   "city": "Accra",
+   "country": "Ghana",
+   "lat": 5.5538,
+   "lon": -0.1966,
+   "type": "Gallery",
+   "note": "Opened on Ghana's independence day in 2016 inside the Kempinski Gold Coast City; focused on West African contemporary artists, with a second space in London.",
+   "confidence": "high",
+   "sourceUrl": "https://www.gallery1957.com/"
+  },
+  {
+   "name": "kurimanzutto",
+   "city": "Mexico City",
+   "country": "Mexico",
+   "lat": 19.4106,
+   "lon": -99.189,
+   "type": "Gallery",
+   "note": "Started in 1999 as a nomadic project and now housed in an Alberto Kalach-converted former lumberyard; central to Mexico City's contemporary scene with a broad Latin American roster.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.kurimanzutto.com/contact"
+  },
+  {
+   "name": "Galeria Nara Roesler",
+   "city": "São Paulo",
+   "country": "Brazil",
+   "lat": -23.5779,
+   "lon": -46.6794,
+   "type": "Gallery",
+   "note": "Founded 1989; Brazilian modern and contemporary art including Geometric Abstraction and Neo-Concrete estates, with further spaces in Rio de Janeiro and New York.",
+   "confidence": "medium",
+   "sourceUrl": "https://nararoesler.art/en/about/"
+  },
+  {
+   "name": "ShanghART Gallery (West Bund)",
+   "city": "Shanghai",
+   "country": "China",
+   "lat": 31.1755,
+   "lon": 121.4581,
+   "type": "Gallery",
+   "note": "Founded 1996 and among the earliest galleries for Chinese contemporary art; its West Bund space sits in Shanghai's riverside museum district.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.shanghartgallery.com/galleryarchive/space.htm?space=westbund"
+  },
+  {
+   "name": "Kukje Gallery",
+   "city": "Seoul",
+   "country": "South Korea",
+   "lat": 37.5799,
+   "lon": 126.9805,
+   "type": "Gallery",
+   "note": "Founded 1982 in Samcheong-dong; brought major international artists to Korea and represents Dansaekhwa painters alongside contemporary Korean practices, across three buildings.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.kukjegallery.com/about"
+  },
+  {
+   "name": "Chemould Prescott Road",
+   "city": "Mumbai",
+   "country": "India",
+   "lat": 18.9359,
+   "lon": 72.8323,
+   "type": "Gallery",
+   "note": "Descended from Gallery Chemould, founded 1963 and among India's oldest commercial galleries; contemporary Indian and South Asian art from a heritage building in Fort.",
+   "confidence": "high",
+   "sourceUrl": "https://www.gallerychemould.com/Contact/"
+  },
+  {
+   "name": "Roslyn Oxley9 Gallery",
+   "city": "Sydney",
+   "country": "Australia",
+   "lat": -33.8871,
+   "lon": 151.2261,
+   "type": "Gallery",
+   "note": "Founded 1982 in Paddington; a leading Australian contemporary gallery that has built the international careers of artists including Tracey Moffatt, Fiona Hall and Patricia Piccinini.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.roslynoxley9.com.au/"
+  },
+  {
+   "name": "Venice Biennale (Biennale Arte)",
+   "city": "Venice",
+   "country": "Italy",
+   "lat": 45.429,
+   "lon": 12.3579,
+   "type": "Biennial",
+   "note": "Biennial, even years; the art edition runs roughly mid-May to late November across the Giardini, the Arsenale and city-wide national pavilions. The 61st edition is 9 May-22 November 2026.",
+   "confidence": "high",
+   "sourceUrl": "https://www.labiennale.org/en/art/2026"
+  },
+  {
+   "name": "documenta",
+   "city": "Kassel",
+   "country": "Germany",
+   "lat": 51.3136,
+   "lon": 9.4975,
+   "type": "Biennial",
+   "note": "Quinquennial (every five years), running 100 days over the summer and centred on the Fridericianum. documenta 16 is 12 June-19 September 2027.",
+   "confidence": "high",
+   "sourceUrl": "https://documenta.de/en/news/documenta-16-findet-vom-12-juni-bis-zum-19-september-2027-statt"
+  },
+  {
+   "name": "Sharjah Biennial",
+   "city": "Sharjah",
+   "country": "United Arab Emirates",
+   "lat": 25.357,
+   "lon": 55.3846,
+   "type": "Biennial",
+   "note": "Biennial, odd years, run by Sharjah Art Foundation across multiple sites in the emirate; typically opens in late January or February and closes in June. SB17 is 21 January-13 June 2027.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.sharjahart.org/en/sharjah-biennial/sb-17"
+  },
+  {
+   "name": "Gwangju Biennale",
+   "city": "Gwangju",
+   "country": "South Korea",
+   "lat": 35.1841,
+   "lon": 126.8884,
+   "type": "Biennial",
+   "note": "Biennial, even years; Asia's oldest contemporary art biennial, usually running early September to mid-November from the Gwangju Biennale Exhibition Hall. The 16th edition is 5 September-15 November 2026.",
+   "confidence": "high",
+   "sourceUrl": "https://www.gwangjubiennale.org/en/exhibition/location/biennale.do"
+  },
+  {
+   "name": "Bienal de São Paulo",
+   "city": "São Paulo",
+   "country": "Brazil",
+   "lat": -23.5878,
+   "lon": -46.6558,
+   "type": "Biennial",
+   "note": "Biennial, odd years, in Niemeyer's Ciccillo Matarazzo Pavilion in Ibirapuera Park; opens in September and now runs into January. The 36th edition ran 6 September 2025-11 January 2026.",
+   "confidence": "high",
+   "sourceUrl": "https://36.bienal.org.br/en/"
+  },
+  {
+   "name": "Dak'Art (Biennale of Contemporary African Art)",
+   "city": "Dakar",
+   "country": "Senegal",
+   "lat": 14.6521,
+   "lon": -17.4332,
+   "type": "Biennial",
+   "note": "Biennial, even years, centred on the derelict Ancien Palais de Justice; recent editions have run in the November-December window. There is an artist open call each cycle, with applications usually opening in the spring before the edition.",
+   "confidence": "high",
+   "sourceUrl": "https://biennialfoundation.org/2026/04/16th-dakar-biennale-open-call-for-applications/"
+  },
+  {
+   "name": "Kochi-Muziris Biennale",
+   "city": "Kochi",
+   "country": "India",
+   "lat": 9.9658,
+   "lon": 76.2421,
+   "type": "Biennial",
+   "note": "Biennial, opening in December and running to late March or April across Fort Kochi, Mattancherry and Ernakulam, with Aspinwall House as the main hub. The sixth edition ran 12 December 2025-31 March 2026.",
+   "confidence": "high",
+   "sourceUrl": "https://www.kochimuzirisbiennale.org/"
+  },
+  {
+   "name": "Biennale of Sydney",
+   "city": "Sydney",
+   "country": "Australia",
+   "lat": -33.8667,
+   "lon": 151.1767,
+   "type": "Biennial",
+   "note": "Biennial, even years, free to the public and typically running mid-March to mid-June. The 25th edition (14 March-14 June 2026) is anchored at White Bay Power Station with the Art Gallery of NSW and Western Sydney venues.",
+   "confidence": "high",
+   "sourceUrl": "https://www.biennaleofsydney.art/"
+  },
+  {
+   "name": "Istanbul Biennial",
+   "city": "Istanbul",
+   "country": "Turkey",
+   "lat": 41.0256,
+   "lon": 28.9744,
+   "type": "Biennial",
+   "note": "Biennial organised by İKSV, normally running in the autumn (roughly September to November) in repurposed buildings along the Beyoğlu-Karaköy axis. The 18th edition is exceptionally staged in three legs between 2025 and 2027.",
+   "confidence": "medium",
+   "sourceUrl": "https://bienal.iksv.org/en/18th-istanbul-biennial/venues"
+  },
+  {
+   "name": "Whitney Biennial",
+   "city": "New York",
+   "country": "United States",
+   "lat": 40.7396,
+   "lon": -74.0089,
+   "type": "Biennial",
+   "note": "Biennial, even years; the longest-running survey of contemporary art in the United States, typically opening in March and closing in late summer. The 2026 edition runs 8 March-23 August.",
+   "confidence": "high",
+   "sourceUrl": "https://whitney.org/exhibitions/2026-biennial"
+  },
+  {
+   "name": "Art Basel",
+   "city": "Basel",
+   "country": "Switzerland",
+   "lat": 47.5638,
+   "lon": 7.6002,
+   "type": "Biennial",
+   "note": "Annual fair, held in June at Messe Basel with invited-collector preview days immediately beforehand; the benchmark event of the international art market, with around 290 galleries in 2026.",
+   "confidence": "high",
+   "sourceUrl": "https://www.artbasel.com/basel?lang=en"
+  },
+  {
+   "name": "Frieze London",
+   "city": "London",
+   "country": "United Kingdom",
+   "lat": 51.5264,
+   "lon": -0.1503,
+   "type": "Biennial",
+   "note": "Annual fair, held each October in a temporary pavilion in The Regent's Park alongside Frieze Masters, with a free outdoor Frieze Sculpture display running for several weeks around it.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.frieze.com/fairs/frieze-london"
+  },
+  {
+   "name": "Zona Maco",
+   "city": "Mexico City",
+   "country": "Mexico",
+   "lat": 19.4405,
+   "lon": -99.2239,
+   "type": "Biennial",
+   "note": "Annual fair, held in early February at Centro Citibanamex and the anchor of Mexico City Art Week; around 200 galleries, weighted towards Mexico and Latin America.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.theartnewspaper.com/2026/02/02/zona-maco-art-fair-mexico-city-2026-preview"
+  }
+ ]
+}

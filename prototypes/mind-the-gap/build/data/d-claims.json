@@ -1,0 +1,98 @@
+{
+ "artistNeeds": [
+  {
+   "point": "Artists receive no share of price appreciation when their work is resold in the United States",
+   "detail": "There is no federal resale royalty in the US, so an artist earns nothing when a work they sold for a small sum later resells for far more. California's 1976 Resale Royalty Act was held preempted by federal copyright law for post-1978 sales in Close v. Sotheby's (9th Cir., 2018).",
+   "confidence": "medium",
+   "sourceUrl": "https://www.copyright.gov/docs/resaleroyalty/"
+  },
+  {
+   "point": "Where a resale right does exist, it is narrower than commonly assumed",
+   "detail": "Under EU Directive 2001/84/EC the royalty is owed only on resales involving an art market professional (auction house, dealer, gallery), so purely private collector-to-collector resales generally fall outside it. It also applies only to resales, never to the artist's first sale.",
+   "confidence": "medium",
+   "sourceUrl": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32001L0084"
+  },
+  {
+   "point": "Primary-market sales are heavily intermediated, with roughly half the sale price commonly going to the gallery",
+   "detail": "An even split between artist and gallery is the widely reported convention in the primary market, but it is an industry custom negotiated case by case, not a statutory or uniformly documented rate. Treat any single percentage as approximate.",
+   "confidence": "low",
+   "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+  },
+  {
+   "point": "Most practising artists earn only a minority of their income from selling work",
+   "detail": "National artist-income surveys across several countries consistently find median earnings from art practice well below the national median wage, with most artists subsidising their practice through teaching or unrelated employment. The specific figures vary by country and survey year and should be cited from one named study rather than generalised.",
+   "confidence": "low",
+   "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+  },
+  {
+   "point": "Artists usually cannot see where their work goes or what it later sells for",
+   "detail": "Once a work leaves the studio there is no standard mechanism telling the artist who owns it or what it resold for, since dealer and private sale prices are typically confidential. This makes even an existing resale right hard for an artist to enforce without a collecting society acting on their behalf.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.dacs.org.uk/knowledge-base/artists-resale-right"
+  }
+ ],
+ "collectorNeeds": [
+  {
+   "point": "Price discovery is limited because most transactions are never disclosed",
+   "detail": "Auction results are published, but dealer and private-treaty sales — a large share of total market value — are generally confidential. Buyers therefore have far less comparable pricing data than in most asset markets.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+  },
+  {
+   "point": "There is no central registry of ownership or title for artworks",
+   "detail": "Unlike property or vehicles, artworks have no authoritative title register, so establishing clean provenance is a manual, document-by-document exercise. Databases such as the Art Loss Register cover reported thefts and losses, not ownership generally.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+  },
+  {
+   "point": "Authentication risk sits with the buyer and expert opinion has become harder to obtain",
+   "detail": "Several prominent artist foundations wound down their authentication boards after facing litigation, reducing the availability of authoritative attribution opinions. Buyers are left relying on connoisseurship, catalogues raisonnés and scientific analysis of varying quality.",
+   "confidence": "low",
+   "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+  },
+  {
+   "point": "The price a buyer pays is materially higher than the headline hammer price",
+   "detail": "Auction houses add a buyer's premium on top of the hammer price, so reported sale figures and actual buyer cost differ significantly. Premium rates are set by each house and published in its conditions of sale.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+  },
+  {
+   "point": "Art is illiquid and expensive to exit",
+   "detail": "Selling typically means waiting for an appropriate auction cycle or private buyer, then paying seller's commission and associated costs. Transaction friction is a large share of value compared with mainstream financial assets.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+  }
+ ],
+ "gapFacts": [
+  {
+   "fact": "The resale right splits sharply along jurisdictional lines",
+   "detail": "An artist's resale right (droit de suite) is harmonised across the EU and exists in the UK and many other countries, but the United States — one of the largest art markets — has no federal equivalent. The same resale can therefore generate a royalty in London and none in New York.",
+   "confidence": "medium",
+   "sourceUrl": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32001L0084"
+  },
+  {
+   "fact": "Where the resale royalty exists it is small and capped",
+   "detail": "EU Directive 2001/84/EC sets a sliding scale that begins at 4% on the lowest price band and falls for higher bands, with a total cap per transaction in the low tens of thousands of euros. The exact band thresholds, percentages and cap must be quoted from the directive text before publication.",
+   "confidence": "medium",
+   "sourceUrl": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:32001L0084"
+  },
+  {
+   "fact": "The resale right lasts only as long as copyright and passes to heirs",
+   "detail": "The right runs for the copyright term — life of the artist plus 70 years in the EU and UK — and is inalienable, meaning the artist cannot sell or waive it. It benefits the artist's estate after death rather than expiring with them.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.legislation.gov.uk/uksi/2006/346/contents/made"
+  },
+  {
+   "fact": "Market value is concentrated at the very top while most artists transact far below it",
+   "detail": "The Art Basel and UBS Art Market Report consistently finds that a small number of high-value transactions account for a disproportionate share of total market value, and that the top end and the lower price tiers move independently of each other. Cite the specific year's report for any percentage.",
+   "confidence": "low",
+   "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+  },
+  {
+   "fact": "Global art market activity is concentrated in a handful of countries",
+   "detail": "The United States, the United Kingdom and Greater China together account for the large majority of global art sales value, which means most artists work outside the jurisdictions where the market clears. Exact shares shift year to year and should be taken from the current annual report.",
+   "confidence": "low",
+   "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+  }
+ ]
+}
