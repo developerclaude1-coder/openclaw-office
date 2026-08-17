@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sketchbook — a portfolio</title>
+  <meta name="description" content="An open sketchbook of projects, finished and in progress." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand" id="brand" href="index.html">Your Name<span class="dot">.</span></a>
+    <div class="nav-right">
+      <a class="navlink" href="#work">Work</a>
+      <a class="navlink" href="#about">About</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle theme">☾</button>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section class="cover">
+      <span class="kicker">Welcome to my open sketchbook</span>
+      <h1 id="cover-name">Your Name</h1>
+      <p class="tagline" id="cover-tagline"></p>
+      <div class="links" id="cover-links"></div>
+    </section>
+
+    <section id="work">
+      <div id="gallery"></div>
+    </section>
+
+    <section id="about">
+      <div class="section-head">
+        <h2>About</h2><span class="rule"></span>
+      </div>
+      <div class="about" id="about-text"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="hand">Still sketching.</div>
+    <div>© <span id="footer-name">Your Name</span> · built as an open sketchbook</div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
