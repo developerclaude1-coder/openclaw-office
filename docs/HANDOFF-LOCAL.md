@@ -49,13 +49,22 @@ column on the wire**, correct what the wire contradicts, and prepare the docket 
 1. **The owner's suspected sharpest gap is confirmed**: nothing promotes repeated episodic patterns into claims
    or procedures. Load-bearing evidence is the zero-fire fact — 71,225 episodic envelopes against 4 claims and
    12 procedures, all hand-seeded; the episodic→semantic path has never executed. The gap is two-sided: no loop
-   upward, and no salience- or use-coupled demotion downward.
+   upward, and no salience- or use-coupled demotion downward. *Wire:* 71,585 envelopes across 10 sources; all 4
+   claims and 12 procedures hand-authored, and every trial on record (14) written at seed time — none has fired in
+   use. Confirmed and sharpened.
 2. **One finding outranks it on operational risk**: the CUSTODIAN A-002 handoff interlock is specced, not live,
    and two quarantine batches were already disposed of while the first Time Machine copy stood at 26%. Biology's
    argument (Nagata 2018): necrosis is apoptosis with an unacknowledged handoff — the completed, verified transfer
-   is the *only* property separating orderly disposal from catastrophe. ADOPTABLE #1.
+   is the *only* property separating orderly disposal from catastrophe. ADOPTABLE #1. *Wire:* the labels were
+   wrong, the substance right — A-002 is the **live** owner-click disposal door (shipped 2026-07-30; its gate is a
+   same-volume survivor re-hash or an owner authorization); the *custodian handoff* inside it is what is unbuilt.
+   **Three** batches have gone through it, each with no backup in existence (Custodian: `NO BACKUP`); the "26%"
+   figure is unverifiable from the mini and that volume was erased 2026-09-01. The exposure is larger than the
+   brief said, not smaller.
 3. **Nothing reaches; everything listens.** watch-contracts reconciles self-announcements; there is no probe, no
-   TTL, no retraction vocabulary, no gradient — and no existing telemetry can ever surface that deficit.
+   TTL, no retraction vocabulary, no gradient — and no existing telemetry can ever surface that deficit. *Wire:*
+   watch-contracts is a BINNA keeper verb (not nerves), contract-published 2026-08-31, that has never run — the
+   substrate is real and idle, which strengthens the verdict.
 4. **Use-dependent pruning is adoptable in exactly one polarity**: use may renew or extend an exemption (the CD47
    brake — Lehrman 2018); absence of use must never generate a disposal proposal. Procedures and claims are
    tested exclusions, since the comparator is undefined where nothing contends for the slot.
