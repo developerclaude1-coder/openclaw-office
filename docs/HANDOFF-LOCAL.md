@@ -28,6 +28,10 @@ column on the wire**, correct what the wire contradicts, and prepare the docket 
   4. [`DOCTRINE-CONFLICTS.md`](./DOCTRINE-CONFLICTS.md) — the C1–C11 register of deliberate biology-vs-ETTZ
      disagreements, each with the rule an adopter must follow, and the five ways adoption silently overrides
      owner law.
+  5. [`neuro-research/`](./neuro-research/README.md) — the full working material: the twelve per-area
+     literature files, the critic's corrections, the fourteen adversarial mapping analyses, and the judge's
+     ruling. The deliverables above are the distillation; this is the argument behind every verdict. Where the
+     judge (`neuro-research/mapping/00-JUDGMENT.md`) differs from an analyst file, the judge wins.
 
 ## What the analysis concluded — test these, don't re-derive them
 
