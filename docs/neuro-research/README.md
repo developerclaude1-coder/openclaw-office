@@ -36,3 +36,13 @@ the smallest doctrine-compliant adoption with cost, risks and owning session.
   `synaptic-tagging.md`, `sleep-replay.md`, `neurogenesis-joining.md`, `active-forgetting-abstraction.md`,
   `signal-substrate.md`, `astrocytes-support.md`, `engrams-distribution.md`, `apoptosis-vs-necrosis.md`,
   `doctrine-conflicts.md`, `reverse-gap-hunt.md`
+
+## Wire verification (2026-09-01) — overrides the ETTZ column in every file here
+
+A local session on the Mac mini re-established every ETTZ-side statement these files rest on; the commands and
+observed output are in [`../WIRE-VERIFICATION.md`](../WIRE-VERIFICATION.md). Where an analyst file, the critique or
+the judgment states an ETTZ fact that the wire contradicted, **the wire wins** — the deliverables carry the corrected
+text; these files are left as written. The corrections: A-002 is the *live* owner-click disposal door (the custodian
+handoff inside it is what is unbuilt); `watch-contracts` is a BINNA keeper verb, built 2026-08-31, never run; the bank
+has no usage balances at all; three batches have been disposed, not two; GRAPHIFY holds 306,768 nodes; the "26%" Time
+Machine figure is unverifiable from the mini. No verdict changed.

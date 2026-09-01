@@ -31,7 +31,8 @@ understanding changed; no delete path exists in the class and a guard test fails
 2026-08-03 and what changed its mind" — a question an erased trace can never answer, and the question the owner is
 actually building for.
 **Buys:** biology buys a bounded substrate and the ability to be wrong cheaply. ETTZ buys `--asof`, non-repudiation,
-and auditable reasoning drift; it pays in monotonic growth and the 60 s+ cold fold.
+and auditable reasoning drift; it pays in monotonic growth and the cold fold (a full-log pass measured 15–31 s over
+71,585 entries on 2026-09-01 — NEURO-MAPPING § Verified on the wire).
 **Adopter rule:** you may import the decay *signal* and the decay *schedule* — a rate, a threshold, an always-on
 pressure — but never the removal verb. Every imported decay lands as a state transition on a retained record (window
 closed, status demoted, rank lowered) plus a why-ledger entry naming the pressure. If a proposal cannot state what
@@ -60,7 +61,8 @@ nothing computational is lost in the swap. The .why.md must name the tag and its
 checking exists is a local, expiring, *act-site* brake: CD47/SIRPα aborts the phagocytic cup at the moment of
 commitment (Lehrman 2018, PMID:30308165) — and competence is time-boxed rather than permissioned, with the
 unwindowed case being documented pathology (Hong 2016, PMID:27033548).
-**ETTZ:** owner authorization gates disposal, by law. Two batches in six weeks.
+**ETTZ:** owner authorization gates disposal, by law. Three batches through the A-002 door in its first six weeks
+(two owner clicks on 2026-07-30, one on 2026-08-09); entropy's clocks have killed nothing.
 **Why:** accountability. Disposal is the one operation with no undo, so it sits with the only party who can be
 accountable for it. Hidden inside the disagreement is a structural *agreement*: both systems put the last check at
 the commitment point, not the plan — A-002 and CD47/SIRPα occupy the same socket.
@@ -69,8 +71,8 @@ an unreviewed backlog, not data loss.
 **Adopter rule:** autonomy is granted per-verb by reversibility, never per-agent. An automated agent may PROPOSE,
 TAG, and execute reversible acts (quarantine, demotion, de-caching, rank change); it may never execute an
 irreversible one — and the owner's authorization must attach to the **selection set**, not merely the run.
-Authorizing a batch is not authorizing whatever a surveyor put in it. Make A-002 mandatory (the act-site veto), and
-time-box any granted disposal competence — expiring and renewable, never ambient.
+Authorizing a batch is not authorizing whatever a surveyor put in it. Make the custodian handoff mandatory inside the live A-002 door (the act-site
+veto), and time-box any granted disposal competence — expiring and renewable, never ambient.
 
 ## C4. Forgetting-to-generalise vs total recall — the sharpest edge in the register
 
@@ -169,10 +171,10 @@ rule is the saw.
 **Biology:** the substrate never writes everything — allocation is winner-take-most on relative excitability
 (Yiu 2014, PMID:25102562), sparsity is enforced by lateral inhibition (~2–5% of dentate granule cells), tags latch
 only inside open windows (Reijmers 2007, PMID:17761885).
-**ETTZ:** every event, action, decision and observation is one envelope with a mandatory why — 71,225 and rising.
+**ETTZ:** every event, action, decision and observation is one envelope with a mandatory why — 71,585 on 2026-09-01 and rising.
 **Why:** an audit trail with a sampling threshold is not an audit trail.
 **Buys:** biology buys capacity protection and a built-in salience judgement. ETTZ buys completeness and pays the
-whole bill at fold time — the 60 s+ cold fold is the cost of refusing sparsity at capture.
+whole bill at fold time — the cold fold is the cost of refusing sparsity at capture.
 **Adopter rule:** no biological threshold, sparsity fraction or window length transfers numerically — all were
 tuned against a scarce substrate ETTZ does not have. Every imported threshold must be re-derived from ETTZ's own
 envelope statistics and recorded as a metaplastic parameter in the why-ledger (an auditable threshold-change
@@ -219,7 +221,8 @@ Recorded so the register reads as a test, not a defence:
   delete paths with no guard, and their permanent errors, are the *argument for* the owner's law, quoted back to him
   as such.
 - **Mandatory acknowledged handoff.** Apoptosis without completed engulfment collapses into secondary necrosis and
-  inflammation (Nagata 2018) — the literature-grade case that A-002 must be mandatory, not planned (ADOPTABLE #1).
+  inflammation (Nagata 2018) — the literature-grade case that the custodian handoff must be a mandatory
+  precondition of the live A-002 door, not a plan (ADOPTABLE #1).
 - **Compartment-scoped demolition.** Caspase-3 runs sub-lethally in dendrites for LTD, bounded by explicit inhibitor
   thresholds, and the cell survives (Li 2010, PMID:20510932) — the precedent for owner-authorization gates as
   blast-radius bounds.
@@ -232,7 +235,8 @@ Recorded so the register reads as a test, not a defence:
 
 ## An internal inconsistency the owner should rule on
 
-Files can be disposed of under owner authorization (entropy has run two batches). Claims cannot be disposed of at
+Files can be disposed of under owner authorization (the owner has put three batches through the A-002 door;
+entropy itself has never disposed of anything). Claims cannot be disposed of at
 all, ever, by construction. So the estate has **two incompatible disposal doctrines**, and the boundary between them
 is decided by *ingestion routing*, not by policy. If a secret, a credential, or third-party personal data reaches a
 claim's text or a why-ledger entry, the doctrine currently has **no remedy**: quarantine is not containment

@@ -1,5 +1,16 @@
 # HANDOFF-LOCAL — brief for the local session on the Mac mini
 
+> **STATUS 2026-09-01 — picked up and completed by the local session on the Mac mini (read-only).**
+> Task 1 (verify the ETTZ column): done — every row below has its command and observed output in
+> [WIRE-VERIFICATION.md](./WIRE-VERIFICATION.md), summarized in NEURO-MAPPING § *Verified on the wire*.
+> Task 2 (replace the provenance caveat): done — NEURO-MAPPING § *Provenance* rewritten; corrections carried inline
+> as *Wire:* notes in all three deliverables. Task 3 (surface the six rulings): [RULINGS-FOR-OWNER.md](./RULINGS-FOR-OWNER.md).
+> Corrections that changed arguments (no verdict changed): A-002 is the **live** owner-click disposal door and the
+> *custodian handoff* inside it is what is unbuilt; `watch-contracts` is a **BINNA** keeper verb that has never run;
+> the bank has **no usage balances at all**; **three** batches have been disposed, not two; GRAPHIFY holds 306,768
+> nodes; the "26%" Time Machine figure is unverifiable from the mini and that volume was erased 2026-09-01.
+> The agent shell is TCC-walled from `/Volumes/NAS`, so the spine was read through its faces, not the filesystem.
+
 **Status: research and comparison only. No code, no changes to any running system. Nothing builds until the
 owner rules.**
 

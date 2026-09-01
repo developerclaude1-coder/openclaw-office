@@ -4,9 +4,9 @@
 
 Deliverable 2 of 3 — the mapping and evidence behind every proposal is in [NEURO-MAPPING.md](./NEURO-MAPPING.md);
 the doctrine constraints every proposal was checked against are in
-[DOCTRINE-CONFLICTS.md](./DOCTRINE-CONFLICTS.md). ETTZ mechanisms are cited from the owner's 2026-09-01 brief
-(stated live-verified by the owner; not independently re-verifiable from this session — re-verify on the wire
-before building anything).
+[DOCTRINE-CONFLICTS.md](./DOCTRINE-CONFLICTS.md). ETTZ mechanisms were cited from the owner's 2026-09-01 brief and
+**verified on the wire on 2026-09-01** by the local session ([WIRE-VERIFICATION.md](./WIRE-VERIFICATION.md)); the
+corrections that touch this docket are carried inline below, marked *Wire:*.
 
 Fourteen proposals emerged from the adversarial mapping analysis; a cross-mapping judge ranked them into one order
 by value-to-the-owner (against his named asks: new-pathway creation, use-dependent store-or-purge, decay, signaling
@@ -43,21 +43,27 @@ handoff (Nagata 2018, PMID:29400998). The completed, *verified* transfer of cont
 property separating silent orderly disposal from systemic damage; degradation happens inside the recipient, never in
 the open (Kerr 1972, PMID:4561027).
 
-**Why now.** The estate's single irreversible operation has already run twice (2 quarantine batches disposed) while
-the first backup copy stood at 26%. By the estate's own standard — the claims class is protected by a guard *test*,
-not an intention — A-002 is not a mechanism until the disposal verb refuses without it. Authorization is not custody:
-the owner-gate verifies permission to die; this verifies that a phagocyte actually holds the body.
+**Why now.** *Wire:* the estate's single irreversible operation has run three times (two batches on 2026-07-30,
+135.7 GB; one 0.99 GB test batch on 2026-08-09) and **no backup exists** — Custodian reports `NO BACKUP` on
+2026-09-01, and the drive that would have held a Time Machine copy was erased that morning (the brief's "26%" is
+unverifiable from the mini). The A-002 door is live and well-guarded on what it checks: a deep-SAFE cross-check
+re-hashes every survivor from disk before the single `rmtree`. What it checks is a copy *on the same volume*. By the
+estate's own standard — the claims class is protected by a guard *test*, not an intention — the handoff is not a
+mechanism until the disposal verb refuses without a custodian confirming envelope. Authorization is not custody: the
+owner-gate verifies permission to die and the survivor check verifies a twin in the same body; this verifies that a
+phagocyte outside it actually holds the contents.
 
 **The change.** (a) CUSTODIAN grows one query verb, `snapshot-holds?`, taking a batch's content-hash list and
 emitting a confirming envelope (snapshot id in refs) only after verifying each hash in a verified restic snapshot.
 (b) The kallimachos disposal verb refuses to run without that envelope for the exact batch — the estate's own
 confirming-envelope idiom applied to its one irreversible act — and pins the confirming snapshot do-not-prune in the
-same act. (c) A guard test, modeled on the claims no-delete guard, fails CI if any disposal path exists that skips
-the custodian envelope. Optional and separable: a reflexive necrosis rule — content that vanishes *without* a
+same act. (c) A ninth guarantee in kallimachos's existing `tests/test_disposal.py` (which already pins the single `rmtree`
+and the deep-SAFE refusal) fails if any disposal path skips the custodian envelope — and both repos get a CI runner,
+since today neither memory-spine nor kallimachos has one and every guard is a manual per-file run. Optional and separable: a reflexive necrosis rule — content that vanishes *without* a
 disposal envelope fires an alarm and auto-quarantines its dangling refs with a .why.md.
 
 **Cost.** Small: one verb, one precondition, one guard test, one restic tag — every pattern already exists.
-Per-batch hash verification is minutes at the current cadence (~2 batches/6 weeks).
+Per-batch hash verification is minutes at the current cadence (3 batches in the door's first six weeks).
 
 **What could go wrong.** Starvation by design: with backups incomplete or the CUSTODIAN drive unmounted, disposal
 blocks indefinitely and quarantine grows — the correct response is a stale-handoff alarm, and the temptation to add
@@ -66,7 +72,8 @@ a bypass flag must be refused (a bypass reintroduces exactly the unverified path
 the pin, restic retention can prune the snapshot a past disposal cited — an acknowledgment made retroactively false,
 a failure mode biology doesn't even have.
 
-**Owns it.** CUSTODIAN A-002 (verb + pinning); kallimachos/entropy A-003 (precondition + guard test).
+**Owns it.** CUSTODIAN (the `snapshot-holds?` verb + pinning); kallimachos `disposal.py` / A-002 (the precondition + the
+guard test).
 
 ## 2. The Doctrine Gate — a `doctrine` block on verb-introducing proposals, and a per-class verb ledger
 
@@ -112,7 +119,7 @@ PMID:19749750; its payload is non-substitutable — Fernández-Ruiz 2019, PMID:3
 generalization — Durrant 2011, PMID:21335017). Selection is cue-addressable: the slow store queries the fast one
 (Rothschild 2017, PMID:27941790; TMR — Rasch 2007, PMID:17347444).
 
-**Why first among capability builds.** It is the first mover on the confirmed sharpest gap — the 71,225-vs-4+12
+**Why first among capability builds.** It is the first mover on the confirmed sharpest gap — the 71,585-vs-4+12
 ratio finally moves — and the substrate is unusually ready: flow refs are already the ordered replay payload, claims'
 trials are already the slow-store weight format, the ignorance graph is already both cue source and review inbox.
 
@@ -123,9 +130,10 @@ uncued random fraction. Mine for predicates that hold across ≥N independent re
 interleaving discipline; BINNA's parent-union is the natural interleaving set) and emit each survivor as an
 append-only QUESTION envelope proposing a **candidate claim** — a checkable predicate at trials=0, its supporting
 envelope hashes as refs — onto the ignorance graph for owner review. Promotion to a live claim remains an owner
-decision envelope (a splice). Nearly-free companion wire: **M1 write-back** — eval-harness re-runs post
-+confirm/−fail/~anomalous trials for the claims and procedures they exercise, giving the estate's one replay-shaped
-mechanism real plasticity.
+decision envelope (a splice). Companion wire, less free than it looked: **M1 write-back** — *wire:* M1 today is a maths bench on generated
+fixtures that exercises no claim or procedure, so the write-back needs a bench arm that runs procedures and predicates
+first; once it does, +confirm/−fail/~anomalous trials land on the items exercised, giving the estate's one
+replay-shaped mechanism real plasticity (today every trial on record was written at seed time).
 
 **Cost.** A batch sampler, a motif miner with two thresholds, a question emitter, the M1 wire — roughly Collector
 complexity. Runtime O(selected batch) nightly with a hard emission cap; asymptotically cheaper than the cold fold.
@@ -147,8 +155,8 @@ Being used renews an expiring exemption; being silent lets an exemption lapse. P
 mechanism — and it is the only polarity DOCTRINE-CONFLICTS C7 declares lawful.
 
 **The change.** One predicate in entropy's dwell evaluator plus one envelope kind. Before nominating a file, entropy
-consults a nightly-materialized, content-hash-keyed touch index (a re-projection of the bank's existing balance
-derivation). If any source *other than* kallimachos itself, CUSTODIAN/restic, or GRAPHIFY rendering referenced the
+consults a nightly-materialized, content-hash-keyed touch index (*wire:* the bank has no balance derivation yet, so
+this index would be the first fold over `used:` / `choice:` refs — build it as the bank's tick, not beside it). If any source *other than* kallimachos itself, CUSTODIAN/restic, or GRAPHIFY rendering referenced the
 item within the dwell window, entropy emits an EXEMPTION envelope (why = the specific touches) and extends the clock
 by one bounded increment. **Monotone-conservative by construction**: it never shortens a clock and never nominates
 anything today's rule wouldn't — a guard test asserts it. Cumulative extension is capped (no immortality by noise);
@@ -280,7 +288,8 @@ PMID:9852584 — weakening as graded withdrawal, never destruction); **renormali
 survive and total gain is bounded (Turrigiano 1998, PMID:9495341 — non-severable: pure Hebbian rules are unstable by
 construction).
 
-**The change.** One derived, recomputable `efficacy` score per bank item, computed at fold time: credit when a
+**The change.** (*Wire:* the bank holds no usage balances today — this proposal defines the first ones, so nothing
+has to be migrated or unwound.) One derived, recomputable `efficacy` score per bank item, computed at fold time: credit when a
 usage/CHOICE envelope shares a flow ref with a confirming envelope in-window; debit on bypassed-CHOICE and same-flow
 errors; nightly multiplicative renormalization to a fixed sum. Actuation in v1 is the cheapest form only: retrieval/
 suggestion **ranking** — no cache admission, no precompute. Efficacy is a state.json-style render: a full refold
@@ -323,13 +332,14 @@ mutates state is an unauthorized action wearing an exploratory name. Probes are 
 (expected failure must not train the owner to ignore alarms).
 
 **Why mid-table.** It is the only proposal that makes the estate *reach* rather than listen — the owner's
-first-named ask — and it is doctrine-clean by design. It ranks tenth because its payoff at 12 sources is speculative
+first-named ask — and it is doctrine-clean by design. It ranks tenth because its payoff at 10 sources is speculative
 until frontier-cued promotion (#3) proves the want-signal plumbing it would steer by; today the owner is the
 estate's growth cone, and the deficit — though permanently invisible to all existing telemetry — is not yet fatal.
-One deliberate departure from biology: at 12 sources the candidate space is small, so emission should be
+One deliberate departure from biology: at 10 sources the candidate space is small, so emission should be
 want-ranked, not uniform-random — stochasticity earns its keep only at biological parallelism.
 
-**Owns it.** BINNA keepers/watch-contracts (emission, quorum, dedup); memory-nightly (expiry sweep); explicitly NOT
+**Owns it.** BINNA keepers/watch-contracts (emission, quorum, dedup — *wire:* the verb exists and has never been
+ticked; wiring its cadence into the fabric is a precondition, not part of this proposal); memory-nightly (expiry sweep); explicitly NOT
 kallimachos (probe expiry is an append, not a disposal — no quarantine, no custodian interlock).
 
 ## 12. Probation window for new joiners — use-gated graduation, quarantine-not-death
