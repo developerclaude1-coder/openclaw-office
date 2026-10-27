@@ -1,0 +1,80 @@
+{
+  "nav": "Dictionary",
+  "title": "Visual Dictionary",
+  "tagline": "Photograph any man-made object and explore how it's built — a Wikipedia for things made by hand.",
+  "backToScan": "Scan another object",
+  "upload": {
+    "dropTitle": "Drop a photo, or click to upload",
+    "dropHint": "PNG or JPG of any man-made object",
+    "button": "Upload photo",
+    "analyzing": "Recognising object…",
+    "recognizedAs": "Recognised as",
+    "confidence": "match",
+    "searchLabel": "Or look it up by name",
+    "searchPlaceholder": "e.g. bicycle, watch, hammer…",
+    "searchButton": "Look up",
+    "noMatch": "No entry yet for that — try one of the samples below.",
+    "samplesTitle": "Try a sample",
+    "mockNotice": "Demo mode: recognition is simulated from a small offline library. A real vision model can be wired in later."
+  },
+  "entry": {
+    "summaryTitle": "Overview",
+    "partsTitle": "Parts diagram",
+    "partsHint": "Tap a numbered marker or a part below to learn what it does.",
+    "explodedHint": "Exploded view — parts are labelled around the object. Tap a label to learn what it does.",
+    "viewModeLabel": "Diagram view",
+    "modeLabeled": "Labelled",
+    "modeExploded": "Exploded",
+    "renderStyleLabel": "Render style",
+    "styleTechnical": "Technical",
+    "styleBlueprint": "Blueprint",
+    "styleSketch": "Sketch",
+    "figLabel": "Fig. 1 — parts assembly",
+    "partsListTitle": "Parts list",
+    "selectPrompt": "Select a part to see its function.",
+    "functionLabel": "Function",
+    "materialLabel": "Typical material",
+    "citationsTitle": "References",
+    "citationsHint": "Where this information comes from.",
+    "citationsSource": "Source",
+    "openReference": "Open reference",
+    "categoryLabel": "Category"
+  },
+  "library": {
+    "save": "Save to My Library",
+    "saved": "Saved",
+    "remove": "Remove from My Library",
+    "myTitle": "My Library",
+    "mySubtitle": "Objects you've saved — kept on this device so you have them anywhere.",
+    "sharedTitle": "Shared Library",
+    "sharedSubtitle": "The growing collective library — reconstructed once, reused by everyone."
+  },
+  "repair": {
+    "title": "Repair & fixes",
+    "hint": "Manual, tutorials, and the faults this object most often develops.",
+    "manual": "Official manual",
+    "commonFaults": "Common faults",
+    "cause": "Likely cause",
+    "fix": "Fix",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Moderate",
+      "hard": "Pro job"
+    }
+  },
+  "warranty": {
+    "title": "Warranty",
+    "hint": "Track this unit's warranty on your device — handy when something breaks.",
+    "purchaseDate": "Purchase date",
+    "warrantyMonths": "Warranty (months)",
+    "retailer": "Retailer",
+    "serial": "Model / serial",
+    "notes": "Notes",
+    "saveDetails": "Save warranty details",
+    "savedDetails": "Saved ✓",
+    "statusNone": "Add a purchase date and warranty length to track coverage.",
+    "statusIncomplete": "Add a purchase date and warranty length to compute coverage.",
+    "statusActive": "Under warranty · expires {{date}} · {{days}} days left",
+    "statusExpired": "Warranty expired on {{date}}"
+  }
+}
