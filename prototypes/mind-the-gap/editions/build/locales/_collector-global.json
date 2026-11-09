@@ -1,0 +1,126 @@
+{
+  "$comment": "The collector layer is global. Artists and opportunities are geographically bound - eligibility is routinely gated by nationality or residency - but a collector's problems do not change at a border. These entries are shared by every edition. Only genuinely jurisdiction-specific facts live in the per-locale files, under `jurisdictionFacts`.",
+
+  "collectorNeeds": [
+    {
+      "id": "price-discovery",
+      "en": {
+        "point": "Price discovery is limited because most transactions are never disclosed",
+        "detail": "Auction results are published, but dealer and private-treaty sales — a large share of total market value — are generally confidential. Buyers have far less comparable pricing data than in most asset markets."
+      },
+      "he": {
+        "point": "שקיפות המחירים מוגבלת — רוב העסקאות אינן מפורסמות",
+        "detail": "תוצאות מכירות פומביות מתפרסמות, אך עסקאות דרך גלריות ומכירות פרטיות — חלק ניכר משווי השוק — חסויות ברובן. לקונים יש הרבה פחות נתוני השוואה מאשר כמעט בכל שוק נכסים אחר."
+      },
+      "confidence": "medium",
+      "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+    },
+    {
+      "id": "no-title-registry",
+      "en": {
+        "point": "There is no central registry of ownership or title for artworks",
+        "detail": "Unlike property or vehicles, artworks have no authoritative title register, so establishing clean provenance is a manual, document-by-document exercise. Databases such as the Art Loss Register cover reported thefts and losses, not ownership generally."
+      },
+      "he": {
+        "point": "אין מרשם בעלות מרכזי ליצירות אמנות",
+        "detail": "בניגוד לנדל״ן או לרכב, ליצירות אמנות אין מרשם בעלות רשמי. בדיקת מקור היא עבודה ידנית, מסמך אחר מסמך. מאגרים כמו Art Loss Register מכסים גניבות ואובדן מדווחים, לא בעלות באופן כללי."
+      },
+      "confidence": "medium",
+      "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+    },
+    {
+      "id": "authentication-risk",
+      "en": {
+        "point": "Authentication risk sits with the buyer, and expert opinion has become harder to obtain",
+        "detail": "Several prominent artist foundations wound down their authentication boards after facing litigation, reducing the availability of authoritative attribution opinions."
+      },
+      "he": {
+        "point": "סיכון האותנטיות מוטל על הקונה, וחוות דעת מומחה נעשו קשות יותר להשגה",
+        "detail": "קרנות אמנים בולטות סגרו את ועדות האימות שלהן בעקבות תביעות משפטיות, וכך פחתה הזמינות של חוות דעת סמכותיות לייחוס יצירה."
+      },
+      "confidence": "low",
+      "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+    },
+    {
+      "id": "buyers-premium",
+      "en": {
+        "point": "The price a buyer pays is materially higher than the headline hammer price",
+        "detail": "Auction houses add a buyer's premium on top of the hammer price, so reported sale figures and actual buyer cost differ significantly. Rates are set by each house and published in its conditions of sale."
+      },
+      "he": {
+        "point": "המחיר שהקונה משלם גבוה מהותית ממחיר הפטיש המפורסם",
+        "detail": "בתי מכירות מוסיפים עמלת קונה על מחיר הפטיש, ולכן הסכום המדווח אינו הסכום המשולם בפועל. שיעורי העמלה נקבעים בידי כל בית מכירות ומתפרסמים בתנאי המכירה."
+      },
+      "confidence": "medium",
+      "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+    },
+    {
+      "id": "illiquidity",
+      "en": {
+        "point": "Art is illiquid and expensive to exit",
+        "detail": "Selling typically means waiting for an appropriate auction cycle or private buyer, then paying seller's commission and associated costs. Transaction friction is large compared with most asset classes."
+      },
+      "he": {
+        "point": "אמנות היא נכס לא נזיל, והיציאה ממנו יקרה",
+        "detail": "מכירה מחייבת בדרך כלל המתנה למחזור מכירות מתאים או לקונה פרטי, ואז תשלום עמלת מוכר ועלויות נלוות. חיכוך העסקה גבוה בהשוואה לרוב אפיקי ההשקעה."
+      },
+      "confidence": "medium",
+      "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+    }
+  ],
+
+  "gapFactsGlobal": [
+    {
+      "id": "concentration",
+      "en": {
+        "fact": "Market value is concentrated at the very top",
+        "detail": "A small number of high-value transactions account for a disproportionate share of total market value, while most artists transact far below that level."
+      },
+      "he": {
+        "fact": "שווי השוק מרוכז בקצה העליון",
+        "detail": "מספר קטן של עסקאות בערך גבוה מהווה חלק לא פרופורציונלי מסך שווי השוק, בעוד רוב האמנים פועלים הרבה מתחת לרמה הזו."
+      },
+      "confidence": "low",
+      "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+    },
+    {
+      "id": "biennials",
+      "en": {
+        "fact": "Biennials and fairs function as career infrastructure",
+        "detail": "Selection for a major biennial or fair is one of the clearest signals that moves an artist into wider institutional and market visibility."
+      },
+      "he": {
+        "fact": "ביאנלות וירידים הם תשתית קריירה",
+        "detail": "בחירה לביאנלה או ליריד מרכזי היא אחד הסימנים הברורים שמעבירים אמן לנראות מוסדית ושוקית רחבה יותר."
+      },
+      "confidence": "medium",
+      "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+    },
+    {
+      "id": "consignment",
+      "en": {
+        "fact": "Most galleries work on consignment",
+        "detail": "Work is typically held on consignment with sale proceeds split between artist and gallery, commonly around an even split. It is an industry custom negotiated case by case, not a statutory rule."
+      },
+      "he": {
+        "fact": "רוב הגלריות עובדות בקונסיגנציה",
+        "detail": "העבודה מוחזקת בקונסיגנציה והתמורה מתחלקת בין האמן לגלריה, לרוב בחלוקה קרובה לשווה. זהו נוהג ענפי שנקבע בכל מקרה לגופו, לא כלל חקוק."
+      },
+      "confidence": "low",
+      "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+    },
+    {
+      "id": "residencies-funding",
+      "en": {
+        "fact": "Residencies are a major funding route that does not depend on sales",
+        "detail": "Funded residencies provide time, space and a stipend on terms that are independent of an artist's sales record."
+      },
+      "he": {
+        "fact": "תוכניות שהות הן מקור מימון שאינו תלוי במכירות",
+        "detail": "שהות ממומנת מספקת זמן, מרחב ומלגה — ערוץ שאינו תלוי בהיסטוריית המכירות של האמן."
+      },
+      "confidence": "medium",
+      "sourceUrl": "https://www.artbasel.com/about/initiatives/the-art-market"
+    }
+  ]
+}

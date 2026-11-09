@@ -80,6 +80,43 @@ The Hebrew edition is genuinely mirrored, not merely translated:
 - Map labels anchor on the correct side of their marker.
 - The map itself is **not** mirrored — geography stays north-up, east-right.
 
+## Architecture: regional supply, global demand
+
+The two sides of this product do not have the same shape, and the file layout
+now says so.
+
+**Artists and opportunities are geographically bound.** Eligibility is routinely
+gated by nationality or residency — Artport is for Israeli artists, Tel Aviv-Yafo
+requires your centre of activity to be in Israel, McCahon House requires New
+Zealand residency. An edition is therefore the right unit for commissions,
+residencies and institutions, and those live in `locales/<id>.json`.
+
+**Collectors are not.** A Tel Aviv collector buys from New York and Lagos.
+Provenance, price opacity, authentication risk, the buyer's premium and
+illiquidity are the same problems in every market. Duplicating that content per
+edition would have been wrong — and the first build did exactly that. It now
+lives once, in `locales/_collector-global.json`, with per-language text, and
+every edition renders the same five collector points and the same four global
+market facts.
+
+**Only genuinely jurisdiction-bound facts stay local**, in each locale's
+`jurisdictionFacts`: whether an artist's resale right exists (EU and UK yes, US
+no federal equivalent, Israel none), and how public commissioning is actually
+funded (a statutory share of construction budgets in the US; lottery-funded
+matched grants via Mifal HaPais in Israel).
+
+The page shows this split rather than hiding it: the collector column carries a
+*Worldwide* / *גלובלי* badge, and each market fact is labelled with its scope.
+
+| | Israel | United States |
+| --- | --- | --- |
+| Collector points | 5 (global) | 5 (global) |
+| Market facts — global | 4 | 4 |
+| Market facts — jurisdiction | 3 | 2 |
+
+The commercial consequence is that the editions are acquisition surfaces, while
+the collector graph is one asset that does not need re-researching per country.
+
 ## The data
 
 Every institution, residency and commission is real and was researched against

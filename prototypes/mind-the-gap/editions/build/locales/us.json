@@ -96,7 +96,9 @@
     "footStudio": "Studio",
     "disclaimerTitle": "About this data.",
     "disclaimer": "Every institution, residency and commission listed here is real and was checked against primary sources. Even so: programmes change, funding changes, and application windows move every year. This is not an application portal — always confirm current terms with the organisation directly using the source link on each card.",
-    "rtlNote": "English · left to right"
+    "rtlNote": "English · left to right",
+    "scopeGlobal": "Worldwide",
+    "scopeLocal": "United States"
   },
   "places": [
     {
@@ -740,48 +742,18 @@
       "detail": "Most artists sustain a practice through a mix of sales, grants, commissions, residencies and teaching rather than sales alone."
     }
   ],
-  "collectorNeeds": [
-    {
-      "point": "Price discovery is limited because most transactions are never disclosed",
-      "detail": "Auction results are published, but dealer and private-treaty sales — a large share of total market value — are generally confidential, leaving buyers with far less comparable pricing data than in most asset markets."
-    },
-    {
-      "point": "There is no central registry of ownership or title",
-      "detail": "Unlike property or vehicles, artworks have no authoritative title register, so establishing clean provenance is a manual, document-by-document exercise. Databases such as the Art Loss Register cover reported thefts and losses, not ownership generally."
-    },
-    {
-      "point": "Authentication risk sits with the buyer",
-      "detail": "Several prominent artist foundations wound down their authentication boards after facing litigation, reducing the availability of authoritative attribution opinions."
-    },
-    {
-      "point": "The price a buyer pays is higher than the headline hammer price",
-      "detail": "Auction houses add a buyer's premium on top of the hammer price, so reported sale figures and actual buyer cost differ significantly."
-    },
-    {
-      "point": "Art is illiquid and expensive to exit",
-      "detail": "Selling means waiting for an appropriate auction cycle or private buyer, then paying seller's commission and associated costs."
-    }
-  ],
-  "gapFacts": [
+  "jurisdictionFacts": [
     {
       "fact": "The resale right splits sharply along jurisdictional lines",
-      "detail": "An artist's resale right is harmonised across the EU and exists in the UK and many other countries, but the United States — one of the largest art markets — has no federal equivalent."
+      "detail": "An artist’s resale right is harmonised across the EU and exists in the UK and many other countries, but the United States — one of the largest art markets — has no federal equivalent. California’s 1976 Resale Royalty Act was held preempted by federal copyright law for post-1978 sales in Close v. Sotheby’s (9th Cir., 2018).",
+      "confidence": "medium",
+      "sourceUrl": "https://www.copyright.gov/docs/resaleroyalty/"
     },
     {
       "fact": "Percent-for-art is the largest public commissioning stream in the US",
-      "detail": "Philadelphia pioneered the model in 1959, and it has since grown to more than 350 programmes nationally, typically allocating between 0.5% and 2% of capital budgets."
-    },
-    {
-      "fact": "Market value is concentrated at the very top",
-      "detail": "A small number of high-value transactions account for a disproportionate share of total market value, while most artists transact far below that level."
-    },
-    {
-      "fact": "Biennials and fairs function as career infrastructure",
-      "detail": "Selection for a major biennial or fair is one of the clearest signals that moves an artist into wider institutional and market visibility."
-    },
-    {
-      "fact": "Most galleries work on consignment",
-      "detail": "Work is typically held on consignment with sale proceeds split between artist and gallery, commonly around an even split."
+      "detail": "Philadelphia pioneered the model in 1959 and it has since grown to more than 350 programmes nationally, typically allocating between 0.5% and 2% of eligible capital budgets.",
+      "confidence": "medium",
+      "sourceUrl": "https://www.chicago.gov/city/en/depts/dca/provdrs/public_art_program.html"
     }
   ]
 }

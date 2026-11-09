@@ -254,6 +254,13 @@ section.level{padding-block:clamp(3.5rem,8vw,6.5rem);border-top:1px solid var(--
 .gapcol .t{font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;color:var(--faint);
   writing-mode:vertical-rl;text-transform:uppercase}
 
+.scope-badge{font-family:var(--mono);font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--cool);border:1px solid var(--cool-soft);background:var(--cool-soft);
+  padding:.25em .5em;border-radius:3px;margin-inline-start:auto}
+.fact.local{border-inline-start-color:var(--signal)}
+.fact .scope{font-family:var(--mono);font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--faint);margin-top:.1rem}
+.fact.local .scope{color:var(--signal)}
 .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-top:1.6rem}
 .fact{border:1px solid var(--line);border-inline-start:2px solid var(--violet);border-radius:8px;
   padding:1rem 1.1rem;background:var(--surface);display:flex;flex-direction:column;gap:.4rem}
@@ -465,7 +472,7 @@ footer{padding-block:clamp(3rem,6vw,4.5rem) 2.5rem;color:var(--muted);border-top
         <div class="line"></div><span class="t">MIND THE GAP</span><div class="line"></div>
       </div>
       <div class="pole collectors">
-        <p class="eyebrow"><span class="dot" style="background:var(--cool)"></span>__S_forCollectors__</p>
+        <p class="eyebrow"><span class="dot" style="background:var(--cool)"></span>__S_forCollectors__<span class="scope-badge">__S_scopeGlobal__</span></p>
         <h3>__S_collectorsPoleTitle__</h3>
         <ul id="collectorNeeds"></ul>
       </div>
@@ -723,7 +730,8 @@ function li(arr,k){return arr.map(function(x){
 document.getElementById("artistNeeds").innerHTML=li(L.artistNeeds,"point");
 document.getElementById("collectorNeeds").innerHTML=li(L.collectorNeeds,"point");
 document.getElementById("gapFacts").innerHTML=L.gapFacts.map(function(f){
-  return '<div class="fact"><h4>'+esc(f.fact)+"</h4><p>"+esc(f.detail)+"</p></div>";}).join("");
+  return '<div class="fact'+(f.local?" local":"")+'"><h4>'+esc(f.fact)+"</h4><p>"+esc(f.detail)+"</p>"+
+    '<div class="scope">'+esc(f.local?T.scopeLocal:T.scopeGlobal)+"</div></div>";}).join("");
 
 /* ---------- cards ---------- */
 function conf(c){return c==="high"?"":'<span class="conf">◍ '+esc(c)+" "+esc(T.confidence)+"</span>";}

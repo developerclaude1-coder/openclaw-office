@@ -79,6 +79,20 @@ const BAND_CAPS = {
 function build(id) {
   const L = JSON.parse(fs.readFileSync(path.join(HERE, 'locales', id + '.json'), 'utf8'));
   L.bandCaps = BAND_CAPS[L.lang];
+
+  /* The collector layer is global: artists and opportunities are gated by
+     nationality and residency, a collector's problems are not. Every edition
+     shares the same collector content and the same global market facts, and
+     only genuinely jurisdiction-bound facts (the resale right, how public
+     commissioning is funded) come from the locale. */
+  const G = JSON.parse(fs.readFileSync(path.join(HERE, 'locales', '_collector-global.json'), 'utf8'));
+  const pick = (entry) => ({ ...entry[L.lang], confidence: entry.confidence, sourceUrl: entry.sourceUrl });
+  L.collectorNeeds = G.collectorNeeds.map(pick);
+  L.gapFacts = G.gapFactsGlobal.map(pick).concat(
+    (L.jurisdictionFacts || []).map((j) => ({ ...j, local: true }))
+  );
+  L.globalCollectorCount = G.collectorNeeds.length;
+  L.localFactCount = (L.jurisdictionFacts || []).length;
   L.bandNames = BAND_NAMES[L.lang];
 
   const T = L.strings;
