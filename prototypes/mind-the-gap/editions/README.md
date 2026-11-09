@@ -105,8 +105,18 @@ year and a wrong date actively harms an artist, so cards describe the cycle.
 
 - Israeli commercial gallery coordinates are **approximate to the district**
   (Kiryat HaMelacha, Jaffa) and are marked `low` confidence in the data.
-- Israel's commissioning landscape has no percent-for-art equivalent to index,
-  so its commissions list is short and leans on biennial open calls.
+- **Corrected:** an earlier version of this README said Israel has no
+  percent-for-art equivalent. That was an artefact of English-only research. A
+  Hebrew-language pass found an active commissioning layer — the Mifal HaPais
+  Council for Culture & Arts runs an annual plastic-arts open call and a
+  matched-funding public art stream for municipalities, and Tel Aviv-Yafo runs
+  a standing public art committee with recurring calls that pay production plus
+  an artist fee. The Israel edition now indexes these. The structure differs
+  from a statutory percent-for-art (it is lottery-funded and matched, not a
+  fixed share of construction budgets), but it functions as the equivalent.
+- Most Israeli opportunities are published **in Hebrew only**, and several are
+  aggregated by igud-omanim.org, erev-rav.com and artbeat.co.il. Any claim that
+  these opportunities are undiscoverable applies to English, not to Hebrew.
 - Figures in funding notes reflect the cycle they were published for.
 
 ## Rebuilding
