@@ -164,15 +164,34 @@ const DATA = deepFix({
   },
 });
 
-/* ---- inject ---- */
-const land = fs.readFileSync(path.join(HERE, 'land-fine.txt'), 'utf8').trim();
-const asOf = process.argv[2] || 'August 2026';
-let html = fs.readFileSync(path.join(HERE, 'page.template.html'), 'utf8');
-html = html.replace('__DATA__', JSON.stringify(DATA))
-           .replace('__LAND__', land)
-           .replace('__ASOF__', asOf);
+/* ---- inject ----
+ *   node build.cjs ["August 2026"] [out.html]        -> ../index.html
+ *   node build.cjs --artifact --out=FILE             -> FILE, linked for a published multi-page
+ *                                                       artifact, where this page lives at world/
+ */
+const { fontFaceCss, STACKS } = require('../shared/fonts/fonts.cjs');
+const argv = process.argv.slice(2);
+const ARTIFACT = argv.includes('--artifact');
+const positional = argv.filter((a) => !a.startsWith('--'));
+const outArg = (argv.find((a) => a.startsWith('--out=')) || '').slice(6);
+const LINKS = ARTIFACT
+  ? { intro: '../index.html', il: '../editions/il/index.html', us: '../editions/us/index.html' }
+  : { intro: 'intro/index.html', il: 'editions/il/index.html', us: 'editions/us/index.html' };
 
-const out = process.argv[3] || path.join(HERE, '..', 'index.html');
+const land = fs.readFileSync(path.join(HERE, 'land-fine.txt'), 'utf8').trim();
+const asOf = positional[0] || 'August 2026';
+let html = fs.readFileSync(path.join(HERE, 'page.template.html'), 'utf8');
+html = html.replace('__DATA__', () => JSON.stringify(DATA))
+           .replace('__LAND__', () => land)
+           .replace('__ASOF__', asOf)
+           .replace('__SERIF__', STACKS.serif).replace('__SANS__', STACKS.sans).replace('__MONO__', STACKS.mono)
+           .replace(/__HREF_INTRO__/g, LINKS.intro).replace('__HREF_IL__', LINKS.il).replace('__HREF_US__', LINKS.us)
+           /* this page is English only, so the Hebrew subsets stay out of it */
+           .replace('/*__FONTS__*/', () => fontFaceCss({ latin: true, hebrew: false }));
+const left = html.match(/__[A-Z_]{3,}__/g);
+if (left) throw new Error('unreplaced placeholders: ' + [...new Set(left)].join(', '));
+
+const out = outArg || positional[1] || path.join(HERE, '..', 'index.html');
 fs.writeFileSync(out, html);
 
 const byRegion = {};

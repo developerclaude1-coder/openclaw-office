@@ -13,22 +13,29 @@ const LAND_FOR = {
   us: 'land-us.txt',
 };
 const TPL = fs.readFileSync(path.join(HERE, 'edition.template.html'), 'utf8');
-const ASOF = process.argv[2] || 'November 2026';
+const { fontFaceCss, STACKS } = require('../../shared/fonts/fonts.cjs');
 
-/* Type stacks per locale. The Figma spec names the licensed faces
-   (Canela / Suisse Int'l, Frank Ruhl Libre / Heebo for Hebrew); the HTML
-   build uses system equivalents so the page stays self-contained with no
-   webfont request and no silent fallback. */
-const TYPE = {
-  en: {
-    serif: `ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif`,
-    sans: `system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif`,
-  },
-  he: {
-    serif: `"Frank Ruhl Libre","Narkisim","Times New Roman",ui-serif,Georgia,serif`,
-    sans: `"Heebo","Assistant","Arial Hebrew","Noto Sans Hebrew",system-ui,-apple-system,Arial,sans-serif`,
-  },
-};
+/*   node build-editions.cjs ["November 2026"]            -> ../il/index.html, ../us/index.html
+ *   node build-editions.cjs --artifact --out=DIR         -> DIR/il/index.html, DIR/us/index.html,
+ *                                                           linked for a published multi-page artifact */
+const argv = process.argv.slice(2);
+const ARTIFACT = argv.includes('--artifact');
+const outArg = (argv.find((a) => a.startsWith('--out=')) || '').slice(6);
+const OUT_DIR = outArg || OUT;
+const ASOF = argv.find((a) => !a.startsWith('--')) || 'November 2026';
+
+/* Where the other pages live, seen from <edition>/index.html. In the repo the
+   intro sits beside the editions; published, the intro is the root page and
+   the world index moves under world/. */
+const LINKS = ARTIFACT
+  ? { intro: '../../index.html', world: '../../world/index.html' }
+  : { intro: '../../intro/index.html', world: '../../index.html' };
+
+/* One type system across the intro and every edition: Frank Ruhl Libre,
+   Heebo and JetBrains Mono, embedded in the page so nothing is fetched and
+   nothing falls back by accident. Both faces cover Latin and Hebrew, so the
+   two editions are set in the same voice. See shared/fonts. */
+const HEBREW = /[\u0590-\u05FF]/;
 
 /* Scale-band names for the resolution instrument, per locale. `short` is the
    dial tick, `full` the HUD readout. Hebrew gets Hebrew bands — the dial also
@@ -109,8 +116,11 @@ function build(id) {
     .replace(/__EDITION_CODE__/g, id.toUpperCase())
     .replace(/__ALT_HREF__/g, L.altEdition.href)
     .replace(/__ALT_LABEL__/g, L.altEdition.label)
-    .replace(/__SERIF__/g, TYPE[L.lang].serif)
-    .replace(/__SANS__/g, TYPE[L.lang].sans)
+    .replace(/__SERIF__/g, STACKS.serif)
+    .replace(/__SANS__/g, STACKS.sans)
+    .replace(/__MONO__/g, STACKS.mono)
+    .replace(/__HREF_INTRO__/g, LINKS.intro)
+    .replace(/__HREF_WORLD__/g, LINKS.world)
     .replace(/__ASOF__/g, ASOF);
 
   // string placeholders __S_key__
@@ -119,13 +129,18 @@ function build(id) {
     return String(T[k]).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   });
 
+  /* cityEn / noteEn exist for the intro's world atlas; this page never reads them */
+  L.places = L.places.map(({ cityEn, noteEn, ...p }) => p);
+
   const land = fs.readFileSync(path.join(HERE, LAND_FOR[id]), 'utf8').trim();
-  html = html.replace('__LOCALE__', JSON.stringify(L)).replace('__LAND__', land);
+  html = html.replace('__LOCALE__', () => JSON.stringify(L)).replace('__LAND__', () => land);
+  /* the Hebrew subsets are only shipped to a page that has Hebrew on it */
+  html = html.replace('/*__FONTS__*/', () => fontFaceCss({ latin: true, hebrew: HEBREW.test(html) }));
 
   const leftover = html.match(/__[A-Z_]+__/g);
   if (leftover) throw new Error(`[${id}] unreplaced placeholders: ${[...new Set(leftover)].join(', ')}`);
 
-  const dir = path.join(OUT, id);
+  const dir = path.join(OUT_DIR, id);
   fs.mkdirSync(dir, { recursive: true });
   const file = path.join(dir, 'index.html');
   fs.writeFileSync(file, html);

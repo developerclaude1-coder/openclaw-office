@@ -8,9 +8,20 @@ information, like zooming in from space to a single atom.* That metaphor appears
 in the hero (a zoom instrument you drive with a resolution dial) and functionally in the Atlas, where
 the same gesture actually resolves real geography down to a single gallery door.
 
-Open `index.html` in any browser. No build step, no server, no network access required.
+Open any page in a browser. No build step, no server, no network access required.
 
-## What's in it
+## Where to start
+
+| Page | What it is |
+| --- | --- |
+| [`intro/`](intro/) | **Start here.** How Mind the Gap works, as a piece of motion design: eight scenes that descend from the whole field to a single work, ending inside a live atlas you can explore. English and Hebrew. |
+| [`index.html`](index.html) | The world index: 64 commissions, 65 residencies, 58 institutions. |
+| [`editions/il/`](editions/il/), [`editions/us/`](editions/us/) | Regional editions. Israel in Hebrew and right-to-left, the United States in English. |
+| [`figma/`](figma/) | A handoff package for the editions, kept for reference. |
+
+The intro's last scene opens onto the other three, and each of them links back to it.
+
+## What's in the world index
 
 | Section | Contents |
 | --- | --- |
@@ -54,7 +65,8 @@ could not be fully confirmed.
 
 ```bash
 cd build
-node build.cjs "August 2026"     # writes ../index.html
+node build.cjs "August 2026"            # writes ../index.html
+node build.cjs --artifact --out=FILE    # the same page, linked for a published multi-page artifact
 ```
 
 The build merges and de-duplicates the datasets, maps countries to regions, normalises country names,
@@ -71,8 +83,10 @@ Natural Earth data is in the public domain.
 
 ## Technical notes
 
-- Single file, no dependencies, no external requests — safe under a strict CSP.
+- Single file, no dependencies, no external requests.
 - Light and dark themes, both designed rather than inverted; follows the OS preference and an in-page toggle.
 - Honours `prefers-reduced-motion`: animation stops, all content still renders.
 - Typography is a tri-voice system that encodes meaning — serif for art and the human, monospace for
-  the industry and the index, sans for the connective tissue between them.
+  the industry and the index, sans for the connective tissue between them. The faces are Frank Ruhl
+  Libre, Heebo and JetBrains Mono, embedded in the page and shared with the intro and the editions
+  (see [`shared/fonts/`](shared/fonts/)).

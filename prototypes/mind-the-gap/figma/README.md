@@ -68,14 +68,17 @@ drift. Regenerate with `node export-figma.cjs`; never hand-edit it.
 
 ## Typography to set in Figma
 
-The HTML uses system stacks so each edition stays self-contained with no webfont
-request. The Figma file should use the licensed faces the design is drawn for:
+The shipped pages embed three open-licensed faces, and the Figma file should
+use the same ones so the two match:
 
 | Role | Latin (US) | Hebrew (IL) | Meaning |
 | --- | --- | --- | --- |
-| Display | Canela | Frank Ruhl Libre | art, the human voice |
-| Body | Suisse Int'l | Heebo | the connective tissue |
-| Index | system mono | system mono | the industry, the index |
+| Display | Frank Ruhl Libre | Frank Ruhl Libre | art, the human voice |
+| Body | Heebo | Heebo | the connective tissue |
+| Index | JetBrains Mono | JetBrains Mono | the industry, the index |
+
+All three are free on Google Fonts. An earlier version of this note named
+Canela and Suisse Int'l for Latin; the pages no longer use them.
 
 Both the US wordmark and the Hebrew edition's wordmark are set in the **body**
 face at weight 800, tracking −0.045em — not the display serif.

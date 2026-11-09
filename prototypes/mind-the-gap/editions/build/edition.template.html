@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>__TITLE__</title>
 <meta name="description" content="__DESC__" />
+<script>
+/* Coming through the intro's door, the room is already lit: arrive in the light tone. */
+if(location.hash==="#via-intro")document.documentElement.setAttribute("data-theme","light");
+</script>
 <style>
+/*__FONTS__*/
 /* ===========================================================================
    MIND THE GAP — __EDITION__ edition
    Motion-ready layout. All motion is driven by the tokens in §MOTION below,
@@ -46,7 +51,7 @@
   /* --- TYPE --- */
   --serif:__SERIF__;
   --sans:__SANS__;
-  --mono:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Menlo,Consolas,monospace;
+  --mono:__MONO__;
 
   --maxw:1240px;
   --gutter:clamp(20px,5vw,72px);
@@ -141,6 +146,7 @@ html[dir="rtl"] .nav-links a::after{transform-origin:right}
 .pill:hover{color:var(--signal);border-color:var(--signal)}
 .pill.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 @media(max-width:980px){ .nav-links a[data-opt]{display:none} }
+@media(max-width:520px){ .nav-tools .btn{display:none} }   /* the hero carries the same call to action */
 
 /* ---------- HERO ---------- */
 .hero{position:relative;padding-block:clamp(2.5rem,7vh,5rem) clamp(3rem,8vh,6rem);overflow:hidden}
@@ -150,10 +156,12 @@ html[dir="rtl"] .nav-links a::after{transform-origin:right}
   font-size:clamp(3.2rem,9.5vw,7.4rem);text-transform:uppercase;display:flex;flex-wrap:wrap;
   align-items:baseline;gap:0 .22em;margin:0}
 .wordmark .word{display:inline-flex;white-space:nowrap}
+.wordmark .wm-break{flex-basis:100%;height:0}   /* the lockup always breaks before the bar: MIND THE / — GAP */
 .wordmark .word span{display:inline-block;will-change:transform,opacity}
 .wordmark .gapbar{display:inline-block;width:1.1em;height:.09em;background:var(--signal);
   align-self:center;transform-origin:var(--origin,left)}
 html[dir="rtl"] .wordmark .gapbar{transform-origin:right}
+html[dir="rtl"] .wordmark{justify-content:flex-end}   /* Latin lockup, but it still hangs from the reading start */
 .tagline{font-family:var(--serif);font-size:clamp(1.1rem,2.1vw,1.55rem);color:var(--muted);
   margin:.55rem 0 0;font-style:italic}
 .counter{display:inline-flex;align-items:center;gap:.6em;margin-top:1.6rem;background:var(--surface-2);
@@ -168,7 +176,7 @@ html[dir="rtl"] .wordmark .gapbar{transform-origin:right}
 
 /* instrument panel (fills the dead space NALA leaves empty) */
 .instrument{position:relative;border:1px solid var(--line);background:var(--surface);
-  border-radius:var(--radius);overflow:hidden;aspect-ratio:1/1;min-height:320px;
+  border-radius:var(--radius);overflow:hidden;aspect-ratio:1/1;
   box-shadow:0 24px 60px -30px rgba(0,0,0,.35)}
 #field{position:absolute;inset:0;width:100%;height:100%;display:block}
 .inst-hud{position:absolute;top:14px;inset-inline-start:16px;font-family:var(--mono);font-size:.62rem;
@@ -328,7 +336,7 @@ section.level{padding-block:clamp(3.5rem,8vw,6.5rem);border-top:1px solid var(--
 .sresults .sub{display:block;font-family:var(--mono);font-size:.58rem;color:var(--faint);
   letter-spacing:.08em;text-transform:uppercase;margin-top:.15rem}
 .map-shell{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
-  background:var(--ocean);aspect-ratio:2/1;min-height:330px;touch-action:none}
+  background:var(--ocean);height:clamp(340px,46vw,560px);touch-action:none}
 #atlas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}
 #atlas.dragging{cursor:grabbing}
 .map-hud,.map-legend{position:absolute;z-index:3;font-family:var(--mono);font-size:.6rem;
@@ -414,6 +422,7 @@ footer{padding-block:clamp(3rem,6vw,4.5rem) 2.5rem;color:var(--muted);border-top
       <a href="#commissions" data-opt>__S_navCommissions__</a>
       <a href="#residencies" data-opt>__S_navResidencies__</a>
       <a href="#atlas-sec">__S_navAtlas__</a>
+      <a href="__HREF_INTRO__" data-opt>__S_navHow__</a>
     </nav>
     <div class="nav-tools">
       <a class="pill on" href="#top" aria-current="page">__EDITION_CODE__</a>
@@ -580,8 +589,8 @@ footer{padding-block:clamp(3rem,6vw,4.5rem) 2.5rem;color:var(--muted);border-top
       </ul></div>
       <div><h4>__S_footStudio__</h4><ul>
         <li><a href="__ALT_HREF__">__ALT_LABEL__ __S_editionLabel__</a></li>
-        <li><a href="#top">__S_navAtlas__</a></li>
-        <li><a href="#join">__S_navJoin__</a></li>
+        <li><a href="__HREF_WORLD__">__S_footWorld__</a></li>
+        <li><a href="__HREF_INTRO__">__S_navHow__</a></li>
       </ul></div>
     </div>
     <p class="disclaimer"><b>__S_disclaimerTitle__</b> __S_disclaimer__</p>
@@ -608,6 +617,7 @@ function host(u){try{return new URL(u).hostname.replace(/^www\./,"");}catch(e){r
 /* ---------- theme ---------- */
 function isDark(){var a=root.getAttribute("data-theme");
   return a?a==="dark":matchMedia("(prefers-color-scheme: dark)").matches;}
+if(!isDark())document.getElementById("themeBtn").textContent="◑";
 document.getElementById("themeBtn").addEventListener("click",function(){
   var n=isDark()?"light":"dark"; root.setAttribute("data-theme",n);
   this.textContent=n==="dark"?"◐":"◑"; drawAtlas();
@@ -637,6 +647,7 @@ var wm=document.getElementById("wordmark");
     wm.appendChild(w);
   }
   word("MIND"); word("THE");
+  var brk=document.createElement("span"); brk.className="wm-break"; wm.appendChild(brk);
   var bar=document.createElement("span");
   bar.className="gapbar";
   bar.style.transform="scaleX(0)";
@@ -934,6 +945,8 @@ si.addEventListener("keydown",function(e){ if(e.key==="Escape")closeS();
   if(e.key==="Enter"){var f=sb.querySelector("button[data-i]");if(f){e.preventDefault();f.click();}}});
 document.addEventListener("click",function(e){if(!sb.contains(e.target)&&e.target!==si)closeS();});
 addEventListener("resize",function(){aR();drawAtlas();});
+/* map labels are drawn on a canvas, which will not repaint itself when the typeface arrives */
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawAtlas);
 aR();setView({lon:0,lat:20,zoom:1});count();
 
 /* first time the atlas scrolls into view, fly from world to the edition's region */

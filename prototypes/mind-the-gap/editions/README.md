@@ -9,7 +9,8 @@ Two motion-ready editions of the Mind the Gap layout, benchmarked against
 | **United States** | English | LTR | `us/index.html` |
 
 Open either file directly in a browser. No build step, no server, no network
-request — each edition is a single self-contained file.
+request — each edition is a single self-contained file. New here? Start with
+[the intro](../intro/), which explains the whole thing and ends at these doors.
 
 ## What was taken from the reference, and what beats it
 
@@ -160,8 +161,14 @@ year and a wrong date actively harms an artist, so cards describe the cycle.
 
 ```bash
 cd build
-node build-editions.cjs "November 2026"   # writes ../il/index.html and ../us/index.html
+node build-editions.cjs "November 2026"         # writes ../il/index.html and ../us/index.html
+node build-editions.cjs --artifact --out=DIR    # the same pages, linked for a published multi-page artifact
 ```
+
+Each edition links to the other, to the world index, and back to
+[the intro](../intro/) ("How it works"). Entered through the intro's door, an
+edition opens in its light theme, because the intro ends in a lit room; opened
+directly, it follows the system setting as before.
 
 Content lives in `build/locales/{il,us}.json` — strings, data and map framing.
 The build fails loudly on a missing translation key or an unreplaced
@@ -183,15 +190,21 @@ Natural Earth data is public domain.
 
 ## Typography
 
-The HTML uses system stacks so each edition stays self-contained with no webfont
-request and no silent fallback. The Figma file specifies the licensed faces the
-design is drawn for:
+Both editions are set in the same three open-licensed faces, embedded in the
+page as data URIs so nothing is fetched and nothing falls back by accident:
 
-| Role | Latin | Hebrew |
+| Role | Face | Scripts |
 | --- | --- | --- |
-| Display / serif | Canela | Frank Ruhl Libre |
-| Body / sans | Suisse Int'l | Heebo |
-| Index / mono | system monospace | system monospace |
+| Display / serif | Frank Ruhl Libre | Latin and Hebrew |
+| Body / sans | Heebo | Latin and Hebrew |
+| Index / mono | JetBrains Mono | Latin |
+
+Frank Ruhl Libre and Heebo each carry both scripts, so the Israel and US
+editions speak in one voice rather than two that merely resemble each other.
+The same faces are used by the intro and the world index; they live in
+[`../shared/fonts/`](../shared/fonts/), with their licences. An earlier version
+of these pages used system stacks and named Canela and Suisse Int'l as the
+faces to license for Figma; that is no longer the plan.
 
 The three voices carry meaning: serif is art and the human, mono is the industry
 and the index, sans is the connective tissue between them — the gap being minded.

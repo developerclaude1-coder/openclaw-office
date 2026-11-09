@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Mind the Gap — the art world, at every resolution</title>
 <meta name="description" content="A one-stop index connecting artists and the industry: collectors, public commissions, residencies, and a live map of museums, galleries and biennials — curated from cosmos to atom." />
+<script>
+/* Coming through the intro's door, the room is already lit: arrive in the light tone. */
+if(location.hash==="#via-intro")document.documentElement.setAttribute("data-theme","light");
+</script>
 <style>
+/*__FONTS__*/
   /* ============================================================
      MIND THE GAP — an observatory for the art world
      Tri-voice type system:
@@ -32,9 +37,9 @@
     --ocean:#0C1122;
     --land:#151B31;
 
-    --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
-    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    --mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
+    --serif: __SERIF__;
+    --sans: __SANS__;
+    --mono: __MONO__;
 
     --maxw:1180px;
     --gutter:clamp(20px,5vw,64px);
@@ -139,7 +144,7 @@
   .hud .big{color:var(--ink);font-size:.95rem;letter-spacing:.18em;text-transform:uppercase}
   .hud .amber{color:var(--accent)}
   .hud .cap{color:var(--faint);text-transform:none;letter-spacing:.02em;line-height:1.4}
-  @media(max-width:640px){ .hud{max-width:58vw;font-size:.64rem} .hud .cap{display:none} }
+  @media(max-width:640px){ .hud{display:none} }   /* no room beside the headline; the dial below names the band */
 
   .res{position:relative;z-index:3;max-width:560px}
   .res-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.6rem;
@@ -254,7 +259,7 @@
     letter-spacing:.08em;text-transform:uppercase;margin-top:.15rem}
 
   .map-shell{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
-    background:var(--ocean);aspect-ratio:2/1;min-height:340px;touch-action:none}
+    background:var(--ocean);height:clamp(340px,44vw,560px);touch-action:none}
   #atlas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}
   #atlas.dragging{cursor:grabbing}
   .map-hud{position:absolute;top:12px;left:14px;z-index:3;font-family:var(--mono);font-size:.64rem;
@@ -328,6 +333,7 @@
       <a href="#commissions" data-opt>Commissions</a>
       <a href="#residencies" data-opt>Residencies</a>
       <a href="#atlas-sec">Atlas</a>
+      <a href="__HREF_INTRO__" data-opt>How it works</a>
       <a href="#join" class="btn" style="padding:.5em .9em">Join</a>
     </nav>
     <button class="theme-toggle" id="themeBtn" aria-label="Toggle colour theme">◐ Theme</button>
@@ -491,8 +497,8 @@
       <div><h4>Opportunities</h4><ul>
         <li><a href="#commissions">Commissions</a></li><li><a href="#residencies">Residencies</a></li><li><a href="#join">Post a call</a></li>
       </ul></div>
-      <div><h4>Studio</h4><ul>
-        <li><a href="#join">Request access</a></li><li><a href="#top">About</a></li><li><a href="#join">Contact</a></li>
+      <div><h4>Go deeper</h4><ul>
+        <li><a href="__HREF_INTRO__">How it works</a></li><li><a href="__HREF_IL__">Israel edition</a></li><li><a href="__HREF_US__">United States edition</a></li>
       </ul></div>
     </div>
     <p class="disclaimer">
@@ -527,6 +533,7 @@
     var a = root.getAttribute("data-theme");
     return a ? a==="dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
   }
+  if(!isDark()) themeBtn.textContent = "◑ Theme";
   themeBtn.addEventListener("click", function(){
     var next = isDark() ? "light" : "dark";
     root.setAttribute("data-theme", next);
@@ -850,6 +857,8 @@
   document.addEventListener("click",function(e){ if(!sBox.contains(e.target)&&e.target!==sInput) closeSearch(); });
 
   window.addEventListener("resize", function(){ aResize(); drawAtlas(); });
+  /* map labels are drawn on a canvas, which will not repaint itself when the typeface arrives */
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(drawAtlas);
   aResize(); drawAtlas(); updateMapCount();
   window.__flyTo=flyTo;
 
