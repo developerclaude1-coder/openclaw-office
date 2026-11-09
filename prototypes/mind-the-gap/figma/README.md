@@ -13,17 +13,44 @@ The connected account (`developerclaude1@gmail.com`) is on tier **`starter`** wi
 **`View`** seat, and its MCP tool-call quota is exhausted. That is an account limit,
 not something that can be worked around from here.
 
-**Two ways to unblock it**, in order of effort:
+**The fix is a local plugin — no upgrade, no MCP.** The quota caps calls made
+from the agent side. A plugin runs inside your own Figma client, so it has none
+of that limit. `plugin/` contains one, generated from the same locale files the
+site is built from:
 
-1. **Use the plugin route — no upgrade needed.** The editions are single
-   self-contained HTML files with no external requests, which is the ideal input
-   for Figma's **html.to.design** plugin. Open the plugin in the Figma file, paste
-   or upload `editions/il/index.html` or `editions/us/index.html`, and it imports
-   the page as editable Figma layers — real text, frames and vectors, not a
-   screenshot. This is the fastest way to a working Figma file today.
-2. **Upgrade the Figma plan**, then say the word and I will build the file
-   programmatically: token collection with Light/Dark modes, components, both
-   edition frames, and the motion spec as documented frames.
+1. Figma → **Plugins → Development → Import plugin from manifest…**
+2. Pick `prototypes/mind-the-gap/figma/plugin/manifest.json`
+3. Open the target file and run **Mind the Gap — build editions**
+
+It builds, in one pass:
+
+- a **Mind the Gap** variable collection — 16 colours, each with **Light and Dark**
+  modes, correctly scoped to fills, strokes and text
+- the **US / Desktop** frame (LTR) and the **Israel / Desktop (RTL)** frame, with
+  real content: nav, hero, audience cards, the two-pole gap section with the
+  collector side badged worldwide, commission and residency cards, and a slot
+  sized for the atlas
+- a **Motion spec** frame listing every token and named sequence
+
+Hebrew needs a Hebrew-capable family, so the plugin tries Heebo, Assistant,
+Rubik, Noto Sans Hebrew and Arial in order and uses the first that loads,
+reporting which one it picked rather than silently falling back to boxes.
+
+Then drag `atlas-il.svg` / `atlas-us.svg` into the atlas slot in each frame.
+
+**Two caveats, stated plainly:**
+
+- The plugin is syntax-checked and its embedded data is validated, but it has
+  **not been executed inside Figma from here** — there is no Figma client in this
+  environment. If a call fails, the error comes back in the closePlugin message.
+- Your seat on the team reads **View**. Personal drafts are normally editable on
+  a Starter plan, but if the file refuses edits, run the plugin in a file in
+  your own drafts.
+
+**Alternative, zero setup:** the editions are single self-contained HTML files
+with no external requests — ideal input for the **html.to.design** plugin, which
+imports a page as editable layers. Lower fidelity on structure than the plugin
+above, but nothing to install from this repo.
 
 Everything below is ready to drop into Figma either way.
 
