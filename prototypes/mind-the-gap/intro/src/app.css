@@ -1,0 +1,129 @@
+/* ==========================================================================
+   The world — the interface that fades in once the visitor has entered.
+   Always in the day tone: by now the page has arrived in the gallery.
+   ========================================================================== */
+html.in-app,html.in-app body{overflow:hidden}
+html.in-app .scroller{height:calc(100vh - var(--it) - var(--ib));height:calc(100svh - var(--it) - var(--ib))}
+html.in-app :is(.ch,.rail,.progress,.cv-labels,.ticker),
+html.entering :is(.rail,.progress,.cv-labels,.ticker){display:none}
+html.in-app #cv{touch-action:none;cursor:grab}
+html.in-app #cv.dragging{cursor:grabbing}
+
+.app{position:absolute;inset:0;z-index:6;pointer-events:none;opacity:0;
+  transition:opacity var(--dur-slow) var(--ease-out)}
+.app.on{opacity:1}
+
+.app-top{position:absolute;top:calc(var(--bar-h) + 4px);inset-inline:var(--gs) var(--ge);
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.app-top > *{pointer-events:auto}
+
+.search{position:relative;flex:0 1 300px;min-width:0}
+.search input{width:100%;padding:.62em 1em;padding-inline-start:2.3em;border:1px solid var(--line);
+  border-radius:999px;background:var(--surface);color:var(--fg);font-family:var(--mono);font-size:.74rem}
+.search input::placeholder{color:var(--faint)}
+.search input:focus-visible{outline:none;border-color:var(--signal);box-shadow:0 0 0 3px rgba(163,94,9,.16)}
+.search .icn{position:absolute;inset-inline-start:.95em;top:50%;transform:translateY(-50%);
+  color:var(--faint);pointer-events:none}
+.sresults{position:absolute;z-index:8;top:calc(100% + 6px);inset-inline:0;display:none;max-height:280px;
+  overflow:hidden auto;border:1px solid var(--line);border-radius:10px;background:var(--d-bg);
+  box-shadow:0 22px 50px -26px rgba(0,0,0,.45)}
+.sresults.on{display:block}
+.sresults button{display:block;width:100%;padding:.6em .9em;text-align:start;font-size:.86rem;
+  border-bottom:1px solid var(--line)}
+.sresults button:last-child{border-bottom:0}
+.sresults button:hover,.sresults button:focus-visible{background:var(--tint)}
+.sresults .sub{display:block;margin-top:.15rem;font-family:var(--mono);font-size:.58rem;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{padding:.6em .95em;border:1px solid var(--line);border-radius:999px;background:var(--surface);
+  color:var(--muted);font-family:var(--mono);font-size:.62rem;letter-spacing:var(--tr2);
+  text-transform:uppercase;line-height:1;
+  transition:background var(--dur-micro),color var(--dur-micro),border-color var(--dur-micro)}
+.chip:hover{color:var(--fg);border-color:var(--fg)}
+.chip[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+
+/* Doors to the editions: a shelf along the bottom. The map is as wide as the
+   window, so anything docked at the side would sit on top of a continent. */
+.doors{position:absolute;inset-inline:0 calc(var(--ge) + 44px);bottom:54px;display:flex;
+  align-items:stretch;gap:10px;padding-block:4px;padding-inline:var(--gs) 4px;overflow-x:auto;scrollbar-width:none;
+  pointer-events:none}
+.doors::-webkit-scrollbar{display:none}
+.doors > *{pointer-events:auto}
+.doors-title{flex:none;align-self:center;margin:0;margin-inline-end:8px;font-family:var(--mono);font-size:.6rem;
+  letter-spacing:var(--tr1);text-transform:uppercase;color:var(--faint)}
+.door{position:relative;flex:0 1 296px;min-width:226px;display:grid;align-content:start;gap:3px;
+  padding:.75em .95em;padding-inline-end:2.4em;
+  border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg);
+  text-decoration:none;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:transform var(--dur-base) var(--ease-out),border-color var(--dur-base)}
+.door:hover{transform:translateY(-2px);border-color:var(--signal)}
+.door b{font-family:var(--serif);font-weight:600;font-size:1.02rem;line-height:1.2}
+.door span{font-family:var(--mono);font-size:.56rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);line-height:1.5}
+.door::after{content:"→";position:absolute;inset-inline-end:.95em;top:.72em;color:var(--signal);
+  transition:transform var(--dur-micro) var(--ease-out)}
+.door:hover::after{transform:translateX(3px)}
+html[dir="rtl"] .door::after{content:"←"}
+html[dir="rtl"] .door:hover::after{transform:translateX(-3px)}
+
+.app-foot{position:absolute;inset-inline-start:var(--gs);bottom:14px;
+  max-width:calc(100% - var(--gs) - var(--ge) - 56px);display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  pointer-events:auto}
+.hud,.legend,.about-btn{padding:.55em .8em;border:1px solid var(--line);border-radius:8px;
+  background:var(--surface);font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);line-height:1.2;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.hud b{color:var(--signal);font-weight:400;font-variant-numeric:tabular-nums}
+.legend{display:flex;flex-wrap:wrap;gap:.9em}
+.lg{display:inline-block;width:8px;height:8px;margin-inline-end:.45em;border-radius:50%;vertical-align:middle}
+.lg--m{background:var(--signal)} .lg--g{background:var(--cool)} .lg--b{background:var(--violet)}
+.about-btn:hover{color:var(--signal);border-color:var(--signal)}
+.about{position:absolute;inset-inline-start:var(--gs);bottom:150px;z-index:9;
+  width:min(440px,calc(100% - var(--gs) - var(--ge)));padding:1em 1.1em;border:1px solid var(--line);
+  border-radius:10px;background:var(--d-bg);box-shadow:0 22px 50px -26px rgba(0,0,0,.45);pointer-events:auto}
+.about p{margin:0;font-size:.82rem;line-height:1.6;color:var(--muted)}
+
+.hint{position:absolute;left:50%;bottom:152px;transform:translateX(-50%);margin:0;
+  padding:.55em .9em;border-radius:999px;background:var(--fg);color:var(--bg);font-family:var(--mono);
+  font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;line-height:1.2;white-space:nowrap;
+  max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis;pointer-events:none;
+  transition:opacity var(--dur-base) var(--ease-out)}
+.hint.gone{opacity:0}
+
+.zoom{position:absolute;inset-inline-end:var(--ge);bottom:14px;display:flex;
+  flex-direction:column;gap:5px;pointer-events:auto}
+.zoom button{width:32px;height:32px;border:1px solid var(--line);border-radius:8px;background:var(--surface);
+  font-size:1rem;line-height:1;transition:color var(--dur-micro),border-color var(--dur-micro)}
+.zoom button:hover{color:var(--signal);border-color:var(--signal)}
+
+.tip{position:absolute;left:0;top:0;z-index:7;max-width:260px;padding:.6rem .8rem;border:1px solid var(--line);
+  border-radius:9px;background:var(--d-bg);box-shadow:0 18px 44px -22px rgba(0,0,0,.5);
+  transform:translate(-50%,calc(-100% - 16px));opacity:0;pointer-events:none;transition:opacity var(--dur-micro)}
+.tip .t{font-family:var(--serif);font-weight:600;font-size:1rem;line-height:1.2}
+.tip .s{margin-top:.3rem;font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted)}
+.tip .n{margin-top:.35rem;font-size:.78rem;line-height:1.45;color:var(--muted)}
+.tip .n:empty{display:none}
+
+/* narrow: the shelf becomes a strip you swipe, and the controls step above it */
+@media (max-width:820px){
+  .search{flex:1 1 100%}
+  .doors{inset-inline:0;padding-inline:var(--gs) var(--ge);gap:8px}
+  .doors-title{display:none}
+  .door{flex:0 0 232px}
+  .zoom{bottom:150px}
+  .app-foot{max-width:calc(100% - var(--gs) - var(--ge))}
+  .legend,.hud-count{display:none}
+}
+
+/* a phone on its side: the shelf shrinks to names only, to leave the map some height */
+@media (min-aspect-ratio:115/100) and (max-height:520px){
+  .door{padding-block:.6em;align-content:center}
+  .door span,.legend,.doors-title{display:none}
+  .door::after{top:.5em}
+  :is(.about,.hint){bottom:104px}
+}
+
+/* while entering, the last wall label fades instead of snapping away */
+html.entering .ch{transition:opacity var(--dur-base) var(--ease-out)}

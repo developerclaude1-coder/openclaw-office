@@ -20,6 +20,8 @@
     "navResidencies": "תוכניות שהות",
     "navAtlas": "אטלס",
     "navJoin": "הצטרפו",
+    "navHow": "איך זה עובד",
+    "footWorld": "האינדקס העולמי",
     "themeLabel": "ערכת נושא",
     "editionLabel": "מהדורה",
     "heroEyebrow": "אינדקס אחד לכל עולם האמנות בישראל",
@@ -110,7 +112,9 @@
       "lon": 34.7868,
       "type": "Museum",
       "note": "נוסד ב־1932; המוזיאון הגדול בישראל לאמנות מודרנית ועכשווית.",
-      "confidence": "high"
+      "confidence": "high",
+      "cityEn": "Tel Aviv",
+      "noteEn": "Founded in 1932; Israel’s largest museum of modern and contemporary art."
     },
     {
       "name": "מוזיאון ישראל",
@@ -121,7 +125,9 @@
       "lon": 35.2041,
       "type": "Museum",
       "note": "מוזיאון האמנות והארכיאולוגיה המרכזי בישראל.",
-      "confidence": "high"
+      "confidence": "high",
+      "cityEn": "Jerusalem",
+      "noteEn": "Israel’s leading museum of art and archaeology."
     },
     {
       "name": "מוזיאון הרצליה לאמנות עכשווית",
@@ -132,7 +138,9 @@
       "lon": 34.8438,
       "type": "Museum",
       "note": "נוסד ב־1965; אמנות עכשווית ישראלית ובינלאומית, לעיתים קרובות בעלת ממד חברתי ופוליטי.",
-      "confidence": "high"
+      "confidence": "high",
+      "cityEn": "Herzliya",
+      "noteEn": "Founded in 1965; Israeli and international contemporary art, often with a social and political dimension."
     },
     {
       "name": "מוזיאון העיצוב חולון",
@@ -143,7 +151,9 @@
       "lon": 34.7742,
       "type": "Museum",
       "note": "מבנה של האדריכל רון ארד; עיצוב עכשווי.",
-      "confidence": "high"
+      "confidence": "high",
+      "cityEn": "Holon",
+      "noteEn": "Building by the architect Ron Arad; contemporary design."
     },
     {
       "name": "המרכז לאמנות דיגיטלית",
@@ -154,7 +164,9 @@
       "lon": 34.7795,
       "type": "Museum",
       "note": "הוקם ב־2001 במבנה בית ספר נטוש; מדיה חדשה ואמנות דיגיטלית.",
-      "confidence": "medium"
+      "confidence": "medium",
+      "cityEn": "Holon",
+      "noteEn": "Established in 2001 in a disused school building; new media and digital art."
     },
     {
       "name": "המרכז לאמנות עכשווית",
@@ -165,7 +177,9 @@
       "lon": 34.7797,
       "type": "Museum",
       "note": "מלכ\"ר המתמקד בווידאו, תמונה נעה ומיצב.",
-      "confidence": "medium"
+      "confidence": "medium",
+      "cityEn": "Tel Aviv",
+      "noteEn": "A non-profit focused on video, moving image and installation."
     },
     {
       "name": "מוזיאון ארץ ישראל",
@@ -176,7 +190,9 @@
       "lon": 34.7897,
       "type": "Museum",
       "note": "מתחם מוזיאוני רב־אגפי; מארח את הביאנלה לאומנות ועיצוב.",
-      "confidence": "medium"
+      "confidence": "medium",
+      "cityEn": "Tel Aviv",
+      "noteEn": "A multi-pavilion museum campus; hosts the Biennale of Craft & Design."
     },
     {
       "name": "מוזיאון פתח תקווה לאמנות",
@@ -187,7 +203,9 @@
       "lon": 34.8878,
       "type": "Museum",
       "note": "תוכנית תערוכות עכשווית בעלת אוריינטציה מחקרית.",
-      "confidence": "medium"
+      "confidence": "medium",
+      "cityEn": "Petah Tikva",
+      "noteEn": "A research-led contemporary exhibition programme."
     },
     {
       "name": "מוזיאון חיפה לאמנות",
@@ -198,7 +216,9 @@
       "lon": 34.9984,
       "type": "Museum",
       "note": "אמנות עכשווית בצפון הארץ.",
-      "confidence": "medium"
+      "confidence": "medium",
+      "cityEn": "Haifa",
+      "noteEn": "Contemporary art in the north of the country."
     },
     {
       "name": "מוזיאון אשדוד לאמנות",
@@ -209,7 +229,9 @@
       "lon": 34.641,
       "type": "Museum",
       "note": "בית האמנים ע\"ש מונארט; תוכנית עכשווית.",
-      "confidence": "low"
+      "confidence": "low",
+      "cityEn": "Ashdod",
+      "noteEn": "The Monart Centre; a contemporary programme."
     },
     {
       "name": "גלריה דביר",
@@ -220,7 +242,9 @@
       "lon": 34.7623,
       "type": "Gallery",
       "note": "מציגה אמנים בינלאומיים לצד ישראלים; מיקום מקורב.",
-      "confidence": "low"
+      "confidence": "low",
+      "cityEn": "Tel Aviv",
+      "noteEn": "Shows international artists alongside Israeli ones. Position approximate."
     },
     {
       "name": "זומר אמנות עכשווית",
@@ -231,7 +255,9 @@
       "lon": 34.779,
       "type": "Gallery",
       "note": "נוסדה ב־1999; פועלת בקריית המלאכה ובציריך. מיקום מקורב.",
-      "confidence": "low"
+      "confidence": "low",
+      "cityEn": "Tel Aviv",
+      "noteEn": "Founded in 1999; operates in Kiryat HaMelacha and in Zurich. Position approximate."
     },
     {
       "name": "גלריה ברוורמן",
@@ -242,7 +268,9 @@
       "lon": 34.7721,
       "type": "Gallery",
       "note": "נוסדה ב־2004; דגש על וידאו ומיצב. מיקום מקורב.",
-      "confidence": "low"
+      "confidence": "low",
+      "cityEn": "Tel Aviv",
+      "noteEn": "Founded in 2004; an emphasis on video and installation. Position approximate."
     },
     {
       "name": "גלריה גורדון",
@@ -253,7 +281,9 @@
       "lon": 34.7715,
       "type": "Gallery",
       "note": "אחד האוספים הגדולים של אמנות ישראלית; גורדון 2 מתמקד בעכשווי. מיקום מקורב.",
-      "confidence": "low"
+      "confidence": "low",
+      "cityEn": "Tel Aviv",
+      "noteEn": "One of the largest collections of Israeli art; Gordon 2 focuses on contemporary work. Position approximate."
     },
     {
       "name": "גלריה רוזנפלד",
@@ -264,7 +294,9 @@
       "lon": 34.774,
       "type": "Gallery",
       "note": "נוסדה ב־1952; מהוותיקות בישראל. מיקום מקורב.",
-      "confidence": "low"
+      "confidence": "low",
+      "cityEn": "Tel Aviv",
+      "noteEn": "Founded in 1952; among the oldest galleries in Israel. Position approximate."
     },
     {
       "name": "הביאנלה של ירושלים",
@@ -275,7 +307,9 @@
       "lon": 35.2137,
       "type": "Biennial",
       "note": "ביאנלה לאמנות עכשווית; המהדורה השביעית נפתחה ב־2026. המיקום משתנה בין אתרים.",
-      "confidence": "medium"
+      "confidence": "medium",
+      "cityEn": "Jerusalem",
+      "noteEn": "A contemporary art biennale; the seventh edition opened in 2026. Venues vary."
     },
     {
       "name": "הביאנלה לאומנות ועיצוב תל אביב",
@@ -286,7 +320,9 @@
       "lon": 34.7897,
       "type": "Biennial",
       "note": "מתקיימת במוזיאון ארץ ישראל; מהדורת 2026 רצה במהלך השנה.",
-      "confidence": "medium"
+      "confidence": "medium",
+      "cityEn": "Tel Aviv",
+      "noteEn": "Held at the Eretz Israel Museum; the 2026 edition runs through the year."
     }
   ],
   "commissions": [

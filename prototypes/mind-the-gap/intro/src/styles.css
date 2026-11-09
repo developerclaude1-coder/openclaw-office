@@ -1,0 +1,268 @@
+/* ==========================================================================
+   MIND THE GAP — how it works
+   Layout concept: one sticky stage. The upper part is the exhibit (a particle
+   field that reforms as you scroll); the strip beneath it is that exhibit's
+   wall label, captioned the way a museum captions an object.
+   The piece commits to a single arc on purpose: it starts in the dark of
+   space and arrives in the white of a lit gallery. It does not follow the
+   viewer's theme, because the change of light is the story.
+   ========================================================================== */
+:root{
+  /* night — the dark of space */
+  --n-bg:#0A0D18; --n-fg:#EDEFF7; --n-muted:#A3ABC8; --n-faint:#667092;
+  --n-line:rgba(160,172,214,.22); --n-surface:rgba(16,20,38,.86); --n-tint:rgba(237,239,247,.05);
+  --n-signal:#F2A93B; --n-cool:#7FB2D9; --n-violet:#C77DFF;
+  /* day — the lit gallery */
+  --d-bg:#FAF8F5; --d-fg:#121210; --d-muted:#5C5A54; --d-faint:#8C8980;
+  --d-line:rgba(18,18,16,.16); --d-surface:rgba(255,255,255,.92); --d-tint:rgba(18,18,16,.04);
+  --d-signal:#A35E09; --d-cool:#2A6076; --d-violet:#6D4596;
+  /* the active tone; the page opens at night */
+  --bg:var(--n-bg); --fg:var(--n-fg); --muted:var(--n-muted); --faint:var(--n-faint);
+  --line:var(--n-line); --surface:var(--n-surface); --tint:var(--n-tint);
+  --signal:var(--n-signal); --cool:var(--n-cool); --violet:var(--n-violet);
+  color-scheme:dark;
+
+  /* three voices: serif is art, mono is the index, sans connects them */
+  --serif:__SERIF__;
+  --sans:__SANS__;
+  --mono:__MONO__;
+  --tr1:.2em; --tr2:.14em;                /* tracking for the mono voice */
+
+  /* motion — the same tokens the editions use */
+  --dur-micro:160ms; --dur-base:420ms; --dur-slow:900ms;
+  --ease-out:cubic-bezier(.22,.61,.36,1);
+  --ease-spring:cubic-bezier(.34,1.3,.64,1);
+
+  --g:clamp(16px,4.5vw,64px);
+  --gl:max(var(--g),env(safe-area-inset-left,0px));
+  --gr:max(var(--g),env(safe-area-inset-right,0px));
+  --gs:var(--gl); --ge:var(--gr);         /* gutter at the reading start / end */
+  --bar-h:56px;
+  /* A phone's system bars. The page is padded by them (a published artifact's
+     shell pads :root the same way), and the stage is sized to sit inside that
+     padding, so nothing on the stage needs to know the insets. Only the bar,
+     which is fixed to the very top of the screen, adds one to itself. */
+  --it:env(safe-area-inset-top,0px); --ib:env(safe-area-inset-bottom,0px);
+  padding-block:var(--it) var(--ib);
+}
+html[dir="rtl"]{--gs:var(--gr);--ge:var(--gl)}
+html[lang="he"]{--tr1:.05em;--tr2:.03em}  /* Hebrew has no capitals to space out */
+html[data-tone="day"]{
+  --bg:var(--d-bg); --fg:var(--d-fg); --muted:var(--d-muted); --faint:var(--d-faint);
+  --line:var(--d-line); --surface:var(--d-surface); --tint:var(--d-tint);
+  --signal:var(--d-signal); --cool:var(--d-cool); --violet:var(--d-violet);
+  color-scheme:light;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}          /* a display set by a class must never bring a hidden thing back */
+html{background:var(--bg-live,var(--bg));-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg-live,var(--bg));color:var(--fg);font-family:var(--sans);
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:3px}
+::selection{background:var(--signal);color:var(--n-bg)}
+
+/* ---------- top bar ---------- */
+.bar{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;
+  justify-content:space-between;gap:12px;height:calc(var(--bar-h) + var(--it));
+  padding:var(--it) var(--gr) 0 var(--gl);pointer-events:none}
+.bar > *{pointer-events:auto}
+.mark{font-family:var(--sans);font-weight:900;font-size:1rem;letter-spacing:-.03em;
+  text-transform:uppercase;text-decoration:none;color:var(--fg);display:inline-flex;
+  align-items:center;white-space:nowrap;transition:color var(--dur-base) var(--ease-out)}
+.mark i{display:inline-block;width:.62em;height:2px;margin-inline:.2em;background:var(--signal);
+  transition:width var(--dur-base) var(--ease-spring),background var(--dur-base)}
+.mark:hover i{width:1.5em}
+.bar-tools{display:flex;align-items:center;gap:8px}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:2px}
+.lang button{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;line-height:1;
+  padding:.5em .8em;border-radius:999px;color:var(--muted);
+  transition:background var(--dur-micro),color var(--dur-micro)}
+.lang button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.ghost{font-family:var(--mono);font-size:.66rem;letter-spacing:var(--tr2);text-transform:uppercase;
+  line-height:1;padding:.62em .95em;border:1px solid var(--line);border-radius:999px;color:var(--muted);
+  transition:color var(--dur-micro),border-color var(--dur-micro)}
+.ghost:hover{color:var(--signal);border-color:var(--signal)}
+.ghost .t-short{display:none}
+.ghost.icon{display:grid;place-items:center;width:30px;height:30px;padding:0}
+:is(.icon,.play) svg{display:block;fill:currentColor}
+:is(.icon,.play) .pa,:is(.icon[aria-pressed="true"],html.playing .play) .pl{display:none}
+:is(.icon[aria-pressed="true"],html.playing .play) .pa{display:inline}
+
+/* ---------- shared type ---------- */
+.eyebrow{margin:0;font-family:var(--mono);font-size:.68rem;letter-spacing:var(--tr1);
+  text-transform:uppercase;color:var(--signal)}
+.ch h2{margin:0;font-family:var(--serif);font-weight:500;line-height:1.05;letter-spacing:-.012em;
+  font-size:clamp(1.55rem,min(3.3vw,5.6vh),3.1rem);text-wrap:balance}
+.body{margin:0;max-width:56ch;color:var(--muted);line-height:1.55;text-wrap:pretty;
+  font-size:clamp(.92rem,min(1.15vw,2.1vh),1.06rem)}
+.tomb{margin:.15rem 0 0;padding-top:.6rem;border-top:1px solid var(--line);align-self:flex-start;
+  font-family:var(--mono);font-size:.62rem;letter-spacing:var(--tr2);text-transform:uppercase;color:var(--faint)}
+.label{display:flex;flex-direction:column;gap:.65rem;max-width:40rem;min-width:0}
+.wordmark{margin:0;font-family:var(--sans);font-weight:900;line-height:.84;letter-spacing:-.05em;
+  text-transform:uppercase;font-size:clamp(2.7rem,min(9.6vw,21vh),8.8rem);display:flex;flex-wrap:wrap;
+  justify-content:center;align-items:center;gap:0 .2em}
+.wordmark .word{display:inline-flex;white-space:nowrap}
+.wordmark .word span{display:inline-block;will-change:transform,opacity}
+.wordmark .gapbar{display:inline-block;width:1.05em;height:.085em;background:var(--signal);transform-origin:left center}
+.wm-break{display:none}
+.sub{margin:0;font-family:var(--serif);font-weight:400;color:var(--muted);font-size:clamp(1.1rem,2.3vw,1.7rem)}
+
+/* ---------- without scripting: a plain, complete page ---------- */
+html:not(.js) .stage{display:grid;gap:56px;max-width:60rem;margin:0 auto;
+  padding:calc(var(--bar-h) + 32px) var(--gr) 72px var(--gl)}
+html:not(.js) :is(#cv,.cv-labels,.ticker,.rail,.progress,.cue,.enter,.exhibit,.lang,.play,#skipBtn,#barPlay){display:none}
+html:not(.js) .wordmark{justify-content:flex-start;font-size:clamp(2.6rem,9vw,6rem)}
+html:not(.js) .wm-break{display:none}
+html:not(.js) .ch--enter{display:flex;flex-direction:column;gap:.65rem}
+/* the way in is still offered: the three doors, as plain links */
+html:not(.js) .app[hidden]{display:block!important}
+html:not(.js) .app{position:static;opacity:1;pointer-events:auto}
+html:not(.js) .app > :not(.doors){display:none}
+html:not(.js) .doors{position:static;flex-wrap:wrap;padding:0;overflow:visible}
+html:not(.js) .doors-title{flex-basis:100%}
+
+/* ---------- the stage ---------- */
+html.js .scroller{height:calc(var(--screens,10) * 100vh);height:calc(var(--screens,10) * 100svh)}
+html.js .stage{position:sticky;top:var(--it);height:calc(100vh - var(--it) - var(--ib));
+  height:calc(100svh - var(--it) - var(--ib));overflow:hidden;
+  background:var(--bg-live,var(--bg))}
+html.js #cv{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+html.js .ch{position:absolute;left:0;right:0;bottom:0;top:var(--zone-bottom,66%);z-index:3;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:clamp(16px,3vw,56px);
+  padding-block:6px 18px;padding-inline:var(--gs) calc(var(--ge) + 44px);
+  opacity:0;pointer-events:none;will-change:opacity,transform}
+
+/* 00 — title */
+html.js .ch--title{top:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;gap:1.1rem;padding:var(--bar-h) var(--gr) 9vh var(--gl)}
+.play{display:inline-flex;align-items:center;gap:.75em;margin-top:.5rem;padding:.9em 1.35em;border-radius:999px;
+  background:var(--signal);color:var(--n-bg);font-family:var(--mono);font-size:.72rem;letter-spacing:var(--tr2);
+  text-transform:uppercase;line-height:1;transition:transform var(--dur-base) var(--ease-spring)}
+.play:hover{transform:scale(1.05)}
+.play:active{transform:scale(.97)}
+/* the title assembles: wordmark first (scripted), then the line under it, then the ways forward */
+html.js .ch--title :is(.eyebrow,.sub,.play,.cue){animation:rise var(--dur-slow) var(--ease-out) backwards}
+html.js .ch--title .eyebrow{animation-delay:.1s}
+html.js .ch--title .sub{animation-delay:.7s}
+html.js .ch--title .play{animation-delay:.9s}
+html.js .ch--title .cue{animation-delay:1.2s}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.cue{position:absolute;left:0;right:0;bottom:22px;margin:0;display:flex;
+  flex-direction:column;align-items:center;gap:10px;font-family:var(--mono);font-size:.62rem;
+  letter-spacing:var(--tr1);text-transform:uppercase;color:var(--faint)}
+.cue i{display:block;width:1px;height:38px;background:linear-gradient(var(--signal),transparent);
+  transform-origin:top;animation:cue 2.2s var(--ease-out) infinite}
+@keyframes cue{0%{transform:scaleY(0);opacity:1}60%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
+
+/* 07 — arrival: everything hangs off the ring the particles form */
+html.js .ch--enter{top:0;display:block;padding:0}
+html.js .enter-head{position:absolute;left:0;right:0;bottom:calc(100% - var(--ring-y,47%) + var(--ring-out,270px) + 18px);
+  display:flex;flex-direction:column;align-items:center;gap:.6rem;text-align:center;padding:0 var(--gr) 0 var(--gl)}
+.enter{position:absolute;left:50%;top:var(--ring-y,47%);transform:translate(-50%,-50%);
+  width:calc(var(--ring-r,200px) * 1.1);height:calc(var(--ring-r,200px) * 1.1);border-radius:50%;
+  background:var(--fg);color:var(--bg);font-family:var(--mono);font-size:clamp(.72rem,1.2vw,.9rem);
+  letter-spacing:var(--tr1);text-transform:uppercase;
+  transition:transform var(--dur-base) var(--ease-spring),background var(--dur-micro)}
+.enter:hover{transform:translate(-50%,-50%) scale(1.06);background:var(--signal)}
+.enter:active{transform:translate(-50%,-50%) scale(.97)}
+html.js .ch--enter .tomb{position:absolute;left:50%;top:calc(var(--ring-y,47%) + var(--ring-out,270px) + 16px);
+  transform:translateX(-50%);border-top:0;padding-top:0;white-space:nowrap;max-width:calc(100% - 32px);
+  overflow:hidden;text-overflow:ellipsis}
+
+/* labels drawn over the canvas, and the scale readout */
+.cv-labels{position:absolute;inset:0;z-index:2;pointer-events:none}
+.cvl{position:absolute;left:0;top:0;transform:translate(-50%,-50%);opacity:0;white-space:nowrap;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:var(--tr1);text-transform:uppercase;color:var(--muted)}
+.cvl--top{transform:translate(-50%,-100%);text-align:center;line-height:1.5}
+.cvl--signal{color:var(--signal)}
+.cvl--gap{color:var(--faint)}
+.ticker{position:absolute;left:0;right:0;top:var(--zone-mid,36%);transform:translateY(-50%);z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;pointer-events:none;opacity:0}
+.tk-scale{font-family:var(--mono);font-size:clamp(.8rem,1.6vw,1.05rem);letter-spacing:.14em;color:var(--signal)}
+.tk-scale sup{font-size:.66em;line-height:0;vertical-align:baseline;position:relative;top:-.62em;letter-spacing:.04em}
+.tk-band{font-family:var(--sans);font-weight:900;line-height:.9;letter-spacing:-.04em;text-transform:uppercase;
+  font-size:clamp(2.4rem,9vw,7rem);color:var(--fg)}
+.roll{animation:roll var(--dur-base) var(--ease-out)}
+@keyframes roll{from{transform:translateY(.32em);opacity:0}to{transform:none;opacity:1}}
+
+/* ---------- exhibits: small pieces of the real interface ---------- */
+.exhibit{width:min(340px,30vw);min-width:264px;align-self:start;display:flex;flex-direction:column;gap:10px;
+  padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.ex-input{display:flex;align-items:center;gap:8px;min-height:2.4em;padding:.45em .95em;
+  border:1px solid var(--line);border-radius:999px;font-family:var(--mono);font-size:.78rem}
+.ex-icn{color:var(--faint)}
+.ex-caret{width:1px;height:1.1em;background:var(--signal);animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.ex-result,.mini,.ex-collect li{opacity:0;transform:translateY(8px);
+  transition:opacity var(--dur-base) var(--ease-out),transform var(--dur-base) var(--ease-out)}
+.ex-result.in,.mini.in,.ex-collect li.in{opacity:1;transform:none}
+.ex-result{display:grid;gap:3px;padding:.7em .9em;border:1px solid var(--line);border-radius:8px;background:var(--tint)}
+.ex-result b{font-family:var(--serif);font-weight:600;font-size:1rem;line-height:1.2}
+.ex-sub{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ex-ok{display:inline-flex;align-items:center;gap:.5em;margin-top:2px;font-family:var(--mono);font-size:.6rem;
+  letter-spacing:var(--tr2);text-transform:uppercase;color:var(--signal)}
+.ex-ok i,.apply i{font-style:normal}
+.mini{display:grid;gap:4px;padding:.7em .85em;border:1px solid var(--line);border-radius:8px;background:var(--tint)}
+.mini-top{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;line-height:1;
+  padding:.38em .55em;border:1px solid var(--line);border-radius:3px;color:var(--muted)}
+.tag--ok{color:var(--cool);border-color:currentColor}
+.mini h3{margin:0;font-family:var(--serif);font-weight:600;font-size:.98rem;line-height:1.2}
+.mini p{margin:0;font-size:.74rem;color:var(--muted)}
+.apply{align-self:flex-start;display:inline-flex;align-items:center;gap:.5em;padding:.55em .95em;border-radius:999px;
+  background:var(--signal);color:var(--n-bg);font-family:var(--mono);font-size:.66rem;letter-spacing:var(--tr2);
+  text-transform:uppercase;line-height:1;opacity:0;transform:scale(.9);
+  transition:opacity var(--dur-base) var(--ease-out),transform var(--dur-base) var(--ease-spring)}
+.apply.in{opacity:1;transform:none}
+.ex-head{display:flex;justify-content:space-between;align-items:center;gap:8px;font-family:var(--mono);
+  font-size:.62rem;letter-spacing:var(--tr2);text-transform:uppercase;color:var(--muted)}
+.badge{padding:.3em .55em;border:1px solid currentColor;border-radius:3px;color:var(--cool);line-height:1}
+.ex-collect ol{list-style:none;margin:0;padding:0;display:grid;gap:6px;counter-reset:p}
+.ex-collect li{counter-increment:p;display:flex;align-items:baseline;gap:.7em;padding-bottom:6px;
+  border-bottom:1px solid var(--line);font-size:.86rem;line-height:1.3}
+.ex-collect li:last-child{border-bottom:0;padding-bottom:0}
+.ex-collect li::before{content:"0" counter(p);font-family:var(--mono);font-size:.6rem;color:var(--cool)}
+
+/* ---------- chapter rail ---------- */
+.rail{position:absolute;top:50%;inset-inline-end:max(12px,calc(var(--ge) - 30px));transform:translateY(-50%);
+  z-index:4;display:flex;flex-direction:column;gap:6px}
+.rail button{display:flex;align-items:center;justify-content:flex-end;gap:10px;height:18px}
+.rail button i{display:block;width:14px;height:1px;background:var(--faint);
+  transition:width var(--dur-base) var(--ease-out),background var(--dur-base)}
+.rail button span{font-family:var(--mono);font-size:.58rem;letter-spacing:var(--tr2);text-transform:uppercase;
+  color:var(--muted);white-space:nowrap;opacity:0;transition:opacity var(--dur-micro)}
+.rail button:hover span,.rail button:focus-visible span,.rail button[aria-current="true"] span{opacity:1}
+.rail button[aria-current="true"] i{width:28px;height:2px;background:var(--signal)}
+.progress{display:none;position:absolute;left:0;right:0;top:var(--bar-h);height:2px;z-index:4}
+.progress i{display:block;height:100%;background:var(--signal);transform-origin:left center;transform:scaleX(0)}
+html[dir="rtl"] .progress i{transform-origin:right center}
+
+/* ---------- narrow and short viewports ---------- */
+@media (max-aspect-ratio:115/100){
+  html.js .ch{grid-template-columns:minmax(0,1fr);gap:12px;padding-inline:var(--gs) var(--ge)}
+  html.js .ch--title{padding:var(--bar-h) var(--gr) 12vh var(--gl)}
+  .wordmark{font-size:clamp(3rem,min(19vw,11vh),7.4rem);row-gap:.04em}
+  .wm-break{display:block;flex-basis:100%;height:0}
+  .cvl--top{white-space:normal;max-width:46vw}
+  .exhibit{width:100%;min-width:0;max-width:420px}
+  .rail{display:none}
+  .progress{display:block}
+  html.js .ch--enter .tomb{white-space:normal;text-align:center;width:calc(100% - 32px)}
+}
+@media (max-aspect-ratio:115/100) and (max-height:760px){ html.js .exhibit{display:none} }
+@media (min-aspect-ratio:115/100) and (max-width:920px){ html.js .exhibit{display:none} }
+@media (min-aspect-ratio:115/100) and (max-height:600px){ html.js .exhibit{display:none} }
+/* a phone on its side: each scene keeps its title and loses its paragraph */
+@media (min-aspect-ratio:115/100) and (max-height:520px){
+  html.js .ch:not(.ch--title) :is(.body,.tomb),html.js .ch--enter .eyebrow{display:none}
+}
+@media (max-width:480px){ .ghost{padding:.62em .75em} .ghost .t-long{display:none} .ghost .t-short{display:inline} .bar-tools{gap:6px} }
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;
+    animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
