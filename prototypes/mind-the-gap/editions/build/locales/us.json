@@ -1,0 +1,787 @@
+{
+  "id": "us",
+  "name": "United States",
+  "lang": "en",
+  "dir": "ltr",
+  "altEdition": {
+    "id": "il",
+    "label": "IL",
+    "href": "../il/index.html"
+  },
+  "mapView": {
+    "lon": -96.5,
+    "lat": 39.5,
+    "zoom": 5.1
+  },
+  "strings": {
+    "brandSub": "The art world index",
+    "navGap": "The Gap",
+    "navCommissions": "Commissions",
+    "navResidencies": "Residencies",
+    "navAtlas": "Atlas",
+    "navJoin": "Join",
+    "themeLabel": "Theme",
+    "editionLabel": "Edition",
+    "heroEyebrow": "One index for the whole American art world",
+    "heroTitle": "The art world, brought into ",
+    "heroTitleEm": "focus",
+    "heroTitleEnd": " — from the field to a single work.",
+    "heroLede": "Everything that usually lives in separate tabs and closed inboxes: artists and collectors, public commissions, residencies, and a live map of the museums, galleries and biennials that hold it all.",
+    "heroCtaPrimary": "Open the atlas",
+    "heroCtaSecondary": "Find an open call",
+    "counterSuffix": "open opportunities in the index right now",
+    "resHint": "drag to change resolution — cosmos → atom",
+    "audienceTitle": "Join as an artist, a collector or an institution",
+    "audArtist": "Artist",
+    "audArtistDesc": "A portfolio, plus the open calls and residencies that actually fit your practice.",
+    "audCollector": "Collector",
+    "audCollectorDesc": "Provenance and title, early discovery, and a way to follow practices — not just names.",
+    "audInstitution": "Institution",
+    "audInstitutionDesc": "Post a call, and appear on the atlas.",
+    "signUp": "Sign up",
+    "sec1Scale": "Resolution",
+    "sec1Num": "01 / People",
+    "sec1Title": "Artists and collectors, on the same map.",
+    "sec1Lede": "The gap is structural, not personal. Artists can't see who is collecting; collectors can't see who is emerging until someone else decides they should.",
+    "forArtists": "For artists",
+    "forCollectors": "For collectors",
+    "artistsPoleTitle": "What the market hides from you.",
+    "collectorsPoleTitle": "What you need before you buy.",
+    "sec2Scale": "Resolution",
+    "sec2Num": "02 / Public calls",
+    "sec2Title": "Commissions — the work that gets funded.",
+    "sec2Lede": "Most listings bury the question that actually matters: can you apply at all? Here it's the first thing you see.",
+    "sec3Scale": "Resolution",
+    "sec3Num": "03 / Studio and time",
+    "sec3Title": "Residencies — time, space, and a room to think.",
+    "sec3Lede": "What is actually provided: duration, what's funded, what you pay for, and who the door is open to.",
+    "sec4Scale": "Resolution",
+    "sec4Num": "04 / The atlas",
+    "sec4Title": "A map of museums, galleries and biennials.",
+    "sec4Lede": "Every institution as a point of light on real geography. Scroll to zoom, drag to pan, search to fly.",
+    "filterAll": "All",
+    "filterApply": "You can apply",
+    "filterMuseum": "Museums",
+    "filterGallery": "Galleries",
+    "filterBiennial": "Biennials",
+    "searchPlaceholder": "Search institutions…",
+    "noMatch": "No match",
+    "plotted": "institutions plotted",
+    "legendMuseum": "Museum",
+    "legendGallery": "Gallery",
+    "legendBiennial": "Biennial / fair",
+    "scaleLabel": "Scale",
+    "bandWorld": "World",
+    "bandRegion": "Region",
+    "bandCity": "City",
+    "bandStreet": "Street",
+    "dtFunding": "Funding",
+    "dtOpens": "How it opens",
+    "dtLength": "Length",
+    "dtProvides": "Provides",
+    "dtFor": "For",
+    "dtApplying": "Applying",
+    "tagResidency": "Residency",
+    "confidence": "confidence",
+    "joinEyebrow": "Close the gap",
+    "joinTitle": "Join the index.",
+    "joinLede": "One account connects your practice, your collection or your programme to everything else on the map. No fee to be listed.",
+    "emailPlaceholder": "you@studio.art",
+    "joinCta": "Request access",
+    "joinErr": "Enter a valid email to request access.",
+    "joinOk": "Request received — we'll place you on the map shortly.",
+    "footTagline": "One index connecting artists to the industry — resolving the field from cosmos to atom.",
+    "footNetwork": "Network",
+    "footOpportunities": "Opportunities",
+    "footStudio": "Studio",
+    "disclaimerTitle": "About this data.",
+    "disclaimer": "Every institution, residency and commission listed here is real and was checked against primary sources. Even so: programmes change, funding changes, and application windows move every year. This is not an application portal — always confirm current terms with the organisation directly using the source link on each card.",
+    "rtlNote": "English · left to right"
+  },
+  "places": [
+    {
+      "name": "Museum of Modern Art (MoMA)",
+      "city": "New York",
+      "country": "United States",
+      "lat": 40.7614,
+      "lon": -73.9776,
+      "type": "Museum",
+      "note": "Defining collection of modern and contemporary art.",
+      "confidence": "high"
+    },
+    {
+      "name": "The Metropolitan Museum of Art",
+      "city": "New York",
+      "country": "United States",
+      "lat": 40.7794,
+      "lon": -73.9632,
+      "type": "Museum",
+      "note": "Encyclopedic collection spanning 5,000 years.",
+      "confidence": "high"
+    },
+    {
+      "name": "Whitney Museum of American Art",
+      "city": "New York",
+      "country": "United States",
+      "lat": 40.7396,
+      "lon": -74.0089,
+      "type": "Museum",
+      "note": "American art; home of the Whitney Biennial.",
+      "confidence": "high"
+    },
+    {
+      "name": "Guggenheim Museum",
+      "city": "New York",
+      "country": "United States",
+      "lat": 40.783,
+      "lon": -73.959,
+      "type": "Museum",
+      "note": "Frank Lloyd Wright rotunda; modern and contemporary.",
+      "confidence": "high"
+    },
+    {
+      "name": "Museum of Fine Arts, Boston",
+      "city": "Boston",
+      "country": "United States",
+      "lat": 42.3394,
+      "lon": -71.094,
+      "type": "Museum",
+      "note": "One of the largest encyclopedic museums in the US.",
+      "confidence": "high"
+    },
+    {
+      "name": "Institute of Contemporary Art",
+      "city": "Boston",
+      "country": "United States",
+      "lat": 42.3531,
+      "lon": -71.0434,
+      "type": "Museum",
+      "note": "Waterfront contemporary programme.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Art Institute of Chicago",
+      "city": "Chicago",
+      "country": "United States",
+      "lat": 41.8796,
+      "lon": -87.6237,
+      "type": "Museum",
+      "note": "Major encyclopedic collection; Modern Wing.",
+      "confidence": "high"
+    },
+    {
+      "name": "Museum of Contemporary Art Chicago",
+      "city": "Chicago",
+      "country": "United States",
+      "lat": 41.8963,
+      "lon": -87.622,
+      "type": "Museum",
+      "note": "Contemporary programme and performance.",
+      "confidence": "high"
+    },
+    {
+      "name": "SFMOMA",
+      "city": "San Francisco",
+      "country": "United States",
+      "lat": 37.7857,
+      "lon": -122.4011,
+      "type": "Museum",
+      "note": "Modern and contemporary; Snøhetta expansion.",
+      "confidence": "high"
+    },
+    {
+      "name": "LACMA",
+      "city": "Los Angeles",
+      "country": "United States",
+      "lat": 34.0639,
+      "lon": -118.3592,
+      "type": "Museum",
+      "note": "Largest encyclopedic museum in the western US.",
+      "confidence": "high"
+    },
+    {
+      "name": "The Broad",
+      "city": "Los Angeles",
+      "country": "United States",
+      "lat": 34.0544,
+      "lon": -118.2504,
+      "type": "Museum",
+      "note": "Free contemporary museum on Grand Avenue.",
+      "confidence": "high"
+    },
+    {
+      "name": "MOCA Los Angeles",
+      "city": "Los Angeles",
+      "country": "United States",
+      "lat": 34.0529,
+      "lon": -118.2504,
+      "type": "Museum",
+      "note": "Contemporary art across Grand Avenue and Geffen.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Hammer Museum",
+      "city": "Los Angeles",
+      "country": "United States",
+      "lat": 34.0596,
+      "lon": -118.4439,
+      "type": "Museum",
+      "note": "UCLA museum; Made in L.A. biennial.",
+      "confidence": "medium"
+    },
+    {
+      "name": "The Menil Collection",
+      "city": "Houston",
+      "country": "United States",
+      "lat": 29.737,
+      "lon": -95.396,
+      "type": "Museum",
+      "note": "Renzo Piano campus; free admission.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Pérez Art Museum Miami",
+      "city": "Miami",
+      "country": "United States",
+      "lat": 25.7859,
+      "lon": -80.1863,
+      "type": "Museum",
+      "note": "Contemporary art of the Atlantic world.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Walker Art Center",
+      "city": "Minneapolis",
+      "country": "United States",
+      "lat": 44.9683,
+      "lon": -93.2888,
+      "type": "Museum",
+      "note": "Contemporary art and sculpture garden.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Seattle Art Museum",
+      "city": "Seattle",
+      "country": "United States",
+      "lat": 47.6074,
+      "lon": -122.338,
+      "type": "Museum",
+      "note": "Downtown museum plus Olympic Sculpture Park.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Philadelphia Museum of Art",
+      "city": "Philadelphia",
+      "country": "United States",
+      "lat": 39.9656,
+      "lon": -75.181,
+      "type": "Museum",
+      "note": "Major encyclopedic collection.",
+      "confidence": "high"
+    },
+    {
+      "name": "National Gallery of Art",
+      "city": "Washington, D.C.",
+      "country": "United States",
+      "lat": 38.8913,
+      "lon": -77.0199,
+      "type": "Museum",
+      "note": "National collection; free admission.",
+      "confidence": "high"
+    },
+    {
+      "name": "National Museum of African American History and Culture",
+      "city": "Washington, D.C.",
+      "country": "United States",
+      "lat": 38.8911,
+      "lon": -77.0325,
+      "type": "Museum",
+      "note": "Smithsonian museum of African American life and art.",
+      "confidence": "high"
+    },
+    {
+      "name": "Chinati Foundation",
+      "city": "Marfa, Texas",
+      "country": "United States",
+      "lat": 30.3049,
+      "lon": -104.0263,
+      "type": "Museum",
+      "note": "Donald Judd's permanent large-scale installations.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Dia Beacon",
+      "city": "Beacon, New York",
+      "country": "United States",
+      "lat": 41.5009,
+      "lon": -73.9718,
+      "type": "Museum",
+      "note": "Large-scale minimal and conceptual works in a former factory.",
+      "confidence": "medium"
+    },
+    {
+      "name": "MASS MoCA",
+      "city": "North Adams, Massachusetts",
+      "country": "United States",
+      "lat": 42.6996,
+      "lon": -73.1162,
+      "type": "Museum",
+      "note": "Vast converted mill campus for large-scale work.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Gagosian",
+      "city": "New York",
+      "country": "United States",
+      "lat": 40.7489,
+      "lon": -74.0055,
+      "type": "Gallery",
+      "note": "Blue-chip programme; West 24th Street is the main Chelsea space.",
+      "confidence": "high"
+    },
+    {
+      "name": "David Zwirner",
+      "city": "New York",
+      "country": "United States",
+      "lat": 40.7462,
+      "lon": -74.0073,
+      "type": "Gallery",
+      "note": "Chelsea flagship; international contemporary programme.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Pace Gallery",
+      "city": "New York",
+      "country": "United States",
+      "lat": 40.7478,
+      "lon": -74.0062,
+      "type": "Gallery",
+      "note": "Flagship on West 25th Street.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Hauser & Wirth",
+      "city": "Los Angeles",
+      "country": "United States",
+      "lat": 34.0366,
+      "lon": -118.2342,
+      "type": "Gallery",
+      "note": "Downtown Arts District campus.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Jeffrey Deitch",
+      "city": "Los Angeles",
+      "country": "United States",
+      "lat": 34.0882,
+      "lon": -118.3269,
+      "type": "Gallery",
+      "note": "Hollywood space for large-scale exhibitions.",
+      "confidence": "low"
+    },
+    {
+      "name": "Whitney Biennial",
+      "city": "New York",
+      "country": "United States",
+      "lat": 40.7396,
+      "lon": -74.0089,
+      "type": "Biennial",
+      "note": "Longest-running survey of contemporary American art.",
+      "confidence": "high"
+    },
+    {
+      "name": "Art Basel Miami Beach",
+      "city": "Miami Beach",
+      "country": "United States",
+      "lat": 25.794,
+      "lon": -80.133,
+      "type": "Biennial",
+      "note": "Annual fair each December at the Convention Center.",
+      "confidence": "high"
+    },
+    {
+      "name": "The Armory Show",
+      "city": "New York",
+      "country": "United States",
+      "lat": 40.758,
+      "lon": -74.002,
+      "type": "Biennial",
+      "note": "Annual fair at the Javits Center.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Prospect New Orleans",
+      "city": "New Orleans",
+      "country": "United States",
+      "lat": 29.9511,
+      "lon": -90.0715,
+      "type": "Biennial",
+      "note": "Citywide contemporary art triennial.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Made in L.A.",
+      "city": "Los Angeles",
+      "country": "United States",
+      "lat": 34.0596,
+      "lon": -118.4439,
+      "type": "Biennial",
+      "note": "Hammer Museum biennial of Los Angeles artists.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Desert X",
+      "city": "Coachella Valley, California",
+      "country": "United States",
+      "lat": 33.7222,
+      "lon": -116.37,
+      "type": "Biennial",
+      "note": "Site-responsive outdoor exhibition across the desert.",
+      "confidence": "medium"
+    }
+  ],
+  "commissions": [
+    {
+      "name": "Percent for Art",
+      "org": "NYC Department of Cultural Affairs",
+      "city": "New York",
+      "country": "United States",
+      "category": "civic",
+      "access": "registry",
+      "summary": "New York City sets aside a share of eligible city-funded construction budgets for permanent public artwork in libraries, schools, firehouses and parks.",
+      "budgetNote": "A percentage of each eligible capital project, so it varies widely; covers design, fabrication and installation.",
+      "cycleNote": "No deadlines. Artists join the Percent for Art Artist Registry on an ongoing basis, and the department draws from it to invite proposals for specific projects.",
+      "confidence": "high",
+      "sourceUrl": "https://www.nyc.gov/site/dclapercentforart/registry/registry-about.page"
+    },
+    {
+      "name": "Chicago Percent-for-Art",
+      "org": "Dept. of Cultural Affairs and Special Events",
+      "city": "Chicago",
+      "country": "United States",
+      "category": "civic",
+      "access": "registry",
+      "summary": "City ordinance allocates 1.33% of qualifying capital project budgets to public art, one of the higher percentages among US programmes.",
+      "budgetNote": "1.33% of qualifying capital construction budgets, by city ordinance.",
+      "cycleNote": "The city maintains an Artist Email Registry to announce calls, plus a prequalified list used to select artists for specific projects.",
+      "confidence": "high",
+      "sourceUrl": "https://www.chicago.gov/city/en/depts/dca/provdrs/public_art_program.html"
+    },
+    {
+      "name": "Percent for Art",
+      "org": "City of Philadelphia",
+      "city": "Philadelphia",
+      "country": "United States",
+      "category": "civic",
+      "access": "mixed",
+      "summary": "Philadelphia pioneered percent-for-art in the United States in 1959; the model has since spread to more than 350 programmes nationwide.",
+      "budgetNote": "A set share of eligible capital budgets, varying by project.",
+      "cycleNote": "Projects are announced individually rather than on one annual cycle. Confirm the current route with the city.",
+      "confidence": "medium",
+      "sourceUrl": "https://www.phila.gov/"
+    },
+    {
+      "name": "High Line Plinth",
+      "org": "High Line Art, Friends of the High Line",
+      "city": "New York",
+      "country": "United States",
+      "category": "public",
+      "access": "invitation",
+      "summary": "A dedicated pedestal on the High Line's Spur given over to a single major new sculpture, on view for 18 months at a time.",
+      "budgetNote": "Commissioned, fabricated and installed by High Line Art; per-commission figures are not published.",
+      "cycleNote": "Not an open call. An advisory committee nominates artists, who are invited to propose; a shortlist is shown publicly before two commissions are selected per cycle.",
+      "confidence": "high",
+      "sourceUrl": "https://www.thehighline.org/art/plinth/"
+    },
+    {
+      "name": "Midnight Moment",
+      "org": "Times Square Arts",
+      "city": "New York",
+      "country": "United States",
+      "category": "digital",
+      "access": "open call",
+      "summary": "A monthly moving-image commission shown simultaneously on more than 90 Times Square billboards every night from 11.57pm to midnight.",
+      "budgetNote": "Screen time is donated by billboard operators, so the programme covers an artist fee and technical preparation. No submission fee.",
+      "cycleNote": "Rolling open call with no fixed deadline. Proposals are accepted year-round and a new artist is programmed each month.",
+      "confidence": "high",
+      "sourceUrl": "https://www.timessquarenyc.org/arts/midnight-moment"
+    },
+    {
+      "name": "Art in Public Places",
+      "org": "City of Austin Cultural Arts Division",
+      "city": "Austin, Texas",
+      "country": "United States",
+      "category": "civic",
+      "access": "open call",
+      "summary": "Austin commissions permanent public artwork for civic sites through a competitive public process open to artists.",
+      "budgetNote": "Project budgets are published per call and vary by site.",
+      "cycleNote": "Calls are issued per project through the year as RFQs or RFPs rather than on a single annual deadline.",
+      "confidence": "medium",
+      "sourceUrl": "https://www.austintexas.gov/department/art-public-places"
+    },
+    {
+      "name": "One Percent for Art",
+      "org": "City of Kansas City, Missouri",
+      "city": "Kansas City",
+      "country": "United States",
+      "category": "civic",
+      "access": "open call",
+      "summary": "Kansas City commissions artwork for civic construction projects through an open, competitive process.",
+      "budgetNote": "One percent of eligible capital project budgets.",
+      "cycleNote": "Calls for artists are issued per project as an RFQ or RFP; there is no single annual deadline.",
+      "confidence": "medium",
+      "sourceUrl": "https://www.kcmo.gov/city-hall/departments/general-services/public-art/one-percent-for-art"
+    },
+    {
+      "name": "Public Art Program",
+      "org": "Seattle Office of Arts & Culture",
+      "city": "Seattle",
+      "country": "United States",
+      "category": "civic",
+      "access": "registry",
+      "summary": "Seattle runs one of the longer-established municipal public art programmes in the US, commissioning work for civic sites across the city.",
+      "budgetNote": "A share of eligible capital budgets; figures vary by project. Confirm with the office.",
+      "cycleNote": "The office maintains artist rosters and issues project-specific calls. Confirm the current route directly.",
+      "confidence": "low",
+      "sourceUrl": "https://www.seattle.gov/arts"
+    },
+    {
+      "name": "Public Art Program",
+      "org": "LA Department of Cultural Affairs",
+      "city": "Los Angeles",
+      "country": "United States",
+      "category": "civic",
+      "access": "mixed",
+      "summary": "Los Angeles commissions public artwork for civic sites and through private development requirements across the city.",
+      "budgetNote": "Varies by project and funding route. Confirm with the department.",
+      "cycleNote": "Opportunities are announced per project rather than on one annual cycle. Confirm the current route with DCA.",
+      "confidence": "low",
+      "sourceUrl": "https://culturela.org/"
+    },
+    {
+      "name": "CIFO Grants and Commissions Program",
+      "org": "Cisneros Fontanals Art Foundation",
+      "city": "Miami",
+      "country": "United States",
+      "category": "institutional",
+      "access": "open call",
+      "summary": "Grants and commissions supporting Latin American artists, with awards for both emerging and mid-career practitioners.",
+      "budgetNote": "Award values are published per cycle and differ between the grant and commission tracks.",
+      "cycleNote": "An open call run in cycles; eligibility is tied to Latin American origin. Check the foundation for the current cycle.",
+      "confidence": "medium",
+      "sourceUrl": "https://cifo.org/"
+    }
+  ],
+  "residencies": [
+    {
+      "name": "MacDowell",
+      "city": "Peterborough, New Hampshire",
+      "country": "United States",
+      "duration": "2–8 weeks",
+      "funding": "Fully funded: private studio, meals, accommodation, and need-based stipends. No fee to attend.",
+      "disciplines": "Visual art, writing, music, film, architecture, theatre",
+      "summary": "The oldest artist residency in the United States, giving fellows a private studio in the woods and uninterrupted time to work.",
+      "applicationNote": "Open application in cycles across disciplines, assessed by rotating peer panels. Check the current deadline on the site.",
+      "confidence": "medium",
+      "sourceUrl": "https://www.macdowell.org/apply"
+    },
+    {
+      "name": "Yaddo",
+      "city": "Saratoga Springs, New York",
+      "country": "United States",
+      "duration": "2–8 weeks",
+      "funding": "Funded: room, studio and meals provided. No residency fee.",
+      "disciplines": "Visual art, writing, music, film, performance",
+      "summary": "A historic artists' community on a Gilded Age estate, offering long stretches of uninterrupted working time.",
+      "applicationNote": "Competitive open application reviewed by peer panels, with cycles through the year.",
+      "confidence": "medium",
+      "sourceUrl": "https://yaddo.org/apply/"
+    },
+    {
+      "name": "Skowhegan School of Painting & Sculpture",
+      "city": "Skowhegan, Maine",
+      "country": "United States",
+      "duration": "9 weeks",
+      "funding": "Need-based financial aid; intensive summer programme with studios and visiting faculty.",
+      "disciplines": "Painting, sculpture, and expanded practices",
+      "summary": "A nine-week summer residency in rural Maine built around an intense peer community and visiting-artist critiques.",
+      "applicationNote": "Annual application for the summer session; highly competitive.",
+      "confidence": "medium",
+      "sourceUrl": "https://www.skowheganart.org/apply"
+    },
+    {
+      "name": "Headlands Center for the Arts",
+      "city": "Sausalito, California",
+      "country": "United States",
+      "duration": "4–10 weeks",
+      "funding": "Artist in Residence awards include studio, housing, meals and a stipend.",
+      "disciplines": "Visual art, writing, dance, music, interdisciplinary",
+      "summary": "Studios in former military buildings in the Marin Headlands, just across the Golden Gate from San Francisco.",
+      "applicationNote": "Annual open call for the Artist in Residence programme. Check current eligibility and dates.",
+      "confidence": "medium",
+      "sourceUrl": "https://www.headlands.org/program/artist-in-residence/"
+    },
+    {
+      "name": "Vermont Studio Center",
+      "city": "Johnson, Vermont",
+      "country": "United States",
+      "duration": "2–4 weeks",
+      "funding": "Fee-based with a substantial fellowship programme; fellowships cover some or all costs.",
+      "disciplines": "Painting, sculpture, printmaking, writing",
+      "summary": "The largest international residency programme in the US by number of artists hosted each year, on a riverside campus.",
+      "applicationNote": "Rolling applications with fellowship deadlines through the year.",
+      "confidence": "low",
+      "sourceUrl": "https://vermontstudiocenter.org/"
+    },
+    {
+      "name": "Djerassi Resident Artists Program",
+      "city": "Woodside, California",
+      "country": "United States",
+      "duration": "4–5 weeks",
+      "funding": "Fully funded: housing, studio and meals, with no residency fee.",
+      "disciplines": "Visual art, writing, music, choreography, media",
+      "summary": "A residency on 580 acres of ranch land in the Santa Cruz Mountains, with outdoor sculpture sited across the property.",
+      "applicationNote": "Annual open application for the following season.",
+      "confidence": "low",
+      "sourceUrl": "https://djerassi.org/apply/"
+    },
+    {
+      "name": "Bemis Center for Contemporary Arts",
+      "city": "Omaha, Nebraska",
+      "country": "United States",
+      "duration": "3 months",
+      "funding": "Funded: live/work studio, monthly stipend and travel support.",
+      "disciplines": "Contemporary visual art, sound",
+      "summary": "A long-running Midwest residency with large live/work studios and a dedicated sound art programme.",
+      "applicationNote": "Annual international open call reviewed by a jury.",
+      "confidence": "low",
+      "sourceUrl": "https://www.bemiscenter.org/residencies"
+    },
+    {
+      "name": "Anderson Ranch Arts Center",
+      "city": "Snowmass Village, Colorado",
+      "country": "United States",
+      "duration": "Varies",
+      "funding": "Mix of funded fellowships and fee-based places; confirm current terms.",
+      "disciplines": "Ceramics, photography, printmaking, sculpture, painting",
+      "summary": "A mountain campus combining workshops with residencies and strong technical facilities.",
+      "applicationNote": "Applications open annually for residency sessions.",
+      "confidence": "low",
+      "sourceUrl": "https://www.andersonranch.org/"
+    },
+    {
+      "name": "Pilchuck Glass School",
+      "city": "Stanwood, Washington",
+      "country": "United States",
+      "duration": "Varies by session",
+      "funding": "Residency and scholarship routes; confirm what is covered for your session.",
+      "disciplines": "Glass and expanded material practice",
+      "summary": "The leading glass school in the United States, with a rural campus north of Seattle and a dedicated artist residency.",
+      "applicationNote": "Applications run annually ahead of the summer sessions.",
+      "confidence": "low",
+      "sourceUrl": "https://www.pilchuck.org/"
+    },
+    {
+      "name": "Fountainhead Residency",
+      "city": "Miami",
+      "country": "United States",
+      "duration": "1 month",
+      "funding": "Housing and studio provided; artists meet their own travel and material costs.",
+      "disciplines": "Contemporary visual art",
+      "summary": "A Miami residency built around connecting visiting artists to local collectors, curators and institutions.",
+      "applicationNote": "Applications are reviewed on a cycle; confirm the current route with the programme.",
+      "confidence": "low",
+      "sourceUrl": "https://fountainhead.art/"
+    },
+    {
+      "name": "Recess",
+      "city": "New York",
+      "country": "United States",
+      "duration": "Varies",
+      "funding": "Session artists receive an honorarium, space and production support.",
+      "disciplines": "Socially engaged and process-based practice",
+      "summary": "A New York organisation whose Session programme turns the gallery into a public studio where work is made in view of visitors.",
+      "applicationNote": "Open calls are announced per cycle rather than on a fixed annual date.",
+      "confidence": "low",
+      "sourceUrl": "https://www.recessart.org/"
+    },
+    {
+      "name": "Penland School of Craft",
+      "city": "Penland, North Carolina",
+      "country": "United States",
+      "duration": "Up to 3 years",
+      "funding": "Resident artists receive studio and housing at low cost; confirm current terms.",
+      "disciplines": "Craft media — clay, glass, metals, textiles, wood",
+      "summary": "A long-term residency in the Blue Ridge Mountains giving craft artists several years to develop a studio practice.",
+      "applicationNote": "Applications open periodically for multi-year resident places.",
+      "confidence": "low",
+      "sourceUrl": "https://penland.org/residencies/"
+    }
+  ],
+  "artistNeeds": [
+    {
+      "point": "Artists receive no share of resale appreciation in the US",
+      "detail": "There is no federal resale royalty, so an artist earns nothing when a work they sold cheaply later resells for far more. California's 1976 Resale Royalty Act was held preempted by federal copyright law for post-1978 sales in Close v. Sotheby's (9th Cir., 2018)."
+    },
+    {
+      "point": "Representation runs on introductions, not applications",
+      "detail": "Galleries overwhelmingly take on artists through referrals, studio visits and curator recommendations, and many state plainly that they do not review unsolicited submissions."
+    },
+    {
+      "point": "Opportunities are scattered across hundreds of portals",
+      "detail": "There are more than 350 percent-for-art programmes in the US alone, each with its own registry and call process, and no shared index across them."
+    },
+    {
+      "point": "Artists usually cannot see where their work goes",
+      "detail": "Once a work leaves the studio there is no standard mechanism telling the artist who owns it or what it later resold for, since dealer and private sale prices are typically confidential."
+    },
+    {
+      "point": "Income is assembled from many small sources",
+      "detail": "Most artists sustain a practice through a mix of sales, grants, commissions, residencies and teaching rather than sales alone."
+    }
+  ],
+  "collectorNeeds": [
+    {
+      "point": "Price discovery is limited because most transactions are never disclosed",
+      "detail": "Auction results are published, but dealer and private-treaty sales — a large share of total market value — are generally confidential, leaving buyers with far less comparable pricing data than in most asset markets."
+    },
+    {
+      "point": "There is no central registry of ownership or title",
+      "detail": "Unlike property or vehicles, artworks have no authoritative title register, so establishing clean provenance is a manual, document-by-document exercise. Databases such as the Art Loss Register cover reported thefts and losses, not ownership generally."
+    },
+    {
+      "point": "Authentication risk sits with the buyer",
+      "detail": "Several prominent artist foundations wound down their authentication boards after facing litigation, reducing the availability of authoritative attribution opinions."
+    },
+    {
+      "point": "The price a buyer pays is higher than the headline hammer price",
+      "detail": "Auction houses add a buyer's premium on top of the hammer price, so reported sale figures and actual buyer cost differ significantly."
+    },
+    {
+      "point": "Art is illiquid and expensive to exit",
+      "detail": "Selling means waiting for an appropriate auction cycle or private buyer, then paying seller's commission and associated costs."
+    }
+  ],
+  "gapFacts": [
+    {
+      "fact": "The resale right splits sharply along jurisdictional lines",
+      "detail": "An artist's resale right is harmonised across the EU and exists in the UK and many other countries, but the United States — one of the largest art markets — has no federal equivalent."
+    },
+    {
+      "fact": "Percent-for-art is the largest public commissioning stream in the US",
+      "detail": "Philadelphia pioneered the model in 1959, and it has since grown to more than 350 programmes nationally, typically allocating between 0.5% and 2% of capital budgets."
+    },
+    {
+      "fact": "Market value is concentrated at the very top",
+      "detail": "A small number of high-value transactions account for a disproportionate share of total market value, while most artists transact far below that level."
+    },
+    {
+      "fact": "Biennials and fairs function as career infrastructure",
+      "detail": "Selection for a major biennial or fair is one of the clearest signals that moves an artist into wider institutional and market visibility."
+    },
+    {
+      "fact": "Most galleries work on consignment",
+      "detail": "Work is typically held on consignment with sale proceeds split between artist and gallery, commonly around an even split."
+    }
+  ]
+}
