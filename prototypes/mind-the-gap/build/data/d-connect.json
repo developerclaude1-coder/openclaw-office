@@ -1,0 +1,128 @@
+{
+ "artistNeeds": [
+  {
+   "point": "Representation runs on introductions, not applications",
+   "detail": "Galleries overwhelmingly take on artists through personal referrals, studio visits and curator recommendations, and many state plainly that they do not review unsolicited submissions. An artist without an existing network has no reliable front door.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.artsy.net/article/artsy-editorial-galleries-choose-artists-represent"
+  },
+  {
+   "point": "Selling work rarely covers a practice on its own",
+   "detail": "The DACS / University of Glasgow (CREATe) UK Visual Artists' Earnings and Contracts report, published November 2024 from a survey of over 1,200 artists, found a median total income of about £12,500 a year, with roughly half of artists supplementing it through other work and over 80% describing their earnings as unstable.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.gla.ac.uk/news/archiveofnews/2024/november/headline_1130637_en.html"
+  },
+  {
+   "point": "Direct public funding for individual visual artists is scarce in the US",
+   "detail": "Congress ended most National Endowment for the Arts fellowships to individual artists in 1995; today organisations apply for NEA grants, with narrow exceptions such as literature fellowships and honorific awards. Individual visual artists must therefore rely on private foundations, state and local programmes.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.americansforthearts.org/by-program/reports-and-data/legislation-policy/naappd/generation-of-fellows-grants-to-individuals-from-the-national-endowment-for-the-arts"
+  },
+  {
+   "point": "Open calls, residencies and grants are scattered across unconnected portals",
+   "detail": "Opportunities are listed separately on Res Artis, TransArtists, CaFÉ, CuratorSpace, e-flux, ArtRabbit and hundreds of individual institution pages, each with its own account, submission format and calendar. Most run on recurring annual or rolling cycles rather than a single shared deadline, so there is no one place an artist can check.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.transartists.org/en/other-open-calls"
+  },
+  {
+   "point": "Artists usually do not learn who owns their work",
+   "detail": "Standard gallery consignment practice treats buyer identity as confidential, so the collector relationship and contact record sit with the gallery. Artists often cannot reach owners later to request loans for exhibitions, complete a catalogue, or track where a work has gone.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.artsy.net/article/artsy-editorial-beginners-guide-consigning-art-sale"
+  },
+  {
+   "point": "Where a resale right exists, the artist must actively request the sales data",
+   "detail": "Article 9 of EU Directive 2001/84/EC gives the artist or their collecting society three years after a resale to require any art market professional involved to supply the information needed to secure the royalty. The obligation is reactive: nobody is required to tell the artist a resale happened.",
+   "confidence": "medium",
+   "sourceUrl": "https://eur-lex.europa.eu/eli/dir/2001/84/oj"
+  }
+ ],
+ "collectorNeeds": [
+  {
+   "point": "Provenance research is a due-diligence step, and it is rarely complete",
+   "detail": "The International Foundation for Art Research notes that establishing a reliable ownership history is an important but difficult process in which gaps commonly remain. Provenance is also not the same thing as legal title, so a documented chain is evidence rather than proof of ownership.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.ifar.org/art_law_users_guide.php"
+  },
+  {
+   "point": "Checking a work against stolen and looted-art records is a separate step",
+   "detail": "The Art Loss Register maintains the largest private database of lost, stolen and looted art and runs searches on behalf of auction houses, fairs, dealers, museums and private buyers; its certificate is widely treated as evidence of good-faith due diligence. The ALR itself notes that no such database can ever be complete.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.artloss.com/faqs/"
+  },
+  {
+   "point": "Works that changed hands in Europe between 1933 and 1945 face specific scrutiny",
+   "detail": "The 1998 Washington Conference Principles on Nazi-Confiscated Art, the AAMD's 1998 task force report and the American Alliance of Museums' 1999 guidelines set expectations for researching and disclosing provenance for that period. Buyers of older European material are expected to know whether this gap exists in a work's history.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.aam-us.org/programs/ethics-standards-and-professional-practices/unlawful-appropriation-of-objects-during-the-nazi-era/"
+  },
+  {
+   "point": "There is no central authority for authenticity, and expert bodies have withdrawn",
+   "detail": "Authentication boards for artists including Andy Warhol, Jean-Michel Basquiat, Keith Haring, Roy Lichtenstein and Alexander Calder were disbanded after costly litigation over their opinions. Buyers now depend on catalogues raisonnés, foundation archives, individual scholars and technical analysis, none of which is binding.",
+   "confidence": "medium",
+   "sourceUrl": "https://itsartlaw.org/art-law/authentication-committees-disband-warhol-2011-basquiat-2012-whos-next/"
+  },
+  {
+   "point": "Condition and conservation records should travel with the work, and often do not",
+   "detail": "A condition report documents materials, existing damage, prior restoration and dated photographs of the front and back, and conservators are bound by the AIC Code of Ethics to keep permanent records of examination and treatment. Those records normally stay with whoever commissioned them rather than following the object to its next owner.",
+   "confidence": "medium",
+   "sourceUrl": "https://conservation-wiki.com/wiki/BPG_Written_Documentation"
+  },
+  {
+   "point": "Primary-market prices are frequently not published",
+   "detail": "Many galleries do not display asking prices publicly and share them only on request, and collectors consistently name this as a barrier to buying, particularly online. Unlike auction results, primary-market prices leave no public record to compare against.",
+   "confidence": "low",
+   "sourceUrl": "https://www.artsy.net/article/artsy-editorial-change-language-price-transparency-art-market"
+  },
+  {
+   "point": "Collectors increasingly find artists outside the gallery system",
+   "detail": "The Art Basel and UBS Survey of Global Collecting 2025 reports that a large majority of high-net-worth collectors bought work by artists they had only recently discovered, a share that has risen sharply since 2022, alongside growth in studio visits and direct-from-artist purchases. Discovery is moving to social platforms and direct contact faster than the supporting documentation is.",
+   "confidence": "low",
+   "sourceUrl": "https://www.artbasel.com/stories/the-art-basel-and-ubs-survey-of-global-collecting-2025"
+  }
+ ],
+ "gapFacts": [
+  {
+   "fact": "The artist's resale right exists in roughly 70 to 80 countries, but not in the two largest markets' full extent",
+   "detail": "Article 14ter of the Berne Convention makes the resale right optional and subject to reciprocity, so an artist collects only if both their own country and the country of sale recognise it. The United States and China do not operate one, which excludes a large share of global turnover.",
+   "confidence": "medium",
+   "sourceUrl": "https://www.wipo.int/edocs/mdocs/copyright/en/sccr_45/sccr_45_inf_2.pdf"
+  },
+  {
+   "fact": "In the EU and UK the resale royalty is a sliding scale with a hard cap",
+   "detail": "Under Directive 2001/84/EC the rate falls in bands from 4% (member states may use 5%) on the lowest portion of the price to 0.25% above EUR 500,000, and the total royalty on any single sale cannot exceed EUR 12,500. Member states set a minimum sale price threshold no higher than EUR 3,000, and the right lasts for the copyright term of 70 years after the artist's death.",
+   "confidence": "medium",
+   "sourceUrl": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=LEGISSUM:l26049"
+  },
+  {
+   "fact": "The United States has no functioning resale royalty",
+   "detail": "California's Resale Royalty Act of 1977 was the only such law in the country, and in 2018 the Ninth Circuit held it preempted by the 1976 Copyright Act for sales from 1 January 1978 onward. That leaves only a one-year window of eligible sales and no federal equivalent.",
+   "confidence": "medium",
+   "sourceUrl": "https://news.artnet.com/art-world/us-appeals-court-strikes-royalties-law-1314857"
+  },
+  {
+   "fact": "There is an international minimum standard for describing an artwork: Object ID",
+   "detail": "Initiated by the J. Paul Getty Trust in 1993 and launched in 1997, Object ID defines the minimum information needed to identify a cultural object, covering nine core categories plus photography guidance. It was adopted by ICOM in 2004 and is used by INTERPOL, museums, police, customs, insurers and the art trade.",
+   "confidence": "medium",
+   "sourceUrl": "https://icom.museum/en/resources/standards-guidelines/objectid/"
+  },
+  {
+   "fact": "Art fairs account for roughly a third of gallery sales",
+   "detail": "The Art Basel and UBS Art Market Report 2026 puts art fair sales at about 35% of dealer turnover in 2025, up from roughly 31% the previous year but still below the 42% recorded in 2019. Access to that channel runs through a gallery that pays for the booth, not through the artist directly.",
+   "confidence": "low",
+   "sourceUrl": "https://www.artbasel.com/stories/the-art-basel-and-ubs-global-art-market-report-2026?lang=en"
+  },
+  {
+   "fact": "Gallery revenue is concentrated on a handful of artists",
+   "detail": "The Art Basel and UBS Art Market Report 2025 found dealers drew around 56% of their annual turnover from their top three artists, and about a third from a single best-selling artist. Representation by a gallery therefore does not imply meaningful sales attention.",
+   "confidence": "low",
+   "sourceUrl": "https://theartmarket.artbasel.com/dealers"
+  },
+  {
+   "fact": "Biennial selection measurably changes an artist's exhibition trajectory",
+   "detail": "A peer-reviewed study of the Venice Biennale in the journal Poetics found that artists appear in a greater proportion of international and solo exhibitions after participating, indicating better-quality opportunities follow. Non-commercial validation of this kind feeds directly back into market visibility.",
+   "confidence": "low",
+   "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S0304422X21001157"
+  }
+ ]
+}

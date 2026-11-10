@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mind the Gap — the art world, at every resolution</title>
+<meta name="description" content="A one-stop index connecting artists and the industry: collectors, public commissions, residencies, and a live map of museums, galleries and biennials — curated from cosmos to atom." />
+<script>
+/* Coming through the intro's door, the room is already lit: arrive in the light tone.
+   Coming from an edition, arrive in whichever tone that page was left in. */
+(function(m){if(m)document.documentElement.setAttribute("data-theme",m[1]==="dark"?"dark":"light");
+})(/^#via-(intro|light|dark)$/.exec(location.hash));
+</script>
+<style>
+/*__FONTS__*/
+/*__CSS__*/
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">MIND&nbsp;THE<span class="gap">&nbsp;</span>GAP</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#connect" data-opt>The Gap</a>
+      <a href="#commissions" data-opt>Commissions</a>
+      <a href="#residencies" data-opt>Residencies</a>
+      <a href="#atlas-sec" data-opt>Atlas</a>
+      <a href="#editions">Editions</a>
+      <a href="__HREF_INTRO__" data-opt>How it works</a>
+      <a href="__HREF_PROJECT__" class="xpage" data-opt>The project</a>
+      <a href="#join" class="btn" style="padding:.5em .9em">Join</a>
+    </nav>
+    <button class="theme-toggle" id="themeBtn" aria-label="Toggle colour theme">◐ Theme</button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="hero-veil" aria-hidden="true"></div>
+  <div class="hud" aria-live="polite">
+    <span class="big">RES · <span id="hudBand">CITY</span></span>
+    <span><span class="amber" id="hudScale">10³ m</span> / resolving…</span>
+    <span class="cap" id="hudCap">Gallery districts and the people who move between them.</span>
+  </div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow"><span class="dot"></span>One index for the whole art world</p>
+    <h1>The art world, brought into <em>focus</em> — from the field to a single work.</h1>
+    <p class="lede">Everything that usually lives in separate tabs and closed inboxes: artists and collectors,
+      public commissions, residencies, and a live map of the museums, galleries and biennials that hold it all —
+      one continuously refining resolution of curated information.</p>
+    <div class="res">
+      <div class="res-labels" id="resLabels"></div>
+      <input type="range" min="0" max="100" value="42" class="dial" id="dial"
+             aria-label="Resolution — drag to zoom from the cosmos to a single atom" />
+      <div class="res-hint">◀ drag to change resolution — cosmos → atom ▶</div>
+    </div>
+    <div class="hero-cta">
+      <a href="#atlas-sec" class="btn btn--solid">Open the atlas →</a>
+      <a href="#commissions" class="btn">Find an open call</a>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+
+<section class="editions" id="editions">
+  <div class="wrap">
+    <p class="eyebrow"><span class="dot"></span>Editions</p>
+    <h2>The same index, cut by place.</h2>
+    <p class="lede">A commission or a residency is usually open to people from somewhere, so each region has an
+      edition of its own, and two countries have one in their own language. This page is all of them at once.</p>
+    <div class="door-grid">
+      __EDITION_DOORS__
+    </div>
+  </div>
+</section>
+
+<section class="level" id="connect">
+  <div class="wrap">
+    <div class="level-head reveal">
+      <div class="scale"><span>Resolution</span><b>01 / People</b><span>10⁰ m</span></div>
+      <h2>Artists and collectors, on the same map.</h2>
+      <p class="lede">The gap is structural, not personal. Artists can't see who is collecting; collectors can't
+        see who is emerging until someone else decides they should. Here is what each side is actually missing.</p>
+    </div>
+    <div class="bridge reveal">
+      <div class="pole artists">
+        <p class="eyebrow"><span class="dot"></span>For artists</p>
+        <h3>What the market hides from you.</h3>
+        <ul id="artistNeeds"></ul>
+      </div>
+      <div class="gapcol" aria-hidden="true">
+        <div class="line"></div><span class="mindgap">Mind the gap</span><div class="line"></div>
+      </div>
+      <div class="pole collectors">
+        <p class="eyebrow"><span class="dot" style="background:var(--accent-2);box-shadow:0 0 12px var(--accent-2)"></span>For collectors</p>
+        <h3>What you need before you buy.</h3>
+        <ul id="collectorNeeds"></ul>
+      </div>
+    </div>
+    <div class="facts reveal" id="gapFacts"></div>
+  </div>
+</section>
+
+<section class="level" id="commissions">
+  <div class="wrap">
+    <div class="level-head reveal">
+      <div class="scale"><span>Resolution</span><b>02 / Public calls</b><span>10² m</span></div>
+      <h2>Commissions — the work that gets funded.</h2>
+      <p class="lede">Percent-for-art schemes, plinths, facades, biennial pavilions and museum commissions.
+        Most listings bury whether you can actually apply; this one leads with it.</p>
+    </div>
+    <div class="chips reveal" role="group" aria-label="Filter commissions" id="commChips"></div>
+    <div class="grid reveal" id="commGrid"></div>
+  </div>
+</section>
+
+<section class="level" id="residencies">
+  <div class="wrap">
+    <div class="level-head reveal">
+      <div class="scale"><span>Resolution</span><b>03 / Studio and time</b><span>10¹ m</span></div>
+      <h2>Residencies — time, space, and a room to think.</h2>
+      <p class="lede">Compare what is actually provided: duration, what is funded, what you pay for,
+        and whether the door is open to you.</p>
+    </div>
+    <div class="chips reveal" role="group" aria-label="Filter residencies" id="resChips"></div>
+    <div class="grid reveal" id="resGrid"></div>
+  </div>
+</section>
+
+<section class="level" id="atlas-sec">
+  <div class="wrap">
+    <div class="level-head reveal">
+      <div class="scale"><span>Resolution</span><b>04 / The atlas</b><span>10⁷ → 10² m</span></div>
+      <h2>A map of museums, galleries and biennials.</h2>
+      <p class="lede">Every institution as a point of light on real geography. Scroll to zoom, drag to pan,
+        search to fly. The same instrument as the hero — this time it actually resolves.</p>
+    </div>
+    <div class="atlas-bar reveal">
+      <div class="search">
+        <input type="text" id="mapSearch" placeholder="Search institutions…" autocomplete="off"
+               role="combobox" aria-expanded="false" aria-controls="sresults" aria-label="Search the atlas" />
+        <div class="sresults" id="sresults" role="listbox"></div>
+      </div>
+      <div class="chips" style="margin:0" role="group" aria-label="Filter atlas" id="mapChips"></div>
+    </div>
+    <div class="map-shell reveal">
+      <canvas id="atlas" role="img" aria-label="World map of museums, galleries and biennials"></canvas>
+      <div class="map-hud">Scale <b id="mapZ">1.0</b>× · <span id="mapBand">World</span></div>
+      <div class="map-legend">
+        <span><i style="background:#F2A93B"></i>Museum</span>
+        <span><i style="background:#7FB2D9"></i>Gallery</span>
+        <span><i style="background:#C77DFF"></i>Biennial / fair</span>
+      </div>
+      <div class="map-zoom">
+        <button type="button" id="zIn" aria-label="Zoom in">+</button>
+        <button type="button" id="zOut" aria-label="Zoom out">−</button>
+        <button type="button" id="zReset" aria-label="Reset view" style="font-size:.7rem">⤢</button>
+      </div>
+      <div class="map-tip" id="mapTip"><div class="t"></div><div class="s"></div><div class="n"></div></div>
+    </div>
+    <p class="map-note">
+      <span id="mapCount"></span>
+      <span>Coordinates verified by point-in-polygon against national boundaries</span>
+      <span>Coastlines: Natural Earth (public domain)</span>
+    </p>
+  </div>
+</section>
+
+<section class="level" id="join" style="border-bottom:none">
+  <div class="wrap">
+    <div class="join reveal">
+      <div>
+        <p class="eyebrow"><span class="dot"></span>Close the gap</p>
+        <h2>Join the index. Pick your resolution.</h2>
+        <p class="lede" style="margin-top:.8rem">One account connects your practice, your collection or your
+          programme to everything else on the map. No fee to be listed — the network is the point.</p>
+        <form id="joinForm" novalidate>
+          <input type="email" id="joinEmail" placeholder="you@studio.art" aria-label="Email address" required />
+          <button class="btn btn--solid" type="submit">Request access →</button>
+        </form>
+        <div class="msg" id="joinMsg" role="status"></div>
+      </div>
+      <div class="roles">
+        <div><b>Artist</b> — portfolio, commissions, residencies</div>
+        <div><b>Collector</b> — provenance, discovery, following</div>
+        <div><b>Institution</b> — post calls, list on the atlas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Mind the Gap</div>
+        <p>A one-stop index connecting artists and the industry — resolving the whole field from cosmos to atom.</p>
+      </div>
+      <div><h4>Network</h4><ul>
+        <li><a href="#connect">Artists</a></li><li><a href="#connect">Collectors</a></li><li><a href="#atlas-sec">The atlas</a></li>
+      </ul></div>
+      <div><h4>Opportunities</h4><ul>
+        <li><a href="#commissions">Commissions</a></li><li><a href="#residencies">Residencies</a></li><li><a href="#join">Post a call</a></li>
+      </ul></div>
+      <div><h4>Go deeper</h4><ul>
+        <li><a href="__HREF_INTRO__">How it works</a></li><li><a href="#editions">Editions</a></li>
+        <li><a href="__HREF_PROJECT__" class="xpage">The project</a></li><li><a href="__HREF_SUPPORT__" class="xpage">Support the project</a></li>
+      </ul></div>
+    </div>
+    <nav class="foot-editions" aria-label="Editions">
+      <h4>Editions</h4>
+      __EDITION_LINKS__
+    </nav>
+    <p class="disclaimer">
+      <b>About this data.</b> Every organisation, residency and commission listed here is real and was researched
+      and fact-checked against primary sources, most recently in <b>__ASOF__</b>. Map coordinates were verified
+      independently by point-in-polygon testing against national boundary data. Even so: <b>programmes change, funding changes, and
+      application windows move every year.</b> Nothing here is an application portal — always confirm current terms
+      and dates with the organisation directly using the source link on each card. Entries marked
+      <b>◍ medium</b> or <b>◍ low</b> carry details we could not fully confirm. Listings added or re-checked in
+      the latest pass were read from the organisers' own pages as quoted by a search engine, without opening the
+      pages themselves, so none of them is rated above medium.
+    </p>
+    <div class="colophon">
+      <span>© 2026 Mind the Gap — prototype</span>
+      <span>Curated resolution · Cosmos → Atom</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/*__JS__*/
+</script>
+</body>
+</html>

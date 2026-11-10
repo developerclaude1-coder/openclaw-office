@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="__LANG__" dir="__DIR__">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>__TITLE__</title>
+<meta name="description" content="__DESC__" />
+<script>
+/* Coming through the intro's door, the room is already lit: arrive in the light tone.
+   Moving between editions, arrive in whichever tone the last page was left in. */
+(function(m){if(m)document.documentElement.setAttribute("data-theme",m[1]==="dark"?"dark":"light");
+})(/^#via-(intro|light|dark)$/.exec(location.hash));
+</script>
+<style>
+/*__FONTS__*/
+/*__CSS__*/
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <span class="mark" dir="ltr">MIND THE<i></i>GAP</span>
+      <span class="sub">__S_brandSub__</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#connect" data-opt>__S_navGap__</a>
+      <a href="#commissions" data-opt>__S_navCommissions__</a>
+      <a href="#residencies" data-opt>__S_navResidencies__</a>
+      <a href="#atlas-sec">__S_navAtlas__</a>
+      <a href="__HREF_INTRO__" data-opt>__S_navHow__</a>
+    </nav>
+    <div class="nav-tools">
+      <details class="ed-menu" id="edMenu">
+        <summary class="pill on" aria-label="__S_editionsTitle__ — __EDITION_NAME__">__EDITION_CODE__<span class="caret" aria-hidden="true">▾</span></summary>
+        <nav class="ed-list" aria-label="__S_editionsTitle__">
+          <span class="ed-h">__S_editionsTitle__</span>
+          __EDITION_LINKS__
+          <a class="how" href="__HREF_INTRO__"><span>__S_navHow__</span></a>
+          <a class="proj xpage" href="__HREF_PROJECT__" hreflang="en"><span>__S_navProject__</span>__EN_TAG__</a>
+        </nav>
+      </details>
+      <button class="pill" id="themeBtn" aria-label="__S_themeLabel__">◐</button>
+      <a class="btn btn--solid" href="#join" style="padding:.6em 1em">__S_navJoin__</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <h1 class="wordmark" id="wordmark" dir="ltr" aria-label="Mind the Gap"></h1>
+      <p class="tagline">__S_brandSub__</p>
+      <div class="counter"><span class="ring"></span><b id="counter">0</b>&nbsp;__S_counterSuffix__</div>
+      <p class="lede">__S_heroLede__</p>
+      <div class="hero-cta">
+        <a href="#atlas-sec" class="btn btn--solid">__S_heroCtaPrimary__ →</a>
+        <a href="#commissions" class="btn">__S_heroCtaSecondary__</a>
+      </div>
+    </div>
+    <div class="instrument">
+      <canvas id="field" aria-hidden="true"></canvas>
+      <div class="inst-hud" aria-live="polite">
+        <span>__S_sec1Scale__</span>
+        <b id="hudBand">—</b>
+        <span class="cap" id="hudCap"></span>
+      </div>
+      <div class="inst-dial">
+        <div class="dial-labels" id="dialLabels"></div>
+        <input type="range" min="0" max="100" value="42" id="dial" aria-label="__S_resHint__" />
+        <div class="inst-hint">__S_resHint__</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+
+<section class="level" id="connect" style="border-top:none">
+  <div class="wrap">
+    <div class="level-head rv">
+      <div class="scale"><span>__S_sec1Scale__</span><b>__S_sec1Num__</b></div>
+      <h2>__S_sec1Title__</h2>
+      <p class="lede">__S_sec1Lede__</p>
+    </div>
+    <div class="aud rv" id="audience"></div>
+    <div class="bridge rv" style="margin-top:2.4rem">
+      <div class="pole artists">
+        <p class="eyebrow"><span class="dot"></span>__S_forArtists__</p>
+        <h3>__S_artistsPoleTitle__</h3>
+        <ul id="artistNeeds"></ul>
+      </div>
+      <div class="gapcol" aria-hidden="true">
+        <div class="line"></div><span class="t">MIND THE GAP</span><div class="line"></div>
+      </div>
+      <div class="pole collectors">
+        <p class="eyebrow"><span class="dot" style="background:var(--cool)"></span>__S_forCollectors__<span class="scope-badge">__S_scopeGlobal__</span></p>
+        <h3>__S_collectorsPoleTitle__</h3>
+        <ul id="collectorNeeds"></ul>
+      </div>
+    </div>
+    <div class="facts rv" id="gapFacts"></div>
+  </div>
+</section>
+
+<section class="level" id="commissions">
+  <div class="wrap">
+    <div class="level-head rv">
+      <div class="scale"><span>__S_sec2Scale__</span><b>__S_sec2Num__</b></div>
+      <h2>__S_sec2Title__</h2>
+      <p class="lede">__S_sec2Lede__</p>
+    </div>
+    <div class="ways rv" id="commDown"></div>
+    <div class="chips rv" role="group" id="commChips"></div>
+    <div class="grid rv" id="commGrid"></div>
+    <div class="ways ways--up rv" id="commUp"></div>
+  </div>
+</section>
+
+<section class="level" id="residencies">
+  <div class="wrap">
+    <div class="level-head rv">
+      <div class="scale"><span>__S_sec3Scale__</span><b>__S_sec3Num__</b></div>
+      <h2>__S_sec3Title__</h2>
+      <p class="lede">__S_sec3Lede__</p>
+    </div>
+    <div class="ways rv" id="resDown"></div>
+    <div class="grid rv" id="resGrid"></div>
+    <div class="ways ways--up rv" id="resUp"></div>
+  </div>
+</section>
+
+<section class="level" id="atlas-sec">
+  <div class="wrap">
+    <div class="level-head rv">
+      <div class="scale"><span>__S_sec4Scale__</span><b>__S_sec4Num__</b></div>
+      <h2>__S_sec4Title__</h2>
+      <p class="lede">__S_sec4Lede__</p>
+    </div>
+    <div class="atlas-bar rv">
+      <div class="search">
+        <span class="icn">⌕</span>
+        <input type="text" id="mapSearch" placeholder="__S_searchPlaceholder__" autocomplete="off"
+               role="combobox" aria-expanded="false" aria-controls="sresults" />
+        <div class="sresults" id="sresults" role="listbox"></div>
+      </div>
+      <div class="chips" style="margin:0" role="group" id="mapChips"></div>
+    </div>
+    <div class="map-shell rv">
+      <canvas id="atlas" role="img" aria-label="__S_sec4Title__"></canvas>
+      <div class="map-hud">__S_scaleLabel__ <b id="mapZ">1.0</b>× · <span id="mapBand"></span></div>
+      <div class="map-legend">
+        <span><i style="background:var(--signal)"></i>__S_legendMuseum__</span>
+        <span><i style="background:var(--cool)"></i>__S_legendGallery__</span>
+        <span><i style="background:var(--violet)"></i>__S_legendBiennial__</span>
+      </div>
+      <div class="map-zoom">
+        <button type="button" id="zIn" aria-label="+">+</button>
+        <button type="button" id="zOut" aria-label="−">−</button>
+        <button type="button" id="zReset" aria-label="reset" style="font-size:.66rem">⤢</button>
+      </div>
+      <div class="map-tip" id="mapTip"><div class="t"></div><div class="s"></div><div class="n"></div></div>
+    </div>
+    <p class="map-note"><span id="mapCount"></span><span>Natural Earth · public domain</span></p>
+  </div>
+</section>
+
+<section class="level" id="join">
+  <div class="wrap">
+    <div class="join rv">
+      <div>
+        <p class="eyebrow"><span class="dot"></span>__S_joinEyebrow__</p>
+        <h2>__S_joinTitle__</h2>
+        <p class="lede" style="margin-top:.8rem">__S_joinLede__</p>
+        <form id="joinForm" novalidate>
+          <input type="email" id="joinEmail" placeholder="__S_emailPlaceholder__" aria-label="email" required />
+          <button class="btn btn--solid" type="submit">__S_joinCta__ →</button>
+        </form>
+        <div class="msg" id="joinMsg" role="status"></div>
+      </div>
+      <div class="roles">
+        <div><b>__S_audArtist__</b> — __S_audArtistDesc__</div>
+        <div><b>__S_audCollector__</b> — __S_audCollectorDesc__</div>
+        <div><b>__S_audInstitution__</b> — __S_audInstitutionDesc__</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Mind the Gap</div>
+        <p>__S_footTagline__</p>
+      </div>
+      <div><h4>__S_footNetwork__</h4><ul>
+        <li><a href="#connect">__S_forArtists__</a></li>
+        <li><a href="#connect">__S_forCollectors__</a></li>
+        <li><a href="#atlas-sec">__S_navAtlas__</a></li>
+      </ul></div>
+      <div><h4>__S_footOpportunities__</h4><ul>
+        <li><a href="#commissions">__S_navCommissions__</a></li>
+        <li><a href="#residencies">__S_navResidencies__</a></li>
+        <li><a href="#join">__S_navJoin__</a></li>
+      </ul></div>
+      <div><h4>__S_footStudio__</h4><ul>
+        <li><a href="__HREF_INTRO__">__S_navHow__</a></li>
+        <li><a href="__HREF_WORLD__">__S_footWorld__</a></li>
+        <li><a class="xpage" href="__HREF_PROJECT__" hreflang="en">__S_navProject____EN_TAG__</a></li>
+        <li><a class="xpage" href="__HREF_SUPPORT__" hreflang="en">__S_navSupport____EN_TAG__</a></li>
+      </ul></div>
+    </div>
+    <nav class="foot-editions" aria-label="__S_editionsTitle__">
+      <h4>__S_editionsTitle__</h4>
+      __EDITION_LINKS__
+    </nav>
+    <p class="disclaimer"><b>__S_disclaimerTitle__</b> __S_disclaimer__</p>
+    <div class="colophon">
+      <span>© 2026 Mind the Gap — __EDITION__ edition</span>
+      <span>__S_rtlNote__ · __ASOF__</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/*__JS__*/
+</script>
+</body>
+</html>

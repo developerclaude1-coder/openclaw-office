@@ -1,0 +1,482 @@
+{
+  "_readme": "Everything the project and support pages say. {X} is a number counted from the dataset at build time; see build.cjs. Leave a link empty and the page says it is not ready, instead of linking nowhere.",
+  "asOf": "November 2026",
+  "links": {
+    "roadmap": "https://claude.ai/artifact/TWa78GPxBU81mNgAiZyGVC",
+    "investorDeck": "https://claude.ai/artifact/7DatXMQbdgVCcusNnCwYXs",
+    "partnersDeck": "https://claude.ai/artifact/PxJEMsRBsjXbHDXW2DaZGX",
+    "gofundme": ""
+  },
+  "organiser": {
+    "name": "",
+    "place": ""
+  },
+  "contact": {
+    "email": ""
+  },
+  "project": {
+    "title": "Mind the Gap — the project",
+    "desc": "Where Mind the Gap stands, the plan to make it a working service, the decks for investors and institutions, and how to help.",
+    "heroEyebrow": "The project",
+    "heroTitle": "From a prototype to a working service, in four phases.",
+    "heroLede": "Mind the Gap is one index for the art world: commissions, residencies and the institutions behind them, each checked against its source. This page holds the plan, the two decks and the ways to help, in one place.",
+    "docsEyebrow": "In one place",
+    "docsTitle": "The plan, and the two decks.",
+    "docsNote": "Documents open in a new tab.",
+    "nowEyebrow": "Where it stands",
+    "nowTitle": "A working prototype on real data. Nobody can sign up yet.",
+    "nowLede": "{L} listings and {P} institutions in {K} countries, shown through an intro, a world index and {E} editions. Each listing links to the page it was checked against, but only {H} of the {L} are rated high confidence. The first job is to check every one at its source.",
+    "confTitle": "How sure we are of the {L} listings",
+    "nowTableToday": "Today",
+    "nowTableNext": "To be a real service",
+    "roadmapEyebrow": "Roadmap · 30 months",
+    "roadmapTitle": "Four phases. Each ends at a gate, and the next starts only when the gate is met.",
+    "roadmapLede": "Each phase pairs what gets built with the work on the ground: editors who check listings at their source, institutions that keep their own listings right, and the artists and collectors who use the index. Software makes that faster but cannot replace it, because a wrong deadline costs an artist a year.",
+    "timelineLabel": "The 30 months of the plan, by phase",
+    "timelineNow": "Now: the prototype. Phase 0 starts once it is funded.",
+    "builtTitle": "What gets built",
+    "groundTitle": "On the ground",
+    "gateTitle": "Gate",
+    "gateNote": "Gate targets are proposals.",
+    "budgetLine": "A first estimate: $3.97 million over 30 months, or $4.57 million with a 15% reserve, employer costs included.",
+    "involvedEyebrow": "Get involved",
+    "involvedTitle": "Four ways in."
+  },
+  "documents": [
+    {
+      "id": "roadmap",
+      "link": "roadmap",
+      "kind": "Document",
+      "title": "Roadmap",
+      "body": "The full plan: where it stands, what needs development, what needs to be done on the ground, the gates, the team and the budget, and the decisions still open.",
+      "outline": ["Where it stands", "The roadmap at a glance", "What needs development", "What needs to be done on the ground", "Gates", "Team and budget", "Decisions still open", "Sources"],
+      "cta": "Open the roadmap"
+    },
+    {
+      "id": "investors",
+      "link": "investorDeck",
+      "kind": "Deck · 15 slides",
+      "title": "For investors",
+      "body": "Why artists and the art industry miss each other, what exists today, how the data stays right, the market, who pays, and the plan.",
+      "outline": ["The gap", "From our index", "The product", "Cut by place", "What exists today", "How the data stays right", "The market", "Business model", "The field", "Go to market", "Roadmap", "The ask", "Risks", "Next step"],
+      "cta": "Open the deck"
+    },
+    {
+      "id": "partners",
+      "link": "partnersDeck",
+      "kind": "Deck · 9 slides",
+      "title": "For institutions",
+      "body": "What founding partners get, what we ask of them, how we treat their information, and how the pilot in Israel and New York runs.",
+      "outline": ["The problem", "What we do", "Where you appear", "Founding partners", "What we ask", "How we treat your information", "The pilot", "Next step"],
+      "cta": "Open the deck"
+    },
+    {
+      "id": "support",
+      "internal": "support",
+      "kind": "Campaign",
+      "title": "Support the first step",
+      "body": "Help pay for the first thing the plan needs: an editor and two researchers who check every listing at its source.",
+      "cta": "See the campaign"
+    }
+  ],
+  "today": [
+    {
+      "part": "Data",
+      "today": "{CC} commissions, {RR} residencies and {P} institutions, gathered in research passes. {UL} listings and {UP} institutions were checked only through search excerpts",
+      "next": "A database where every fact carries its source, the date it was checked and who checked it, re-checked before each cycle opens"
+    },
+    {
+      "part": "Deadlines",
+      "today": "None shown, by design: each card describes the cycle instead",
+      "next": "Dated deadlines, each confirmed on the organiser’s own page, with a visible last-checked date"
+    },
+    {
+      "part": "Eligibility",
+      "today": "“Can you apply?” answered per listing: open call, registry, mixed or invitation",
+      "next": "Answered per artist: nationality, residence, age, career stage and discipline, matched against each call"
+    },
+    {
+      "part": "Artists",
+      "today": "A sign-up form that stores nothing",
+      "next": "Accounts, an eligibility profile, saved calls, email alerts and a calendar feed"
+    },
+    {
+      "part": "Institutions",
+      "today": "Listed, not involved",
+      "next": "Verified accounts that claim their listings, correct them and post new calls"
+    },
+    {
+      "part": "Collectors",
+      "today": "{CN} research points on a page",
+      "next": "Accounts, follows and studio visits; any money changing hands only after anti-money-laundering checks"
+    },
+    {
+      "part": "Languages",
+      "today": "English, plus Hebrew for Israel and the intro",
+      "next": "Each country edition in its own language, translated with human review"
+    },
+    {
+      "part": "Platform",
+      "today": "Static pages built by scripts and checked in a browser automatically",
+      "next": "A hosted web app with a database, search, accounts, email, monitoring and backups"
+    },
+    {
+      "part": "Legal",
+      "today": "A prototype: no company, terms or privacy policy yet",
+      "next": "A company, terms, a privacy policy, data agreements with partners and a cleared name"
+    }
+  ],
+  "phases": [
+    {
+      "n": 0,
+      "name": "Foundations",
+      "months": [1, 3],
+      "people": 5.5,
+      "costM": 0.2,
+      "summary": "Make the data trustworthy enough to put in front of people.",
+      "team": "Founder, tech lead, editor-in-chief, two researchers, a half-time product designer",
+      "gate": {
+        "month": 3,
+        "what": "Pilot listings checked on their source pages, standards published, founding partners signed, the name cleared, the company and its policies in place.",
+        "target": "100% of Israel and US listings verified; 20 institutions signed in each pilot market; no open legal blocker"
+      }
+    },
+    {
+      "n": 1,
+      "name": "Pilot",
+      "where": "Israel and New York",
+      "months": [4, 9],
+      "people": 8.5,
+      "costM": 0.55,
+      "summary": "The first time artists and institutions use Mind the Gap, in Israel and New York.",
+      "team": "Adds a full-stack engineer, a partnerships lead, and a community and events lead",
+      "gate": {
+        "month": 9,
+        "what": "Artists sign up and come back, institutions keep their own listings right, and mistakes are fixed fast.",
+        "target": "5,000 artist accounts; 40% open an alert each month; 60 institutions manage their listings; 95% of reported mistakes fixed within 48 hours"
+      }
+    },
+    {
+      "n": 2,
+      "name": "Six regions",
+      "months": [10, 18],
+      "people": 13.5,
+      "costM": 1.23,
+      "summary": "Every region kept current by an editor who reads its languages, and institutions start to pay.",
+      "team": "Adds a second engineer, six half-time regional editors, and institution sales",
+      "gate": {
+        "month": 18,
+        "what": "Editors keep six regions current, and institutions pay.",
+        "target": "1,000 verified listings; 90% re-checked before their cycle opens; 50 paying institutions"
+      }
+    },
+    {
+      "n": 3,
+      "name": "Collector layer",
+      "months": [19, 30],
+      "people": 16,
+      "costM": 1.98,
+      "summary": "Collectors meet artists through the index, and any money moves through a licensed partner.",
+      "team": "Adds a third engineer, a collector lead, and half-time compliance",
+      "gate": {
+        "month": 30,
+        "what": "Collectors use the index to meet artists; any money moves through a licensed partner.",
+        "target": "500 collector members; 200 studio visits arranged; compliance approved by counsel"
+      }
+    }
+  ],
+  "built": [
+    {
+      "name": "Data platform",
+      "phases": [0, 0],
+      "what": "One database for organisations, programmes, calls, places and people. Every fact keeps its source page, a saved copy, the date checked, who checked it and how."
+    },
+    {
+      "name": "Editorial tools",
+      "phases": [0, 1],
+      "what": "A queue where editors verify, correct and publish, with reminders to re-check before each cycle and alerts when an organiser’s page changes. AI drafts fields from a page and quotes the line it used; an editor confirms each one."
+    },
+    {
+      "name": "Public site",
+      "phases": [0, 1],
+      "what": "The intro, world index and editions rebuilt as one app, so every call has its own page that search engines can find."
+    },
+    {
+      "name": "Accessibility and speed",
+      "phases": [0, 3],
+      "what": "WCAG 2.2 AA, fast on a phone and readable with scripting off, as the prototype already is.",
+      "span": "every phase"
+    },
+    {
+      "name": "Artist accounts",
+      "phases": [1, 1],
+      "what": "Sign-up, an eligibility profile, saved calls, weekly email alerts, a calendar feed and “report a mistake”."
+    },
+    {
+      "name": "Eligibility matching",
+      "phases": [1, 1],
+      "what": "Each call’s rules stored as fields rather than prose, so the site answers “can you apply?” for each artist and says why not."
+    },
+    {
+      "name": "Institution accounts",
+      "phases": [1, 2],
+      "what": "Verified organisation accounts that claim listings, correct them, post calls and see how many artists viewed and saved them."
+    },
+    {
+      "name": "Trust and safety",
+      "phases": [1, 3],
+      "what": "Flags for entry fees and pay-to-exhibit calls, a correction log on every listing, and review of what institutions post.",
+      "span": "1 onward"
+    },
+    {
+      "name": "Languages",
+      "phases": [2, 2],
+      "what": "Every edition in its own language, right to left where needed. Listings machine-translated, then approved by an editor."
+    },
+    {
+      "name": "Open data",
+      "phases": [2, 2],
+      "what": "A public feed of verified listings for partners and researchers, under an open licence with attribution."
+    },
+    {
+      "name": "Paid tools for institutions",
+      "phases": [2, 2],
+      "what": "Call pages, shortlists, links into the submission systems they already use, and reports for their funders."
+    },
+    {
+      "name": "Collector layer",
+      "phases": [3, 3],
+      "what": "Collector accounts, follows, studio-visit requests and records of each work held by the artist. Payments only through a licensed partner, after anti-money-laundering checks."
+    }
+  ],
+  "ground": [
+    {
+      "name": "Re-verification",
+      "phases": [0, 0],
+      "who": "Editor-in-chief and two researchers",
+      "what": "Open the source page of every listing and institution. Confirm or correct each one, add the deadline where the organiser publishes one, and retire what has closed."
+    },
+    {
+      "name": "Editorial standards",
+      "phases": [0, 0],
+      "who": "Editor-in-chief",
+      "what": "Write the rules: what counts as a source, how confidence is rated, how fast a reported mistake is fixed, and when each listing is re-checked."
+    },
+    {
+      "name": "Founding institutions",
+      "phases": [0, 1],
+      "who": "Partnerships lead",
+      "what": "Sign 20 to 30 institutions in each pilot market that confirm their own listings every cycle, in return for a verified badge and reach."
+    },
+    {
+      "name": "Artists in the pilot",
+      "phases": [0, 1],
+      "who": "Community lead, founder",
+      "what": "Work through art schools and artists’ associations in both cities, hold a monthly application clinic, and interview 30 artists before building accounts."
+    },
+    {
+      "name": "Company and legal",
+      "phases": [0, 0],
+      "who": "Founder, counsel",
+      "what": "Incorporate, assign the work to the company, and write terms, a privacy policy and data agreements with partners."
+    },
+    {
+      "name": "Name and brand",
+      "phases": [0, 0],
+      "who": "Founder, trademark attorney",
+      "what": "Clear the name for the services it covers, and choose a fallback."
+    },
+    {
+      "name": "Funding",
+      "phases": [0, 1],
+      "who": "Founder",
+      "what": "Fund Phases 0 and 1 from investors, grants from arts foundations and public cultural funds, and supporters."
+    },
+    {
+      "name": "Networks and data partners",
+      "phases": [1, 2],
+      "who": "Partnerships lead",
+      "what": "Agree data sharing, both ways, with residency networks and national arts councils."
+    },
+    {
+      "name": "Regional editors",
+      "phases": [2, 2],
+      "who": "Editor-in-chief",
+      "what": "One editor per region who reads its main languages, paid a retainer plus a fee per verified listing, and trained on the standards."
+    },
+    {
+      "name": "Collectors",
+      "phases": [2, 3],
+      "who": "Founder, collector lead",
+      "what": "Small collector circles through museum patron groups and fairs in the pilot cities, with studio visits. Learn what collectors would pay for before building payments."
+    },
+    {
+      "name": "Money and compliance",
+      "phases": [3, 3],
+      "who": "Counsel, compliance lead",
+      "what": "Take advice before any payment between collector and artist, which brings anti-money-laundering duties."
+    }
+  ],
+  "involved": [
+    {
+      "who": "Artists",
+      "title": "Use the index now",
+      "body": "Every listing says whether you can apply and links to the organiser’s own page. Find a call in your region today.",
+      "cta": "Find a call",
+      "to": "world"
+    },
+    {
+      "who": "Institutions",
+      "title": "Become a founding partner",
+      "body": "Confirm your own listings each cycle, and get a verified badge and reach to the artists who can apply.",
+      "cta": "Read the deck",
+      "link": "partnersDeck"
+    },
+    {
+      "who": "Investors",
+      "title": "Read the plan",
+      "body": "The market, the business model, the roadmap and the risks, in one deck.",
+      "cta": "Read the deck",
+      "link": "investorDeck"
+    },
+    {
+      "who": "Everyone",
+      "title": "Fund the first step",
+      "body": "Help pay for the re-check of every listing, or share the index with an artist who needs it.",
+      "cta": "Support the project",
+      "to": "support"
+    }
+  ],
+  "support": {
+    "title": "Support Mind the Gap",
+    "desc": "Help fund the first step of Mind the Gap: an editor and two researchers who check every listing at its source.",
+    "heroEyebrow": "Support the project",
+    "heroTitle": "Help us check every listing at its source.",
+    "heroLede": "Mind the Gap puts commissions, residencies and the institutions behind them in one free index, and artists never pay to find a call. Before anyone relies on it, each of its {L} listings and {P} institutions has to be opened at its source, confirmed or corrected, and dated. That takes people, and it is the first thing your support pays for.",
+    "goalLabel": "First goal",
+    "goalBody": "Three months of an editor and two researchers, checking every listing.",
+    "fullGoalLabel": "Full goal",
+    "fullGoalBody": "All of Phase 0, the foundations",
+    "donate": "Donate on GoFundMe",
+    "donateShort": "Donate",
+    "soon": "The campaign opens soon",
+    "soonNote": "Donations will be taken on GoFundMe. Until the campaign opens, the project page has other ways to help.",
+    "donateNote": "Donations are taken on GoFundMe. A donation is a gift, not an investment.",
+    "whyEyebrow": "Why this comes first",
+    "whyTitle": "Only {H} of {L} listings are rated high confidence.",
+    "whyBody": "A wrong deadline costs an artist a year, so nothing else is built on the listings until each one has been checked by a person at its source. {UL} of them were read only through search excerpts, without opening the page. About one commission in four, {INV} of {CC}, takes no applications at all, which is exactly what an artist needs to know before spending a week on a proposal.",
+    "tiersEyebrow": "What your support pays for",
+    "tiersTitle": "Two goals, in the order the work happens.",
+    "tiers": [
+      {
+        "goal": "first",
+        "label": "First goal",
+        "title": "Every listing checked at its source",
+        "points": [
+          "All {L} listings and {P} institutions opened at the organiser’s own page",
+          "Each one confirmed or corrected, and dated",
+          "A deadline added wherever the organiser publishes one, and closed calls retired",
+          "Editorial standards published: what counts as a source, how confidence is rated, how fast a reported mistake is fixed"
+        ],
+        "note": "On average about {PER} for each listing or institution checked."
+      },
+      {
+        "goal": "full",
+        "label": "Full goal",
+        "title": "All of Phase 0, the foundations",
+        "points": [
+          "The editorial work of the first goal",
+          "A tech lead and a half-time designer building the database where every fact keeps its source, the date it was checked and who checked it",
+          "The company, its terms and privacy policy, and clearance for the name",
+          "The founder’s time, and hosting and tools"
+        ],
+        "note": "Phase 0 ends at a gate: every Israel and US listing verified, 20 institutions signed in each pilot market, and no open legal blocker. Then the pilot opens."
+      }
+    ],
+    "splitTitle": "Where {G2} goes",
+    "splitNote": "Three months. Monthly costs include employer costs; the estimate is the roadmap’s.",
+    "faqEyebrow": "Questions",
+    "faqTitle": "Before you give.",
+    "faq": [
+      {
+        "q": "Is this an investment?",
+        "a": "No. A donation is a gift: it buys no share in Mind the Gap and is not paid back. GoFundMe takes donations only."
+      },
+      {
+        "q": "Is my donation tax-deductible?",
+        "a": "No. Mind the Gap is not yet a company or a registered charity, so a donation is a personal gift to the organiser, not a tax-deductible donation."
+      },
+      {
+        "q": "What does GoFundMe take?",
+        "a": "There is no platform fee. A payment-processing fee comes off each donation: in the US it is 2.9% plus 30 cents, and rates differ by country. GoFundMe also asks donors for an optional tip, which goes to GoFundMe, not to us, and can be set to zero."
+      },
+      {
+        "q": "What if the goal is not reached?",
+        "a": "Everything raised is still spent in the order above: the re-check comes first, starting with the listings in Israel and the United States, where the pilot opens."
+      },
+      {
+        "q": "How will I know what it paid for?",
+        "a": "We post an update on the campaign at each step: what was checked, what changed and what it cost. Once the database is built, every listing shows the date it was checked."
+      },
+      {
+        "q": "Can I help in another way?",
+        "a": "Yes. Artists can tell us what is wrong or missing, institutions can become founding partners, and anyone can share the index with an artist who needs it. The project page has the details."
+      }
+    ],
+    "organiserQ": "Who is organising this?",
+    "shareTitle": "Share the campaign",
+    "copy": "Copy link",
+    "copied": "Link copied",
+    "copyFallback": "Select the link and copy it"
+  },
+  "phase0": {
+    "_readme": "Phase 0, line by line, in thousands of US dollars. The monthly rates are the roadmap's own assumptions; the build checks that the lines add up to Phase 0's cost.",
+    "months": 3,
+    "lines": [
+      {
+        "id": "editorial",
+        "name": "Editorial",
+        "detail": "Editor-in-chief and two researchers",
+        "monthly": [9, 6, 6],
+        "goal": "first"
+      },
+      {
+        "id": "product",
+        "name": "Product",
+        "detail": "Tech lead and a half-time designer",
+        "monthly": [16, 5]
+      },
+      {
+        "id": "legal",
+        "name": "Company, legal and the name",
+        "detail": "Incorporation, terms, privacy policy, trademark clearance",
+        "once": 40
+      },
+      {
+        "id": "founder",
+        "name": "Founder",
+        "detail": "Full time, for the three months",
+        "monthly": [10]
+      },
+      {
+        "id": "hosting",
+        "name": "Hosting and tools",
+        "detail": "Servers, the database, email and monitoring",
+        "monthly": [2]
+      }
+    ]
+  },
+  "foot": {
+    "tagline": "One index for the whole art world, from the field to a single work.",
+    "project": "The project",
+    "index": "The index",
+    "editions": "Editions",
+    "world": "World index",
+    "how": "How it works",
+    "documents": "Documents",
+    "roadmap": "Roadmap",
+    "support": "Support",
+    "involved": "Get involved",
+    "colophon": "© 2026 Mind the Gap — prototype"
+  }
+}

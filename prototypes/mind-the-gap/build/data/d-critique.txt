@@ -1,0 +1,50 @@
+MIND THE GAP — DATASET REVIEW (completeness & balance)
+
+1. BLOCKING: three of five sections are empty
+- `museums.items`, `galleries.items` are `[]`. The world map — the site's headline feature — has zero data. Nothing to plot for museums, galleries or biennials.
+- `connect.artistNeeds`, `connect.collectorNeeds`, `connect.gapFacts` are all `[]`. The collector side of the proposition does not exist in this dataset, and there are no gap facts to assess for defensibility.
+- Consequence: the requested coordinate-sanity check and cross-list duplicate check CANNOT be performed. There is not a single lat/lon field anywhere in the dataset. Do not report these checks as "passed" — report them as not runnable.
+
+2. Coordinate-readiness problems that will bite when the map is populated
+- Several entries have no plottable point by design and need an explicit `scope` field (national/city-wide) rather than a fake centroid: KORO has `city: "Oslo (national programme)"` — that string will geocode to Oslo and misrepresent a nationwide programme; NYC Percent for Art is city-wide; Art & About Sydney is city-wide; Cove Park's `city: "Cove, Argyll and Bute"` and Fogo Island's `city: "Fogo Island, Newfoundland and Labrador"` are rural and will geocode badly (Cove Argyll is easily confused with other UK "Cove"s; a naive geocode of Fogo Island risks landing offshore).
+- Country-field inconsistency will break any country facet: "United Kingdom" vs "United Kingdom (Scotland)"; "Hong Kong SAR, China" with city "Hong Kong".
+
+3. Sourcing failures (claims not supported by the cited source)
+- KORO — Public Art Norway: `sourceUrl` is `https://forecastpublicart.org/northern-regeneration/`, a US non-profit's blog post, not KORO. Every claim in the entry (8,000 works at 1,000 sites; the 0.5–1.5% statutory range; open-call routes) is sourced to a third party. Replace with koro.no. Entry's own confidence is "low" and the cycleNote admits routes were "only partially verified" — it should not ship in this state.
+- Homepage-only sources used to support specific programme terms: Cove Park (covepark.org), Casa Wabi (casawabi.org), Sacatar (sacatar.org), Khoj (khojstudios.org), Sharjah Art Foundation (sharjahart.org), NIROX (niroxarts.com), McCahon House (mccahonhouse.org.nz), Fogo Island (residencies index). Statements about stipends, fees, per diems, production budgets and eligibility are not verifiable at those URLs. Either deep-link to the residency/application page or downgrade the specific terms to "confirm directly".
+- Unsupported editorial/promotional claims repeated as fact: Delfina Foundation "London's largest host of international residencies" (organisation's own marketing); Bundanon "one of the largest artist residency programmes in Australia" (self-description); Sharjah "The programme is heavily oversubscribed" (no published figure exists — cut or attribute). Midnight Moment's "largest and longest-running" is at least hedged with "billed as" — keep that hedging pattern and apply it to the others.
+
+4. Stale or expiring dated content
+- Tuwaiq Sculpture: cycleNote states the open call "ran from late August to early October 2025" — a closed window presented as guidance. Also asserts a specific unverified edition identity ("the seventh", theme "Traces of What Will Be", 25 artists from 18 countries); I could not verify this and it should be re-checked against riyadhart.sa before publication.
+- CIRCA: sourceUrl is pinned to `/circa-prize/2025/` and the entry admits a 2026 edition is unconfirmed. Either point at the prize landing page or mark the entry as historical.
+- Rijksakademie: "opening on 1 January and closing at the start of February", €19,800 stipend, €2,500/yr budget; Cité internationale des arts: €635/month and €265–680/month. These are cycle-specific figures with no as-of date. Every money figure and every date in the dataset needs an `asOf` field or it becomes wrong silently.
+- High Line Plinth: current commission given as Tuan Andrew Nguyen, "The Light That Shines Through the Universe", spring 2026–autumn 2027. I could not verify this (thehighline.org returned 403 and the search budget was exhausted). Given the Plinth's published sequence ran through Iván Argote's Dinosaur, this specific title/date claim is the single highest-risk unverified fact in the commissions list — re-check before launch.
+- Hyundai Commission: "extended until 2036" and Tarek Atoui as the eleventh commission (Oct 2026–Apr 2027) are unverified here; also fix the name — it is Máret Ánne Sara, not "Maret Anne Sara". Similarly Andra Ursuța in the Fourth Plinth entry. Diacritics are being stripped inconsistently across the file.
+
+5. Geographic bias — severe in commissions, moderate in residencies
+- Commissions: 10 entries, 6 in London/New York (3 UK, 3 US). The rest are Hong Kong, Riyadh, Sydney, Norway. Zero from Latin America, zero from Africa, zero from South Asia, zero from Southeast Asia, zero from mainland China/Japan/Korea/Taiwan, zero from continental Europe outside Norway, zero from Eastern Europe.
+- Residencies: 19 entries, 10 in Western Europe / US / Canada. One each for Latin America (Mexico, Brazil), Africa (South Africa, Uganda), South Asia (India), East Asia (Japan), Gulf (UAE), Oceania (Australia, NZ). Nothing at all from Southeast Asia, Korea, China, Taiwan, Eastern Europe, the Balkans, the Nordics beyond Norway, Southern Europe (no Spain, Italy, Portugal, Greece), the Caribbean, or the Pacific Islands.
+- Structural redundancy compounds the bias: three of ten commissions are the same format (nightly big-screen moving image: Midnight Moment, CIRCA, M+ Facade) and two are plinth commissions with near-identical mechanics (Fourth Plinth, High Line Plinth). The list reads narrower than its count.
+- Whole category missing: biennials are promised by the product but appear nowhere as a type, despite Sharjah and Riyadh being biennial-adjacent.
+
+Concrete additions to fix it:
+- Latin America: Bienal de São Paulo; Museo Jumex and Museo Tamayo (Mexico City) commissions; Pivô Pesquisa (São Paulo); Capacete (Rio de Janeiro); URRA and Residencia Corazón (Argentina); Flora ars+natura and Lugar a Dudas (Colombia); TEOR/éTica (San José).
+- Africa: Zeitz MOCAA atrium commissions (Cape Town); Dak'Art Biennale, RAW Material Company / RAW Académie and Black Rock Senegal (Dakar); Bag Factory Artists' Studios (Johannesburg); Nafasi Art Space (Dar es Salaam); Kuona (Nairobi); L'Appartement 22 and Le Cube (Rabat); Townhouse Gallery (Cairo); Lagos Biennial and CCA Lagos.
+- Southeast Asia (currently a total blank): Cemeti Institute for Art and Society (Yogyakarta); Gudskul / ruangrupa (Jakarta); Bellas Artes Projects (Philippines); Rimbun Dahan (Malaysia); Sa Sa Art Projects (Phnom Penh); Bangkok Art Biennale; Singapore LTA Art in Transit (a genuine non-Atlantic civic commissioning programme, direct comparator to NYC Percent for Art).
+- East Asia: MMCA Hyundai Motor Series and MMCA Residency Goyang/Changdong (Seoul); Gwangju Biennale; Taipei Artist Village / Treasure Hill and Taiwan's Public Art Ordinance; Setouchi Triennale and Echigo-Tsumari Art Field; ARCUS Project (Ibaraki); Aomori Contemporary Art Centre.
+- South Asia beyond Khoj: Kochi-Muziris Biennale; Serendipity Arts (Goa); Vasl Artists' Association (Karachi); Britto Arts Trust and Samdani Art Foundation (Dhaka).
+- Middle East beyond Sharjah/Riyadh: Ashkal Alwan Home Workspace (Beirut); Darat al Funun (Amman); Fire Station Artist in Residence (Doha); Alserkal Arts Foundation (Dubai); Desert X AlUla; Public Art Abu Dhabi.
+- Europe outside the north-west: Rupert (Vilnius); U-jazdowski CCA (Warsaw); MeetFactory (Prague); Iaspis (Stockholm); SÍM (Reykjavík); Hangar (Barcelona) and Matadero Madrid; Fondazione Antonio Ratti (Como); Q21/MuseumsQuartier (Vienna).
+- Percent-for-art comparators so the civic category is not just NYC + Norway: Ireland's Per Cent for Art Scheme; Quebec's Politique d'intégration des arts à l'architecture; South Korea's art-in-buildings requirement.
+- Pacific: Tautai (Auckland) for Pacific artists — the current NZ entry (McCahon House) is restricted to NZ citizens/residents, so it adds no international access.
+
+6. Access-bias worth surfacing to users, not just fixing
+- Of 10 commissions, only three have a genuine open call (Midnight Moment, Tuwaiq, Art & About; CIRCA's prize strand partly). Fourth Plinth, Hyundai, High Line Plinth, M+ Facade are invitation-only. Künstlerhaus Bethanien is closed to direct application entirely, and its partner list contains no country from Africa, Latin America, South Asia or Southeast Asia — worth stating explicitly rather than leaving the reader to infer it.
+
+7. Data-hygiene issues
+- `confidence` is applied incoherently: MacDowell, Skowhegan, Headlands and Bundanon are labelled "low" though their core facts are stable and well documented, while the far shakier KORO entry sits alongside them at "low". The field currently mixes "how hard was this to verify" with "how likely is this to be wrong" and is not usable for display.
+- `category` in commissions is inconsistent: Hyundai is "institutional" while Fourth Plinth and High Line Plinth (equally institutional, equally plinth/public) are "public"; M+ Facade is "digital" though it is also institutional. Pick one axis.
+- No structured fields for deadline, application fee, eligibility/nationality restriction, or coordinates. Several entries encode these only in prose (Rijksakademie's Jan–Feb window; Sacatar's and Fogo's application fees; McCahon House's citizenship rule), so the site cannot filter on the things artists actually filter on.
+
+8. Duplicates
+- No true duplicate records exist within or across lists. The only overlap risk is structural (noted in item 5) and one entity-boundary question: Sharjah Art Foundation appears once as a residency but the same body also runs a separate studio programme and the Sharjah Biennial — decide whether those are one record or three before the museums/galleries lists are built, or you will create near-duplicates then.

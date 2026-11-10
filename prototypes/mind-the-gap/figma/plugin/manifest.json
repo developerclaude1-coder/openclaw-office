@@ -1,0 +1,10 @@
+{
+  "name": "Mind the Gap — build editions",
+  "id": "mind-the-gap-editions",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": [
+    "figma"
+  ],
+  "documentAccess": "dynamic-page"
+}
