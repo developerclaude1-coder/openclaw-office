@@ -3,11 +3,6 @@
   "name": "United States",
   "lang": "en",
   "dir": "ltr",
-  "altEdition": {
-    "id": "il",
-    "label": "IL",
-    "href": "../il/index.html"
-  },
   "mapView": {
     "lon": -96.5,
     "lat": 39.5,
@@ -100,7 +95,9 @@
     "disclaimer": "Every institution, residency and commission listed here is real and was checked against primary sources. Even so: programmes change, funding changes, and application windows move every year. This is not an application portal — always confirm current terms with the organisation directly using the source link on each card.",
     "rtlNote": "English · left to right",
     "scopeGlobal": "Worldwide",
-    "scopeLocal": "United States"
+    "scopeLocal": "United States",
+    "editionsTitle": "Editions",
+    "wayFurther": "Looking further?"
   },
   "places": [
     {
@@ -757,5 +754,20 @@
       "confidence": "medium",
       "sourceUrl": "https://www.chicago.gov/city/en/depts/dca/provdrs/public_art_program.html"
     }
-  ]
+  ],
+  "doors": {
+    "down": [],
+    "up": [
+      {
+        "to": "americas",
+        "title": "Americas edition",
+        "note": "Commissions, residencies and institutions beyond the United States"
+      },
+      {
+        "to": "world",
+        "title": "World index",
+        "note": "Every region, on one page"
+      }
+    ]
+  }
 }

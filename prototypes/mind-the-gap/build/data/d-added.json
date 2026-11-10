@@ -449,11 +449,12 @@
    "country": "Singapore",
    "category": "civic",
    "access": "mixed",
-   "summary": "A long-running civic scheme, begun with the North East Line in the early 2000s and continued through the Circle, Downtown and Thomson-East Coast lines, that integrates commissioned artworks into Singapore's MRT stations. Works are developed alongside station architecture rather than applied afterwards, and commissions are tied to the build-out of new rail lines, so opportunities appear in waves as lines are planned and constructed. Routes in have combined curatorial/panel selection with calls attached to specific lines. NOT RE-VERIFIED THIS SESSION: outbound web access was blocked by egress policy, so current status and the current selection route were not confirmed against LTA's own site.",
+   "summary": "A long-running scheme that builds commissioned artworks into Singapore's MRT stations, now more than 440 pieces at 103 stations. Each work is made for a particular station by a Singapore artist commissioned for it, and from 2026 the Land Transport Authority is adding new works at 40 existing stations on the North-South and East-West lines.",
    "budgetNote": "Artwork budgets are drawn from station construction budgets rather than published as a standing figure. No current amount confirmed; treat any figure found elsewhere as unchecked and undated.",
-   "cycleNote": "Not a fixed annual round. Selection runs in waves tied to new MRT line construction, mixing panel/curatorial selection with calls attached to specific lines. No dated deadline.",
+   "cycleNote": "Not a fixed annual round. For earlier lines selection mixed competitions with commissions recommended by a curator to an Art Review Panel, and the authority has invited artists to submit portfolios to be considered for new lines. Two Art Review Panels now support the programme. No open call was found for the current expansion.",
    "confidence": "medium",
-   "sourceUrl": "https://www.lta.gov.sg"
+   "sourceUrl": "https://www.lta.gov.sg/content/ltagov/en/newsroom/2025/10/news-releases/lta_30th_anniversary_art_in_transit.html",
+   "unopened": true
   },
   {
    "name": "Bangkok Art Biennale",
@@ -461,25 +462,27 @@
    "city": "Bangkok",
    "country": "Thailand",
    "category": "institutional",
-   "access": "mixed",
-   "summary": "A biennial founded in 2018 and staged across venues in Bangkok including temples (Wat Pho, Wat Arun, Wat Prayoon), riverside sites and central shopping-district and civic spaces, led by Apinan Poshyananda as chief executive and artistic director. The main exhibition commissions new work from artists chosen by the curatorial team and cannot generally be applied to directly, but editions have also run a separate early-career artist strand with its own entry route — which is why access is recorded here as mixed rather than invitation-only. NOT RE-VERIFIED THIS SESSION: web access was blocked, so the current edition, curatorial team and whether an early-career call is presently open were not confirmed.",
+   "access": "invitation",
+   "summary": "A biennial founded in 2018 and staged across Bangkok, led by Apinan Poshyananda as chief executive and artistic director. The fifth edition, Angels and Mara, runs from 29 October 2026 to 28 February 2027 with about seventy artists chosen by a curatorial team of four.",
    "budgetNote": "Production support for commissioned works is negotiated per project with the organisers rather than published as a standing fee. No figure quoted because none could be confirmed or dated.",
-   "cycleNote": "Biennial, with editions held in 2018, 2020, 2022 and 2024 and artist selection made by curators well in advance of each edition. Any early-career open call opens well ahead of the edition it feeds. No dated deadline.",
+   "cycleNote": "Every two years, with artists selected by the curators and announced in stages well before opening. No open call was found for the 2026 edition.",
    "confidence": "medium",
-   "sourceUrl": "https://www.bkkartbiennale.com"
+   "sourceUrl": "https://www.bkkartbiennale.com/press/bangkok-art-biennale-announces-theme-and-artists-for-2026-edition",
+   "unopened": true
   },
   {
    "name": "Jakarta Biennale",
-   "org": "Yayasan Jakarta Biennale",
+   "org": "Jakarta Biennale, with the collectives of the Majelis Jakarta",
    "city": "Jakarta",
    "country": "Indonesia",
    "category": "institutional",
-   "access": "invitation",
-   "summary": "A periodic biennial in Jakarta, with roots in the Pameran Besar Seni Lukis Indonesia exhibitions of the 1970s and running under the Jakarta Biennale name since the 2000s, organised by Yayasan Jakarta Biennale. It commissions and presents new work, with a history of curatorial framings grounded in local social and urban conditions and in collective practice. Participation is by curatorial selection, not public application. NOT RE-VERIFIED THIS SESSION: web access was blocked, so current operating status was not confirmed. This biennial has had an irregular schedule with multi-year gaps between editions, so present activity in particular needs checking, as does the source domain below.",
+   "access": "mixed",
+   "summary": "Jakarta's biennial, which dates its history from 1974. The 2024 edition marked fifty years and was organised collectively by the city's art ecosystem, with the collectives and artists' associations of the Majelis Jakarta as its main movers, without a theme, a curatorial team or a strict selection of works. It included Baku Konek, a residency strand for seventeen artists and collectives from across Indonesia.",
    "budgetNote": "Commission and production support is arranged per project with the organising foundation. No published standing figure and no dated amount confirmed.",
-   "cycleNote": "Nominally biennial but historically irregular, with editions announced ahead of each cycle rather than on a reliable calendar. No dated deadline.",
+   "cycleNote": "Irregular: the 2024 edition opened almost three years after the one before, and no next edition had been announced when checked. Taking part in 2024 ran through the collectives involved; an earlier open call, in 2021, was held jointly with the Jogja and Makassar biennales.",
    "confidence": "low",
-   "sourceUrl": "https://jakartabiennale.net"
+   "sourceUrl": "https://jakartabiennale.id/",
+   "unopened": true
   },
   {
    "name": "Public Art Programme",
@@ -488,24 +491,26 @@
    "country": "Aotearoa New Zealand",
    "category": "civic",
    "access": "mixed",
-   "summary": "A council-run public art programme commissioning permanent and temporary work for civic sites, parks, town centres and transport and development projects across the Auckland region, guided by council public art policy and with stated commitments to Māori and Pacific artists in the public realm. Related commissioning also sits with council-controlled organisations and the council's urban development functions, so opportunities surface under more than one banner. Routes in have included expressions of interest for named projects alongside direct curatorial approaches. NOT RE-VERIFIED THIS SESSION: web access was blocked. The access mechanism in particular — whether an artist registry or EOI list is currently open — is unconfirmed and must be checked before publishing.",
+   "summary": "Auckland Council commissions permanent and temporary art for civic sites across the region under its Public Art Policy, with an advisory panel for art in public places. A recent example is Te Manu Ka Rewa at Manurewa Library, commissioned from an emerging mana whenua artist.",
    "budgetNote": "Individual commission budgets are set per project within council capital and development budgets rather than as a single published rate. No figure quoted because none could be confirmed or tied to a year.",
-   "cycleNote": "Rolling rather than a single annual round, with opportunities tied to specific capital projects and precinct developments as they come forward. No dated deadline.",
-   "confidence": "medium",
-   "sourceUrl": "https://www.aucklandcouncil.govt.nz"
+   "cycleNote": "Project by project. The council says artists can be selected in many ways, and no standing register or open call for artists was found, so each opportunity has to be watched for individually.",
+   "confidence": "low",
+   "sourceUrl": "https://www.aucklandcouncil.govt.nz/en/plans-policies-bylaws-reports-projects/our-policies/public-art-policy.html",
+   "unopened": true
   },
   {
-   "name": "National Commission for Culture and the Arts grants",
+   "name": "NCCA Competitive Grants Program",
    "org": "National Commission for Culture and the Arts (NCCA)",
    "city": "Manila",
    "country": "Philippines",
    "category": "institutional",
    "access": "open call",
-   "summary": "The Philippine government's national arts and culture body, headquartered in Intramuros, Manila, which runs competitive grant rounds through its subcommissions and national committees, including those covering visual arts. Grants support the creation, presentation and documentation of new work, so this is a genuine application route rather than an invitation-only scheme. Eligibility is normally restricted to Filipino nationals and Philippine-registered organisations, and proposals are assessed by the relevant national committee. NOT RE-VERIFIED THIS SESSION: web access was blocked, so the current round structure and eligibility rules were not confirmed.",
+   "summary": "The annual grants programme of the Philippines' National Commission for Culture and the Arts, which funds projects across the arts and has included a visual arts section in recent calls. Artists, cultural workers, researchers, schools, local governments, indigenous peoples' organisations and other groups can submit proposals.",
    "budgetNote": "Award sizes vary by grant line and committee and are set per round. No amount quoted because none could be confirmed or attached to a specific year.",
-   "cycleNote": "Grant rounds run on an annual cycle, with applications submitted ahead of the following programme year. No dated deadline — check the current round calendar directly.",
+   "cycleNote": "One call for proposals a year, for projects in the following year; the call for 2027 was open in mid-2026. Proponents must first be accredited by the NCCA and have no unliquidated grants, and an earlier call limited individual applicants to Filipino citizens based in the Philippines.",
    "confidence": "medium",
-   "sourceUrl": "https://ncca.gov.ph"
+   "sourceUrl": "https://ncca.gov.ph/",
+   "unopened": true
   },
   {
    "name": "Setouchi Triennale (Setouchi International Art Festival)",
@@ -688,19 +693,6 @@
    "cycleNote": "Biennial, typically opening in the winter of even-numbered years, though recent scheduling has shifted. Invitation only.",
    "confidence": "medium",
    "sourceUrl": "https://www.powerstationofart.com/"
-  },
-  {
-   "name": "M+ Facade commissions",
-   "org": "M+, West Kowloon Cultural District Authority",
-   "city": "Hong Kong",
-   "country": "China (Hong Kong SAR)",
-   "category": "digital",
-   "access": "invitation",
-   "summary": "Commissions of moving-image and light-based work for the large LED media facade of the M+ museum building in the West Kowloon Cultural District, visible across Victoria Harbour. Works are selected curatorially and shown on a rotating schedule, sitting alongside the museum's other site-specific commissions.",
-   "budgetNote": "Commission budgets are internal to the museum and not published; confirm production and licensing terms with M+ curatorial staff.",
-   "cycleNote": "Rotating curatorial programme rather than a fixed annual cycle; there is no public application route.",
-   "confidence": "low",
-   "sourceUrl": "https://www.mplus.org.hk/en/"
   }
  ],
  "residencies": [
@@ -1005,18 +997,6 @@
    "sourceUrl": "https://lecube-art.com/"
   },
   {
-   "name": "Nirox Foundation residency",
-   "city": "Cradle of Humankind, Gauteng",
-   "country": "South Africa",
-   "duration": "Usually several weeks to a few months",
-   "funding": "Hosted — studio and accommodation on the estate are provided; other costs depend on the partner or invitation",
-   "disciplines": "Visual art, sculpture, music and writing",
-   "summary": "Residency set in a sculpture park in the Cradle of Humankind outside Johannesburg, pairing studio time with an outdoor exhibition programme and periodic sculpture fairs.",
-   "applicationNote": "Largely invitation- and partnership-based, with occasional open calls tied to specific programmes.",
-   "confidence": "low",
-   "sourceUrl": "https://niroxarts.com/"
-  },
-  {
    "name": "Centre d'art Waza",
    "city": "Lubumbashi",
    "country": "Democratic Republic of the Congo",
@@ -1044,64 +1024,43 @@
    "name": "Cemeti – Institute for Art and Society residency",
    "city": "Yogyakarta",
    "country": "Indonesia",
-   "duration": "Varies by cycle; historically short-to-medium stays of roughly one to three months rather than a fixed term. Unconfirmed.",
-   "funding": "Varies by cycle and partner. Editions have been supported through partnerships and external funders rather than a standing stipend, so what is covered differs between programmes. Confirm terms before applying.",
+   "duration": "About three months in the partner-funded places found",
+   "funding": "Depends on the route in. For the place offered through the Mondriaan Fund, the fund pays Cemeti directly for the studio and living space, on top of the artist's grant.",
    "disciplines": "Contemporary art across media, with a stated emphasis on research-led, socially engaged and cross-disciplinary practice",
-   "summary": "A Yogyakarta art institution founded in 1988 by Mella Jaarsma and Nindityo Adipurnomo, initially as a contemporary art gallery and later known as Cemeti Art House (Rumah Seni Cemeti), and reframed in the late 2010s as an institute concerned with the relationship between art and society. It runs residency and research programmes alongside exhibitions and public programmes. NOT RE-VERIFIED THIS SESSION: outbound web access was blocked by egress policy, so current residency status, terms and the correct application page were not confirmed.",
-   "applicationNote": "Residency intake runs through announced programmes and partnerships rather than a permanent standing open call, so an artist may or may not be able to apply at any given moment. Check the organisation's own programme page for whether a cycle is currently open. No dated deadline is asserted.",
+   "summary": "A Yogyakarta institution founded in 1988 by Mella Jaarsma and Nindityo Adipurnomo, first as a gallery and now as an institute concerned with art and society. Its residency is for artists whose practice is not bound to a studio, and is built around research and exchange.",
+   "applicationNote": "Mostly through partners, not a standing call of its own. The Mondriaan Fund offers a three-month place for artists from the Netherlands, and Cemeti is a partner in Rotating AiRs, an international open call run with Hotel Maria Kapel. Earlier calls ran with the Goethe-Institut.",
    "confidence": "medium",
-   "sourceUrl": "https://cemeti.art"
+   "sourceUrl": "https://www.mondriaanfonds.nl/en/apply-for-a-grant/grants/residency/cemeti-institute-for-art-and-society-yogyakarta-indonesie/",
+   "unopened": true
   },
   {
    "name": "Pisaot residency at Sa Sa Art Projects",
    "city": "Phnom Penh",
    "country": "Cambodia",
-   "duration": "Short residency, historically around one month. Unconfirmed.",
-   "funding": "Historically a supported residency covering accommodation plus a modest living or production allowance rather than a substantial fee. Terms vary by cycle and must be confirmed with the organisers.",
+   "duration": "Short, historically around a month",
+   "funding": "Historically a supported residency covering accommodation and a modest living or production allowance. The current terms could not be confirmed.",
    "disciplines": "Contemporary art, experimental and research-based practice, open in some cycles to writers and curators as well as artists",
-   "summary": "An artist-run space in Phnom Penh founded in 2010 by the Stiev Selapak collective (whose members have included Khvay Samnang, Lim Sokchanlina and Vuth Lyno). Originally based in the White Building, which was demolished in 2017, it relocated within the city and has run Pisaot as a residency oriented toward process and research rather than a required exhibition outcome. It has been one of the few sustained residency routes into the Cambodian contemporary art scene. NOT RE-VERIFIED THIS SESSION: web access was blocked, so current operating status and terms were not confirmed, and the source domain below should be checked.",
-   "applicationNote": "Historically an open call an artist could genuinely apply to, run in periodic rounds rather than continuously. Confirm whether a round is currently open; no dated deadline is asserted.",
+   "summary": "An artist-run space in Phnom Penh founded in 2010 by the Stiev Selapak collective, whose members have included Khvay Samnang, Lim Sokchanlina and Vuth Lyno. Pisaot is its residency, oriented towards process and research, without a required exhibition at the end.",
+   "applicationNote": "Historically by open call in periodic rounds. Whether a round is open now, and on what terms, could not be confirmed, so contact the space directly.",
    "confidence": "low",
-   "sourceUrl": "https://www.sasaart.info"
+   "sourceUrl": "https://www.sasaart.info",
+   "unopened": true
   },
   {
-   "name": "Rimbun Dahan artist residency",
+   "name": "Rimbun Dahan — Southeast Asian Arts Residency",
    "city": "Kuang, Selangor",
    "country": "Malaysia",
-   "duration": "Has varied considerably over the programme's life, from year-long residencies in earlier years to much shorter stays more recently. Current length unconfirmed.",
-   "funding": "Historically a hosted residency providing studio and accommodation on the site, with terms differing between strands and some earlier strands externally co-funded. Confirm what is covered and whether any fee applies.",
+   "duration": "Two months, taken between March and November",
+   "funding": "A hosted residency with a modest stipend, from MYR 300 to MYR 1,200 depending on the artist's home country in the call for 2026.",
    "disciplines": "Visual arts, with a history of also hosting dance, choreography, performance and writing",
-   "summary": "A private arts centre on a rural site at Kuang, outside Kuala Lumpur, established by Angela Hijjas and the architect Hijjas Kasturi, combining studios and gardens with a long record of hosting artists and supporting Malaysian contemporary practice. Its best-known strand was a year-long residency for Malaysian and Australian artists that ran with external support and has since ended; later activity has centred on shorter residencies and performance strands. HIGHER RISK ENTRY, NOT RE-VERIFIED THIS SESSION: web access was blocked by egress policy. The programme's shape has changed repeatedly and some strands have wound down, so confirm a residency is genuinely running now before publishing.",
-   "applicationNote": "Intake has been by announced call for specific strands rather than a permanent rolling application, and some past strands were restricted by nationality. Verify current eligibility and whether applications are open; no dated deadline is asserted.",
-   "confidence": "low",
-   "sourceUrl": "https://www.rimbundahan.org"
-  },
-  {
-   "name": "ComPeung self-directed residency",
-   "city": "Doi Saket, Chiang Mai Province",
-   "country": "Thailand",
-   "duration": "Flexible self-directed stays, historically from a couple of weeks up to a few months. Unconfirmed.",
-   "funding": "Historically artist-funded rather than a paid residency: participants contribute toward accommodation and running costs, with subsidised places in some periods. Treat this as a self-financed model unless confirmed otherwise.",
-   "disciplines": "Open to visual artists, writers, performers and cross-disciplinary practitioners",
-   "summary": "A small self-directed residency in a rural setting at Doi Saket outside Chiang Mai, founded in the mid-2000s and often described as Thailand's first artist-in-residence programme of its kind, built around earth-construction studio buildings and oriented toward independent working time rather than a formal exhibition programme. HIGHER RISK ENTRY, NOT RE-VERIFIED THIS SESSION: web access was blocked, so current operating status, terms and costs were not confirmed. There are indications the programme may have wound down or gone dormant in recent years — confirm it is actively accepting residents before publishing, and drop the entry if it is not.",
-   "applicationNote": "Historically a rolling application to a self-financed residency rather than a competitive funded award, which is the key distinction to flag to applicants. Confirm current availability and current costs directly; no dated deadline is asserted.",
-   "confidence": "low",
-   "sourceUrl": "https://www.compeung.org"
-  },
-  {
-   "name": "Parehuia — McCahon House Artists' Residency",
-   "city": "Titirangi, Auckland (Tāmaki Makaurau)",
-   "country": "Aotearoa New Zealand",
-   "duration": "Approximately three months per resident, with several residents hosted across a year. Unconfirmed.",
-   "funding": "A funded residency: provides a stipend plus accommodation and a purpose-built studio, so the artist is paid rather than paying. Confirm the current stipend and the year any figure applies to.",
-   "disciplines": "Visual arts",
-   "summary": "A residency in Titirangi in west Auckland, associated with the restored cottage where the painter Colin McCahon lived and worked in the 1950s, pairing that heritage site with a separate purpose-built residency house and studio nearby. The residency carries the name Parehuia, gifted by mana whenua Te Kawerau ā Maki, and is one of the better-established funded visual arts residencies in Aotearoa. NOT RE-VERIFIED THIS SESSION: web access was blocked by egress policy, so the current round, stipend and eligibility were not confirmed.",
-   "applicationNote": "An artist can genuinely apply. Historically an annual open call assessed by a selection panel, with eligibility oriented toward New Zealand artists — confirm whether international artists are eligible in the current round. No dated deadline is asserted; check the residency page for the current cycle.",
+   "summary": "A private arts centre on a rural site at Kuang, outside Kuala Lumpur, established by Angela Hijjas and the architect Hijjas Kasturi. Residents live on site and take part in an open studio day, and visual artists leave one work for the centre's collection.",
+   "applicationNote": "An open call each year; the call for 2026 closed in September 2025. Applicants must be both citizens and residents of a Southeast Asian country, which here includes Timor-Leste, and former residents cannot apply again.",
    "confidence": "medium",
-   "sourceUrl": "https://www.mccahonhouse.org.nz"
+   "sourceUrl": "https://rimbundahan.org/",
+   "unopened": true
   },
   {
-   "name": "TOKAS Residency",
+   "name": "Tokyo Arts and Space (TOKAS) — Residency Programme",
    "city": "Tokyo",
    "country": "Japan",
    "duration": "Typically two to three months",
@@ -1110,7 +1069,8 @@
    "summary": "Residency arm of Tokyo Arts and Space, operated by the Tokyo Metropolitan Foundation for History and Culture. Runs both an outgoing programme sending Tokyo-based creators to partner cities overseas and an incoming programme hosting international residents in Tokyo, with studios and living space at the dedicated residency building and public open studios and exhibitions at the end of each term.",
    "applicationNote": "Mixed access: there is a competitive open call for Japan-based creators applying to the overseas strand, while many incoming international places are filled through exchange agreements with partner institutions abroad. Calls are announced annually on the TOKAS site; check which route applies to you before applying.",
    "confidence": "medium",
-   "sourceUrl": "https://www.tokyoartsandspace.jp/en/"
+   "sourceUrl": "https://www.tokyoartsandspace.jp/en/residence/index.html",
+   "unopened": true
   },
   {
    "name": "ARCUS Project",

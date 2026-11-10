@@ -116,12 +116,12 @@ html:not(.js) :is(#cv,.cv-labels,.ticker,.rail,.progress,.cue,.enter,.exhibit,.l
 html:not(.js) .wordmark{justify-content:flex-start;font-size:clamp(2.6rem,9vw,6rem)}
 html:not(.js) .wm-break{display:none}
 html:not(.js) .ch--enter{display:flex;flex-direction:column;gap:.65rem}
-/* the way in is still offered: the three doors, as plain links */
+/* the way in is still offered: every door, as a plain link */
 html:not(.js) .app[hidden]{display:block!important}
 html:not(.js) .app{position:static;opacity:1;pointer-events:auto}
 html:not(.js) .app > :not(.doors){display:none}
-html:not(.js) .doors{position:static;flex-wrap:wrap;padding:0;overflow:visible}
-html:not(.js) .doors-title{flex-basis:100%}
+html:not(.js) .doors{position:static;display:flex;flex-wrap:wrap;padding:0;overflow:visible}
+html:not(.js) .door{flex:0 1 200px}
 
 /* ---------- the stage ---------- */
 html.js .scroller{height:calc(var(--screens,10) * 100vh);height:calc(var(--screens,10) * 100svh)}
@@ -179,6 +179,10 @@ html.js .ch--enter .tomb{position:absolute;left:50%;top:calc(var(--ring-y,47%) +
 .cvl--top{transform:translate(-50%,-100%);text-align:center;line-height:1.5}
 .cvl--signal{color:var(--signal)}
 .cvl--gap{color:var(--faint)}
+.cvl--region{color:var(--fg);font-size:.6rem;letter-spacing:.2em}
+/* names that sit on lit land get a patch of the room's own colour behind them */
+.cvl--region,#lblIL,#lblUS{padding:.25em .55em;border-radius:3px;line-height:1.2;
+  background:color-mix(in srgb,var(--bg-live) 80%,transparent)}
 .ticker{position:absolute;left:0;right:0;top:var(--zone-mid,36%);transform:translateY(-50%);z-index:2;
   display:flex;flex-direction:column;align-items:center;gap:.5rem;pointer-events:none;opacity:0}
 .tk-scale{font-family:var(--mono);font-size:clamp(.8rem,1.6vw,1.05rem);letter-spacing:.14em;color:var(--signal)}

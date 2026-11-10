@@ -1,7 +1,7 @@
 /* Browser checks for the intro and the pages it leads to.
  *
  *   node check.cjs                    every part
- *   node check.cjs story atlas        only the parts named: story, atlas, play, nojs, pages
+ *   node check.cjs story atlas        only the parts named: data, story, atlas, play, nojs, pages
  *   node check.cjs --shots=DIR        also save a screenshot of each scene
  *   node check.cjs story --size=390x844 --lang=he     narrow the story part to one size or language
  *
@@ -88,6 +88,15 @@ function inspectScene(i) {
   }
   for (const el of document.querySelectorAll('[hidden]')) if (shown(el)) out.push(name(el) + ' is marked hidden but showing');
 
+  /* names set on the map itself: none may leave the stage or sit on another */
+  const names = [...document.querySelectorAll('.cvl')].filter((el) => +getComputedStyle(el).opacity > 0.5);
+  for (let a = 0; a < names.length; a++) {
+    const r = R(names[a]);
+    if (r.x0 < -0.5 || r.x1 > W + 0.5) out.push('the map label "' + names[a].textContent + '" leaves the stage');
+    for (let b = a + 1; b < names.length; b++) if (hit(r, R(names[b]))) out.push('map labels "' + names[a].textContent + '" and "' + names[b].textContent + '" overlap');
+  }
+  if (i === 3 && names.length !== 8) out.push('scene 3 should name six regions and two countries, and names ' + names.length);
+
   if (i === 7) {                                    // the headline and the stats must stay clear of the ring
     const g = window.__mtg.geo().ring, head = R(document.querySelector('.enter-head'));
     const stats = document.querySelector('.ch--enter .tomb');
@@ -142,7 +151,8 @@ async function atlas(browser) {
     let s = await st();
     ok(s.mode === 'app' && s.on && s.tone === 1, tag + 'Enter arrives in the atlas, in the day tone');
     ok(!s.wide && s.scrollY === 0, tag + 'the atlas does not scroll');
-    ok(/105/.test(s.hud) || mobile, tag + 'the readout counts every institution (' + s.hud + ')');
+    const total = await page.evaluate(() => window.__mtg.places.length);
+    ok(s.hud.includes(' ' + total + ' ') || mobile, tag + 'the readout counts every institution (' + s.hud + ')');
     ok((await page.$$eval('[hidden]', (els) => els.filter((e) => getComputedStyle(e).display !== 'none').length)) === 0, tag + 'nothing hidden is showing');
 
     const clash = await page.evaluate(() => {
@@ -186,7 +196,9 @@ async function atlas(browser) {
     await page.click('#zr'); await wait(page, 1100);
 
     await page.click('.chip[data-v="Gallery"]'); await wait(page, 150);
-    ok(await page.evaluate(() => window.__mtg.places.filter((p) => p.t === 'Gallery').length === 22 && window.__mtg.AT.filter === 'Gallery'), tag + 'the gallery filter is applied');
+    const galleries = await page.evaluate(() => window.__mtg.places.filter((p) => p.t === 'Gallery').length);
+    s = await st();
+    ok(galleries > 0 && galleries < total && (s.hud.includes(' ' + galleries + ' ') || mobile) && await page.evaluate(() => window.__mtg.AT.filter === 'Gallery'), tag + 'the gallery filter is applied (' + s.hud + ')');
     await page.click('.chip[data-v="all"]');
 
     const pt = await page.evaluate(() => {
@@ -202,8 +214,28 @@ async function atlas(browser) {
     ok(await page.$eval('#about', (e) => !e.hidden && e.textContent.length > 80), tag + 'the data note opens');
     await page.click('#aboutBtn');
 
-    const doors = await page.$$eval('.door', (els) => els.map((e) => e.getAttribute('href')));
-    ok(doors.length === 3 && doors.every((h) => fs.existsSync(path.resolve(HERE, h.split('#')[0]))), tag + 'all three doors lead somewhere (' + doors.join(', ') + ')');
+    const doors = await page.$$eval('.door', (els) => els.map((e) => {
+      const r = e.getBoundingClientRect();
+      return { href: e.getAttribute('href'), cls: e.className, col: e.style.getPropertyValue('--col'), x: Math.round(r.left), y: Math.round(r.top), frame: e.getAttribute('data-frame'), lang: e.getAttribute('hreflang') };
+    }));
+    ok(doors.length === 9 && doors.every((d) => fs.existsSync(path.resolve(HERE, d.href.split('#')[0]))), tag + 'all nine doors lead somewhere');
+    const regions = doors.filter((d) => /door--region/.test(d.cls)), countries = doors.filter((d) => /door--country/.test(d.cls));
+    ok(regions.length === 6 && countries.length === 2 && /door--world/.test(doors[0].cls), tag + 'there is a door for the world, for each of six regions and for each country edition');
+    ok(doors.filter((d) => d.lang === 'he').length === 1, tag + 'the one door that opens onto Hebrew says so');
+    if (o.w > 1100) {
+      /* on the wide shelf a country hangs directly under the region it belongs to */
+      const { COUNTRY_EDITIONS } = require('../shared/regions.cjs');
+      const under = COUNTRY_EDITIONS.every((c) => {
+        const own = doors.find((d) => d.href.includes('/' + c.id + '/')), parent = doors.find((d) => d.href.includes('/' + c.region + '/'));
+        return own && parent && /door--country/.test(own.cls) && own.x === parent.x && own.y > parent.y;
+      });
+      ok(under, tag + 'each country edition hangs under the region it belongs to');
+      await page.hover('.door--region >> nth=2'); await wait(page, 150);
+      const framed = await page.evaluate(() => String(window.__mtg.AT.frame));
+      ok(framed === regions[2].frame, tag + 'pointing at a region door frames that region on the map (' + framed + ')');
+      await page.mouse.move(o.w / 2, o.h * 0.4); await wait(page, 150);
+      ok(await page.evaluate(() => window.__mtg.AT.frame === null), tag + 'and the frame goes when the pointer leaves');
+    }
 
     const other = o.lang === 'he' ? 'en' : 'he';
     await page.click('.lang button[data-lang="' + other + '"]'); await wait(page, 250);
@@ -262,7 +294,8 @@ async function nojs(browser) {
     const text = (await page.locator('body').innerText()).replace(/\s+/g, ' ');
     const titles = ['Two sides', 'First, we map', 'bound to place', 'not bound by borders', 'index is the bridge', 'Curation is resolution', 'Enter the world'];
     ok(titles.every((t) => text.includes(t)), w + '×' + h + ': every chapter is readable');
-    ok(/Israel edition/.test(text) && /World index/.test(text), w + '×' + h + ': the doors are still offered');
+    const doorNames = await page.$$eval('.door', (els) => els.filter((e) => e.getClientRects().length).map((e) => e.querySelector('b').textContent));
+    ok(doorNames.length === 9 && ['World index', 'Europe', 'Middle East', 'Israel'].every((n) => doorNames.includes(n)), w + '×' + h + ': every door is still offered (' + doorNames.length + ')');
     ok(!/Skip intro|scroll to descend|Play the intro/i.test(text), w + '×' + h + ': no controls that need scripting are shown');
     ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), w + '×' + h + ': no sideways scroll');
     if (SHOTS) await page.screenshot({ path: path.join(SHOTS, `nojs-${w}.png`), fullPage: true });
@@ -270,11 +303,58 @@ async function nojs(browser) {
   }
 }
 
+/* ---------- data: the numbers agree with each other before any page is opened ---------- */
+function data() {
+  console.log('data — one dataset, cut by region and by country');
+  const D = require('../build/dataset.cjs');
+  const { REGIONS, COUNTRY_EDITIONS, regionOf } = require('../shared/regions.cjs');
+  const lists = [['commissions', D.commissions], ['residencies', D.residencies], ['institutions', D.places]];
+  for (const [kind, list] of lists) {
+    const stray = list.filter((x) => !REGIONS.some((r) => r.name === x.region));
+    ok(stray.length === 0, 'every one of the ' + kind + ' is in a region (' + stray.map((x) => x.name + ', ' + x.country).join('; ') + ')');
+    ok(REGIONS.reduce((n, r) => n + list.filter((x) => x.region === r.name).length, 0) === list.length, 'the six regions add up to the world for ' + kind);
+    ok(REGIONS.every((r) => list.some((x) => x.region === r.name)), 'no region is empty of ' + kind);
+  }
+  const frame = (name) => REGIONS.find((r) => r.name === name).bounds;
+  const outside = D.places.filter((p) => { const f = frame(p.region); return p.lon < f[0] || p.lon > f[2] || p.lat < f[1] || p.lat > f[3]; });
+  ok(outside.length === 0, 'every institution lies inside the frame of its region (' + outside.map((p) => p.name).join('; ') + ')');
+
+  /* the grid the intro tints the map with must put each institution in the region it is listed under */
+  const enc = fs.readFileSync(path.join(ROOT, 'shared', 'region-grid.txt'), 'utf8').trim(), step = +enc.split('|')[0], cols = 360 / step, cells = [];
+  enc.split('|')[1].replace(/([a-z])(\d+)/g, (m, v, n) => { for (let i = +n; i > 0; i--) cells.push(v.charCodeAt(0) - 98); });
+  ok(cells.length === cols * (180 / step), 'the region grid is whole (' + cells.length + ' cells)');
+  const tinted = (p) => cells[Math.floor((90 - p.lat) / step) * cols + Math.floor((p.lon + 180) / step)];
+  const mistinted = D.places.filter((p) => REGIONS[tinted(p)] === undefined || REGIONS[tinted(p)].name !== p.region);
+  ok(mistinted.length === 0, 'the map lights every institution in its own region (' + mistinted.map((p) => p.name + ' → ' + (REGIONS[tinted(p)] || {}).name).join('; ') + ')');
+
+  for (const c of COUNTRY_EDITIONS) {
+    const L = require('../editions/build/locales/' + c.id + '.json'), region = REGIONS.find((r) => r.id === c.region);
+    ok(regionOf(c.country) === region.name, c.name + ' is filed under ' + region.name);
+    ok(L.places.every((p) => D.places.some((q) => q.name === (p.nameEn || p.name) && q.region === region.name)), 'every institution of the ' + c.name + ' edition is on the ' + region.name + ' map');
+    if (c.lang !== 'en') continue;                 // a Hebrew listing cannot also be an English one
+    for (const kind of ['commissions', 'residencies']) {
+      const inRegion = D[kind].filter((x) => x.country === c.country).map((x) => x.name).sort().join('|');
+      ok(inRegion === L[kind].map((x) => x.name).sort().join('|'), 'the ' + region.name + ' edition and the ' + c.name + ' edition list the same ' + c.name + ' ' + kind);
+    }
+  }
+  ok([].concat(D.commissions, D.residencies).every((x) => !(x.unopened && x.confidence === 'high')), 'no listing read through a search engine alone is rated high');
+}
+
 /* ---------- pages: what the doors open onto ---------- */
+const EDITIONS = ['americas', 'europe', 'africa', 'middle-east', 'asia', 'oceania', 'il', 'us'];
 async function pages(browser) {
-  console.log('pages — the world index and the two editions');
+  console.log('pages — the world index and the ' + EDITIONS.length + ' editions');
   const LIGHT = /250, 248, 245|243, 244, 248|255, 255, 255/;
-  for (const [id, rel] of [['world', 'index.html'], ['il', 'editions/il/index.html'], ['us', 'editions/us/index.html']]) {
+
+  /* what each door in the intro promises is behind it */
+  const first = await open(browser, { w: 1440, h: 900 });
+  const promised = {};
+  for (const d of await first.page.$$eval('.door', (els) => els.map((e) => [e.getAttribute('href').split('#')[0], (e.querySelector('span').textContent.match(/\d+/g) || []).map(Number)]))) {
+    promised[path.resolve(HERE, d[0])] = d[1];
+  }
+  await first.ctx.close();
+
+  for (const [id, rel] of [['world', 'index.html']].concat(EDITIONS.map((e) => [e, 'editions/' + e + '/index.html']))) {
     const file = path.join(ROOT, rel);
     for (const [w, h] of [[1440, 900], [390, 844]]) for (const hash of ['', '#via-intro']) {
       const { ctx, page } = await open(browser, { w, h, url: 'file://' + file + hash });
@@ -286,6 +366,8 @@ async function pages(browser) {
           type: ['600 20px "Frank Ruhl Libre"', '400 16px "Heebo"', '400 12px "JetBrains Mono"'].every((f) => document.fonts.check(f)),
           wide: document.documentElement.scrollWidth > innerWidth,
           links: [...new Set([...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href')).filter((x) => !/^(#|https?:|mailto:)/.test(x)))],
+          listed: [document.querySelectorAll('#commGrid .card').length, document.querySelectorAll('#resGrid .card').length],
+          menu: [...document.querySelectorAll('.ed-list a')].map((a) => a.getAttribute('aria-current') ? '*' : '.').join(''),
         };
       });
       if (hash) ok(r.theme === 'light' && LIGHT.test(r.bg), tag + 'arrives in the light tone');
@@ -294,17 +376,39 @@ async function pages(browser) {
         ok(r.type, tag + 'is set in the shared typefaces');
         ok(!r.wide, tag + 'does not scroll sideways');
         const missing = r.links.filter((l) => !fs.existsSync(path.resolve(path.dirname(file), l.split('#')[0])));
-        ok(r.links.length >= 3 && missing.length === 0, tag + 'internal links resolve (missing: ' + missing.join(', ') + ')');
+        ok(r.links.length >= 9 && missing.length === 0, tag + 'links to every other page, and they resolve (' + r.links.length + ' links, missing: ' + missing.join(', ') + ')');
+        const want = promised[file];
+        ok(want && want[0] === r.listed[0] && want[1] === r.listed[1], tag + 'holds what its door in the intro says: ' + r.listed.join(' and ') + ' listed, ' + (want || []).join(' and ') + ' promised');
+        if (id !== 'world') {
+          ok(r.menu.length === 10 && r.menu.split('*').length === 2, tag + 'its menu lists every edition and marks this one (' + r.menu + ')');
+          await page.click('#edMenu summary'); await wait(page, 200);
+          const box = await page.$eval('.ed-list', (e) => { const q = e.getBoundingClientRect(); return q.left >= 0 && q.right <= innerWidth && q.height > 100; });
+          ok(box, tag + 'the menu opens inside the window');
+          await page.keyboard.press('Escape'); await wait(page, 100);
+          ok(await page.$eval('#edMenu', (e) => !e.open), tag + 'and Escape closes it');
+        }
         ok(page.errors.length === 0, tag + 'script errors: ' + page.errors.slice(0, 2).join(' | '));
       }
       await ctx.close();
     }
+  }
+
+  /* the tone you are in travels with you from one edition to the next */
+  for (const [hash, tone] of [['#via-intro', 'light'], ['#via-dark', 'dark']]) {
+    const { ctx, page } = await open(browser, { w: 1440, h: 900, scheme: tone === 'dark' ? 'light' : 'dark', url: 'file://' + path.join(ROOT, 'editions/europe/index.html') + hash });
+    await page.click('#edMenu summary'); await wait(page, 150);
+    await Promise.all([page.waitForNavigation(), page.click('.ed-list a[href*="africa"]')]);
+    await wait(page, 500);
+    const there = await page.evaluate(() => [location.pathname.includes('/africa/'), document.documentElement.getAttribute('data-theme')]);
+    ok(there[0] && there[1] === tone, 'moving from one edition to another keeps the ' + tone + ' tone (' + there[1] + ')');
+    await ctx.close();
   }
 }
 
 (async () => {
   const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
   const t0 = Date.now();
+  if (want('data')) data();
   if (want('story')) await story(browser);
   if (want('atlas')) await atlas(browser);
   if (want('play')) await play(browser);

@@ -11,7 +11,7 @@ const HERE = __dirname;
 const OUT = path.join(HERE, '..', '..', 'figma');
 fs.mkdirSync(OUT, { recursive: true });
 
-const TPL = fs.readFileSync(path.join(HERE, 'edition.template.html'), 'utf8');
+const TPL = fs.readFileSync(path.join(HERE, 'edition.css'), 'utf8');
 
 /* ---------- 1. tokens ---------- */
 function block(selector) {
@@ -53,7 +53,7 @@ for (const k of MOTION_KEYS) {
 
 const tokens = {
   $description:
-    'Mind the Gap — design tokens, parsed directly from editions/build/edition.template.html. ' +
+    'Mind the Gap — design tokens, parsed directly from editions/build/edition.css. ' +
     'Regenerate with `node export-figma.cjs`; do not hand-edit.',
   color: colorTokens,
   motion: motionTokens,

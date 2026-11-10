@@ -48,17 +48,23 @@ function frame(now) {
   SC.forEach(function (s) { s.a = acc / sum; acc += s.w; s.b = acc / sum; });
   root.style.setProperty("--screens", (1 + sum * 0.9).toFixed(2));
 
-  layout(); buildParticles(); camReset();
+  GRID = decodeGrid(DATA.grid);
+  layout(); buildParticles(); measureShelf(); camReset();
 
   var lang = "";
   try { lang = localStorage.getItem("mtg-lang") || ""; } catch (e) {}
   if (!lang) lang = /^he\b/i.test(navigator.language || "") ? "he" : "en";
   applyLang(lang, false);
   buildWordmark(); placeLabels();
+  /* names and doors are measured, and a measurement taken before the typeface arrives is wrong */
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () {
+    placeLabels(); measureShelf();
+    if (S.mode === "story") camReset();
+  });
 
   window.addEventListener("resize", function () {
     var zoom = appCam.s / AT.fit, lon0 = appCam.lon0, lat0 = appCam.lat0;
-    layout(); placeLabels(); camReset();
+    layout(); placeLabels(); measureShelf(); camReset();
     if (S.mode !== "story") { appCam.s = AT.fit * zoom; appCam.lon0 = lon0; appCam.lat0 = lat0; camClamp(); }
     AT.dirty = true;
   });

@@ -4,6 +4,12 @@
 var chEls = [].slice.call(document.querySelectorAll(".ch"));
 var cvl = {};
 ["A", "B", "Gap", "Index", "IL", "US"].forEach(function (k) { cvl[k] = document.getElementById("lbl" + k); });
+/* a name for each region, set in open water beside it */
+var regionLabels = DATA.regions.map(function () {
+  var el = document.createElement("span"); el.className = "cvl cvl--region";
+  cvl.IL.parentNode.appendChild(el); return el;
+});
+var doorsEl = document.getElementById("doors");
 var tickerEl = document.getElementById("ticker"), tkBand = document.getElementById("tkBand"), tkScale = document.getElementById("tkScale");
 var exTyped = document.getElementById("exTyped"), exResult = document.getElementById("exResult");
 var exIL = document.getElementById("exIL"), exUS = document.getElementById("exUS"), exApply = document.getElementById("exApply");
@@ -24,17 +30,24 @@ function applyLang(lang, persist) {
   S.lang = lang; S.dir = lang === "he" ? "rtl" : "ltr";
   root.lang = lang; root.dir = S.dir;
   [].forEach.call(document.querySelectorAll("[data-i18n]"), function (el) { el.textContent = T(el.getAttribute("data-i18n")); });
+  /* a door's numbers wrap between its parts, never inside one */
+  [].forEach.call(doorsEl.querySelectorAll("span[data-i18n]"), function (el) {
+    el.innerHTML = T(el.getAttribute("data-i18n")).split(" · ").map(function (part) { return "<i>" + esc(part) + "</i>"; }).join(" · ");
+  });
   qEl.placeholder = T("searchPh"); qEl.setAttribute("aria-label", T("searchPh"));
   document.getElementById("zi").setAttribute("aria-label", T("zoomIn"));
   document.getElementById("zo").setAttribute("aria-label", T("zoomOut"));
   document.getElementById("zr").setAttribute("aria-label", T("zoomReset"));
   document.getElementById("langGroup").setAttribute("aria-label", T("langLabel"));
   railEl.setAttribute("aria-label", T("railLabel"));
+  doorsEl.setAttribute("aria-label", T("doorsTitle"));
+  regionLabels.forEach(function (el, i) { el.textContent = DATA.regions[i][lang === "he" ? "h" : "n"]; });
   barPlay.setAttribute("aria-label", T(auto ? "pause" : "play"));
   playBtn.lastChild.textContent = T(auto ? "pause" : "play");
   if (S.mode === "app") cv.setAttribute("aria-label", T("mapLabel"));
   langBtns.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang)); });
   buildRail(); fillExhibits(); buildChips(); updateHud(); placeLabels();
+  if (W) { measureShelf(); if (S.mode === "story") camReset(); }   // the doors are a different size in each language
   lastBand = -1; AT.dirty = true;
   if (AT.focus >= 0) showTip(AT.focus);
   if (persist) { try { localStorage.setItem("mtg-lang", lang); } catch (e) {} }
@@ -77,8 +90,21 @@ function placeLabels() {
   pos(cvl.A, box.x + lead * box.w * 0.27, yTop); pos(cvl.B, box.x - lead * box.w * 0.27, yTop);
   pos(cvl.Gap, box.x, box.y - 16); pos(cvl.Index, box.x, box.y - Math.max(18, box.sig * 0.34));
   var c = cam, b; cam = storyCam;
-  b = regionBox(0); pos(cvl.IL, (b.x0 + b.x1) / 2, b.y0 - 7);
-  b = regionBox(1); pos(cvl.US, (b.x0 + b.x1) / 2, b.y0 - 7);
+  var taken = DATA.countries.map(function (k) {     // a country's name sits above its frame
+    var el = cvl[k.id.toUpperCase()], x, y;
+    b = frameBox(k.b); x = (b.x0 + b.x1) / 2; y = b.y0 - 7; pos(el, x, y);
+    return { x0: x - el.offsetWidth / 2, x1: x + el.offsetWidth / 2, y0: y - el.offsetHeight, y1: y };
+  });
+  regionLabels.forEach(function (el, i) {
+    var l = DATA.regions[i].l, hw = el.offsetWidth / 2, hh = el.offsetHeight / 2;
+    project(l[0], l[1], tmp);
+    var x = clamp(tmp.x, hw + 6, Math.max(hw + 6, W - hw - 6)), y = tmp.y;   // inside the stage, however narrow
+    taken.forEach(function (t) {                    // and clear of a country's name, which has first claim
+      if (x + hw <= t.x0 || x - hw >= t.x1 || y + hh <= t.y0 || y - hh >= t.y1) return;
+      y = y < (t.y0 + t.y1) / 2 ? t.y0 - hh - 3 : t.y1 + hh + 3;
+    });
+    pos(el, x, y);
+  });
   cam = c;
 }
 
@@ -148,6 +174,11 @@ function updateChapters() {
   var w1 = sceneW(1), w3 = sceneW(3), w5 = sceneW(5);
   setOp(cvl.A, Math.max(w1, w5)); setOp(cvl.B, Math.max(w1, w5));
   setOp(cvl.Gap, w1); setOp(cvl.Index, w5); setOp(cvl.IL, w3); setOp(cvl.US, w3);
+  /* each region is named as it lights, in the same order */
+  for (i = 0; i < regionLabels.length; i++) {
+    var k = S.dir === "rtl" ? regionLabels.length - 1 - i : i;
+    setOp(regionLabels[i], ci === 3 ? smooth(0.12 + k * 0.03, 0.24 + k * 0.03, t) : w3);
+  }
 
   if (ci !== lastCi) {
     lastCi = ci;

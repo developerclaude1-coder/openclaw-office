@@ -23,35 +23,18 @@ const read = (...p) => fs.readFileSync(path.join(...p), 'utf8');
 const json = (...p) => JSON.parse(read(...p));
 const src = (f) => read(HERE, 'src', f);
 
-/* ---------- institutions: world + both editions, de-duplicated ---------- */
-const norm = (s) => String(s || '').toLowerCase().normalize('NFKD').replace(/[^\p{L}\p{N}]/gu, '');
-/* "China (Hong Kong SAR)" is counted, and shown, as the dataset frames it: China. */
-const countryEn = (c) => String(c || '').trim().replace(/\s*\(.*?\)\s*$/, '').trim();
-
+/* ---------- institutions: the one dataset, as the atlas needs it ---------- */
+const DATASET = require('../build/dataset.cjs');
+const { REGIONS, COUNTRY_EDITIONS, DIRECTORY } = require('../shared/regions.cjs');
 const il = json(ROOT, 'editions', 'build', 'locales', 'il.json');
 const us = json(ROOT, 'editions', 'build', 'locales', 'us.json');
-const world = {
-  places: json(ROOT, 'build', 'data', 'd-museums.json').items.concat(json(ROOT, 'build', 'data', 'd-galleries.json').items),
-  commissions: json(ROOT, 'build', 'data', 'd-commissions.json').items.concat(json(ROOT, 'build', 'data', 'd-added.json').commissions || []),
-  residencies: json(ROOT, 'build', 'data', 'd-residencies.json').items.concat(json(ROOT, 'build', 'data', 'd-added.json').residencies || []),
-};
 
-const seen = new Set();
-let places = [];
-function addPlace(p) {
-  const k = norm(p.n);
-  if (seen.has(k)) return;
-  seen.add(k);
-  places.push(p);
-}
-/* edition entries go first so a place shared with the world list keeps its edition */
-il.places.forEach((p) => addPlace({
-  n: p.nameEn, c: p.cityEn, k: 'Israel', t: p.type, o: p.noteEn,
-  nh: p.name, ch: p.city, kh: p.country, oh: p.note,
-  lon: p.lon, lat: p.lat, ed: 'il',
+/* Hong Kong is counted, and shown, as the source frames it: under China. */
+const places = DATASET.places.map((p) => ({
+  n: p.name, c: p.city, k: p.country === 'Hong Kong' ? 'China' : p.country, t: p.type, o: p.note,
+  ...(p.he ? { nh: p.he.name, ch: p.he.city, kh: p.he.country, oh: p.he.note } : {}),
+  lon: p.lon, lat: p.lat, ...(p.edition ? { ed: p.edition } : {}),
 }));
-us.places.forEach((p) => addPlace({ n: p.name, c: p.city, k: 'United States', t: p.type, o: p.note, lon: p.lon, lat: p.lat, ed: 'us' }));
-world.places.forEach((p) => addPlace({ n: p.name, c: p.city, k: countryEn(p.country), t: p.type, o: p.note, lon: p.lon, lat: p.lat, ed: 'world' }));
 
 /* Outside the Israel edition the data is English only. The atlas still has to
    read as Hebrew, so cities and countries are named from a small dictionary;
@@ -77,17 +60,18 @@ const ORDER = { Museum: 0, Gallery: 1, Biennial: 2 };
 places.sort((a, b) => ORDER[a.t] - ORDER[b.t] || a.lon - b.lon);
 
 /* ---------- counts ---------- */
-const keyNC = (x) => norm(x.name) + '|' + norm(String(x.city || '').split(',')[0]);
-const uniq = (lists) => new Set([].concat(...lists).map(keyNC)).size;
 const byType = (t) => places.filter((p) => p.t === t).length;
+const inRegion = (list, r) => list.filter((x) => x.region === r.name).length;
 const N = {
   N: places.length, M: byType('Museum'), G: byType('Gallery'), B: byType('Biennial'),
   K: new Set(places.map((p) => p.k)).size,
-  C: uniq([world.commissions, us.commissions, il.commissions]),
-  R: uniq([world.residencies, us.residencies, il.residencies]),
+  /* the listings every page shares, plus Israel's, which exist in Hebrew only */
+  C: DATASET.commissions.length + il.commissions.length,
+  R: DATASET.residencies.length + il.residencies.length,
   ILC: il.commissions.length, ILR: il.residencies.length,
   USC: us.commissions.length, USR: us.residencies.length,
-  WC: uniq([world.commissions]), WR: uniq([world.residencies]),
+  WC: DATASET.commissions.length, WR: DATASET.residencies.length,
+  RG: REGIONS.length, CE: COUNTRY_EDITIONS.length,
 };
 
 /* ---------- real entries for the exhibits ---------- */
@@ -97,6 +81,10 @@ const usCard = us.commissions.find((c) => c.name === 'Midnight Moment');
 if (searchIdx < 0 || !ilCard || !usCard) throw new Error('an exhibit sample is missing from the data');
 const DATA = {
   places,
+  /* the six regions: where each one's name sits on the map, and its frame */
+  regions: REGIONS.map((r) => ({ id: r.id, n: r.name, h: r.he, l: r.label, b: r.bounds })),
+  countries: COUNTRY_EDITIONS.map((c) => ({ id: c.id, b: c.bounds })),
+  grid: read(ROOT, 'shared', 'region-grid.txt').trim(),
   sample: {
     searchIdx,
     il: { name: ilCard.name, org: ilCard.org },
@@ -115,13 +103,40 @@ const fill = (v) => typeof v !== 'string' ? v : v.replace(/\{([A-Z]+)\}/g, (m, k
   if (!(k in N)) throw new Error('unknown number in copy: ' + m);
   return String(N[k]);
 });
+
+/* ---------- the doors ---------- */
+/* One for the world index and one for every edition, in the order the menus
+   use: each region, then any country edition inside it. A region's name and
+   numbers are not written in strings.json; they come from the data. */
+const LINKS = ARTIFACT
+  ? { world: 'world/index.html', editions: 'editions/' }
+  : { world: '../index.html', editions: '../editions/' };
+const hrefOf = (id) => (id === 'world' ? LINKS.world : LINKS.editions + id + '/index.html') + '#via-intro';
+const COUNTRY_KEY = { il: 'IL', us: 'US' };
+for (const lang of Object.keys(STR)) {
+  const meta = STR[lang].doorRegionMeta;
+  for (const r of REGIONS) {
+    STR[lang]['door_' + r.id] = lang === 'he' ? r.he : r.name;
+    STR[lang]['door_' + r.id + '_m'] = meta
+      .replace('{c}', inRegion(DATASET.commissions, r)).replace('{r}', inRegion(DATASET.residencies, r));
+  }
+  delete STR[lang].doorRegionMeta;
+}
+/* hreflang says which language the page behind a door is written in, and the
+   door shows it whenever that is not the language you are reading */
+const door = (cls, href, key, metaKey, attrs) => '<a class="door ' + cls + '" href="' + href + '"' + (attrs || ' hreflang="en"') + '>'
+  + '<b data-i18n="' + key + '">{{' + key + '}}</b><span data-i18n="' + metaKey + '">{{' + metaKey + '}}</span></a>';
+const DOORS = [door('door--world', hrefOf('world'), 'doorWorld', 'doorWorldMeta')].concat(DIRECTORY.map((d) => {
+  const frame = ' hreflang="' + d.lang + '" data-frame="' + d.bounds.join(',') + '"';   // the frame is what the map shows while you point at the door
+  if (d.kind === 'region') return door('door--region', hrefOf(d.id), 'door_' + d.id, 'door_' + d.id + '_m', frame);
+  /* a country edition hangs under its region: column 1 is the world index */
+  const col = 2 + REGIONS.findIndex((r) => r.id === d.region), K = COUNTRY_KEY[d.id];
+  return door('door--country', hrefOf(d.id), 'door' + K, 'door' + K + 'Meta', frame + ' style="--col:' + col + '"');
+})).join('\n        ');
+
 for (const lang of Object.keys(STR)) for (const k of Object.keys(STR[lang])) STR[lang][k] = fill(STR[lang][k]);
 
 /* ---------- assemble ---------- */
-const LINKS = ARTIFACT
-  ? { il: 'editions/il/index.html#via-intro', us: 'editions/us/index.html#via-intro', world: 'world/index.html#via-intro' }
-  : { il: '../editions/il/index.html#via-intro', us: '../editions/us/index.html#via-intro', world: '../index.html#via-intro' };
-
 const escHtml = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 /* U+2028 and U+2029 are valid in JSON but end a line inside a script, so they
    are escaped along with '<'. Built with fromCharCode so this source never
@@ -139,16 +154,16 @@ const js = '(function(){"use strict";\n' +
   SOURCES.map(src).join('\n') + '\n})();';
 
 let html = src('index.template.html')
-  .replace(/\{\{([A-Za-z0-9]+)\}\}/g, (m, k) => {
+  .replace('<!--__DOORS__-->', () => DOORS)
+  .replace(/\{\{([A-Za-z0-9_-]+)\}\}/g, (m, k) => {
     if (!(k in STR.en)) throw new Error('template uses an unknown string: ' + k);
     return escHtml(STR.en[k]);                      // English is the resting state; the script swaps it
   })
-  .replace('__HREF_IL__', LINKS.il).replace('__HREF_US__', LINKS.us).replace('__HREF_WORLD__', LINKS.world)
   .replace('/*__FONTS__*/', () => fontFaceCss())
   .replace('/*__CSS__*/', () => css)
   .replace('/*__JS__*/', () => js);
 
-const left = html.match(/__[A-Z_]{3,}__|\{\{[A-Za-z0-9]+\}\}/g);
+const left = html.match(/__[A-Z_]{3,}__|\{\{[A-Za-z0-9_-]+\}\}/g);
 if (left) throw new Error('unreplaced placeholders: ' + [...new Set(left)].join(', '));
 
 if (ARTIFACT) {
@@ -166,8 +181,9 @@ fs.writeFileSync(OUT, html);
 const lines = (f) => src(f).split('\n').length;
 const over = SOURCES.concat(['styles.css', 'app.css', 'index.template.html']).filter((f) => lines(f) > 500);
 console.log('institutions ' + N.N + ' (' + N.M + ' museums, ' + N.G + ' galleries, ' + N.B + ' biennials) in ' + N.K + ' countries');
-console.log('commissions  ' + N.C + '  = world ' + N.WC + ' + US ' + N.USC + ' + IL ' + N.ILC + ', de-duplicated');
-console.log('residencies  ' + N.R + '  = world ' + N.WR + ' + US ' + N.USR + ' + IL ' + N.ILR + ', de-duplicated');
+console.log('commissions  ' + N.C + '  = ' + N.WC + ' in the shared dataset + ' + N.ILC + ' in the Israel edition');
+console.log('residencies  ' + N.R + '  = ' + N.WR + ' in the shared dataset + ' + N.ILR + ' in the Israel edition');
+console.log('regions      ' + REGIONS.map((r) => r.code + ' ' + inRegion(DATASET.commissions, r) + '/' + inRegion(DATASET.residencies, r) + '/' + inRegion(DATASET.places, r)).join('  '));
 console.log('strings      ' + keysEn.length + ' keys, en/he in step');
 console.log('source lines ' + SOURCES.concat(['styles.css', 'app.css']).map((f) => f + ':' + lines(f)).join('  '));
 if (over.length) console.log('WARNING over 500 lines: ' + over.join(', '));

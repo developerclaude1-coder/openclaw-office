@@ -39,20 +39,15 @@ function F_map(p, o) {
   else { project(p.lon, p.lat, o); o.c = TYPE_COL[p.type]; o.a = 1; o.s = 3.2; o.g = thinFor(cam.s, "all")[p.mi]; }
 }
 
-function inUS(lon, lat) {                           // contiguous states, near enough for a dot map
-  if (lat < 25.5 || lat > 49 || lon < -125 || lon > -67) return false;
-  if (lat < 32.5 && (lon < -106 || lon > -80)) return false;
-  if (lat > 45.5 && lon > -83 && lon < -71.5) return false;
-  return true;
-}
-
-/* 03 — regions: the world dims and two editions light up */
+/* 03 — regions: the map divides into its editions. Each region is lit, and
+   no two that touch share a brightness, so the borders can be read. */
+var REGION_TONE = [0.72, 0.95, 0.48, 0.72, 0.48, 0.95];
 function F_regions(p, o) {
   F_map(p, o);
   if (p.kind === 0) {
-    if (inUS(p.lon, p.lat)) { o.c = AMBER; o.a = 0.85; } else o.a = 0.17;
-  } else if (p.kind === 2) {
-    if (p.ed !== "il" && p.ed !== "us") { o.a = 0.2; o.s = 2.2; o.g = 0; }
+    if (p.rg >= 0) { o.c = AMBER; o.a = REGION_TONE[p.rg]; } else o.a = 0.14;
+  } else if (p.kind === 2) {                        // the institutions step back, except inside a country edition
+    if (p.ed !== "il" && p.ed !== "us") { o.a = 0.22; o.s = 2.2; o.g = 0; }
   }
 }
 
@@ -104,6 +99,10 @@ function D_sweep(p) {                               // the map builds in reading
   if (p.kind === 2) return 0.62 + p.delay * 0.38;   // institutions ignite last
   return p.delay;
 }
+function D_regions(p) {                             // the regions light one after another, in reading direction
+  if (p.kind !== 0 || p.rg < 0) return p.delay * 0.4;
+  return 0.06 + (S.dir === "rtl" ? 5 - p.rg : p.rg) * 0.13 + p.delay * 0.16;
+}
 function D_bridge(p) {                              // the bar shoots across from the reading start
   if (isBar(p)) return 0.3 + 0.7 * (S.dir === "rtl" ? 1 - p.u1 : p.u1);
   return p.delay * 0.35;
@@ -113,7 +112,7 @@ var SC = [
   { id: "cosmos", w: 0.9, form: F_star },
   { id: "gap", w: 1.2, form: F_gap },
   { id: "atlas", w: 1.3, form: F_map, delay: D_sweep },
-  { id: "regions", w: 1.2, form: F_regions },
+  { id: "regions", w: 1.2, form: F_regions, delay: D_regions },
   { id: "collectors", w: 1.2, form: F_collect },
   { id: "bridge", w: 1.2, form: F_bridge, delay: D_bridge },
   { id: "resolution", w: 1.4, form: F_tunnel },
@@ -129,11 +128,10 @@ function sceneW(i) {
 }
 
 /* ---------- drawn marks ---------- */
-/* the two editions, as bounds: [west, south, east, north] */
-var REGIONS = [[34.2, 29.4, 35.9, 33.4], [-125.5, 24.3, -66.5, 49.6]];
+/* a frame is bounds: [west, south, east, north] */
 var rb = { x0: 0, y0: 0, x1: 0, y1: 0 };
-function regionBox(i) {                             // on screen; never smaller than a finger can read
-  var g = REGIONS[i], pad = 5;
+function frameBox(g) {                              // on screen; never smaller than a finger can read
+  var pad = 5;
   project(g[0], g[3], tmp); var x0 = tmp.x, y0 = tmp.y;
   project(g[2], g[1], tmp); var x1 = tmp.x, y1 = tmp.y;
   var cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
@@ -168,9 +166,9 @@ function corners(x0, y0, x1, y1, arm) {             // a viewfinder: four corner
   ctx.moveTo(x0 + arm, y1); ctx.lineTo(x0, y1); ctx.lineTo(x0, y1 - arm);
   ctx.stroke();
 }
-function drawRegions(w) {
-  for (var i = 0; i < REGIONS.length; i++) {
-    var b = regionBox(i), arm = Math.min(13, (b.x1 - b.x0) * 0.3);
+function drawRegions(w) {                           // the country editions, each in a viewfinder
+  for (var i = 0; i < DATA.countries.length; i++) {
+    var b = frameBox(DATA.countries[i].b), arm = Math.min(13, (b.x1 - b.x0) * 0.3);
     var open = (1 - w) * 14;                        // the frame closes in on its region as it appears
     ctx.lineWidth = 1.5; ctx.strokeStyle = rgba(AMBER, 0.95 * w);
     corners(b.x0 - open, b.y0 - open, b.x1 + open, b.y1 + open, arm);

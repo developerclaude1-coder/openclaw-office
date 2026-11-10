@@ -2,7 +2,7 @@
    resolve underneath it, and the institutions become things you can reach:
    pan, zoom, pinch, search and filter. */
 
-var AT = { alpha: 0, mk: 0, hover: -1, focus: -1, filter: "all", dirty: true, anim: null, fit: 1 };
+var AT = { alpha: 0, mk: 0, hover: -1, focus: -1, filter: "all", dirty: true, anim: null, fit: 1, shelf: 96, frame: null };
 var PL = DATA.places;
 var appEl = document.getElementById("app"), tipEl = document.getElementById("tip");
 var qEl = document.getElementById("q"), qrEl = document.getElementById("qr"), chipsEl = document.getElementById("chips");
@@ -41,9 +41,17 @@ function F_app(p, o) {
    one it would shrink to a ribbon, so there it fills the height instead and you
    pan across it, opening on Europe, Africa and the Middle East. */
 var HOME = { lon: 0, lat: 13 }, MAX_ZOOM = 64, FLY_ZOOM = 20;
+/* How tall the shelf of doors is. It depends on the window and on the
+   language, and it is hidden until you enter, so it is shown for one
+   measurement, unseen, and hidden again. */
+function measureShelf() {
+  var was = appEl.hidden; appEl.hidden = false;
+  AT.shelf = document.getElementById("doors").offsetHeight;
+  appEl.hidden = was;
+  stage.style.setProperty("--shelf", AT.shelf + "px");
+}
 function camFit() {
-  var squat = !portrait && H < 520;                 // a phone on its side
-  var top = W <= 820 ? 150 : 104, bottom = squat ? 104 : 150, free = Math.max(120, H - top - bottom);
+  var top = W <= 820 ? 150 : 104, bottom = AT.shelf + 66, free = Math.max(120, H - top - bottom);
   AT.fit = Math.min(W / 360, free / 140);
   if (portrait) AT.fit = clamp(free / 140, W / 360, W / 360 * 3.2);
   HOME.lon = AT.fit > W / 360 + 0.001 ? 18 : 0;
@@ -140,6 +148,11 @@ function atlasOver() {
       ctx.fillStyle = "#121210"; ctx.fillText(name, x, q.y);
     });
     ctx.textBaseline = "alphabetic";
+  }
+  if (AT.frame) {                                   // the door being pointed at, shown on the map
+    var fb = frameBox(AT.frame);
+    ctx.globalAlpha = AT.mk; ctx.lineWidth = 1.5; ctx.strokeStyle = rgba(AMBER, 0.95);
+    corners(Math.max(6, fb.x0), Math.max(6, fb.y0), Math.min(W - 6, fb.x1), Math.min(H - 6, fb.y1), 14);
   }
   ctx.globalAlpha = 1;
 }
@@ -308,6 +321,14 @@ chipsEl.addEventListener("click", function (e) {
   if (AT.focus >= 0 && !visible(PL[AT.focus])) { AT.focus = -1; hideTip(); }
   buildChips(); AT.dirty = true;
 });
+
+/* Pointing at a door, or tabbing to it, frames on the map what it opens. */
+function doorFrame(e) {
+  var a = e.type === "pointerover" || e.type === "focusin" ? e.target.closest(".door[data-frame]") : null;
+  var f = a ? a.getAttribute("data-frame").split(",").map(Number) : null;
+  if (String(f) !== String(AT.frame)) { AT.frame = f; AT.dirty = true; }
+}
+["pointerover", "pointerout", "focusin", "focusout"].forEach(function (t) { document.getElementById("doors").addEventListener(t, doorFrame); });
 
 var aboutBtn = document.getElementById("aboutBtn"), aboutEl = document.getElementById("about");
 aboutBtn.addEventListener("click", function () {

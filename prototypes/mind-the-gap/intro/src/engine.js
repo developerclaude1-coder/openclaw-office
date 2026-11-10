@@ -92,6 +92,25 @@ function sampleLand(rings, want) {
   return best;
 }
 
+/* ---------- regions ---------- */
+/* "<cell size>|<runs>": which region each patch of land is in, rows north to
+   south, each west to east. A run is a letter (a = none, b onward = the regions
+   in order) and a count. Made by shared/build-region-grid.cjs. */
+var GRID = null;
+function decodeGrid(enc) {
+  var bar = enc.indexOf("|"), step = +enc.slice(0, bar), cols = 360 / step, rows = 180 / step;
+  var cells = new Int8Array(cols * rows), n = 0;
+  enc.slice(bar + 1).replace(/([a-z])(\d+)/g, function (m, v, c) {
+    for (var k = v.charCodeAt(0) - 98, i = +c; i > 0; i--) cells[n++] = k;
+  });
+  return { step: step, cols: cols, rows: rows, cells: cells };
+}
+function regionAt(lon, lat) {
+  var c = clamp(Math.floor((lon + 180) / GRID.step), 0, GRID.cols - 1);
+  var r = clamp(Math.floor((90 - lat) / GRID.step), 0, GRID.rows - 1);
+  return GRID.cells[r * GRID.cols + c];
+}
+
 /* ---------- particles ---------- */
 function rng(seed) {                               // deterministic, so the composition is stable
   return function () {
@@ -114,15 +133,15 @@ function buildParticles() {
        clamping, so a swarm thins out to a round edge with nothing piled on it. */
     var gm = Math.sqrt(-2 * Math.log(floor + (1 - floor) * r())), ga = r() * TAU;
     return {
-      kind: kind, lon: 0, lat: 0, type: "", ed: "", mi: 0, side: P.length % 2,
+      kind: kind, lon: 0, lat: 0, type: "", ed: "", rg: -1, mi: 0, side: P.length % 2,
       u1: r(), u2: r(), u3: r(), u4: r(), u5: r(), g1: gm * Math.cos(ga), g2: gm * Math.sin(ga),
       theta: r() * TAU, rad0: r(), delay: r(), sw: r() * 2 - 1, tw: r() * TAU, depth: r()
     };
   }
-  land.forEach(function (ll) { var p = make(0); p.lon = ll[0]; p.lat = ll[1]; P.push(p); });
+  land.forEach(function (ll) { var p = make(0); p.lon = ll[0]; p.lat = ll[1]; p.rg = regionAt(ll[0], ll[1]); P.push(p); });
   for (var i = land.length; i < total; i++) P.push(make(1));
   DATA.places.forEach(function (pl, i) {            // every real institution is its own particle
-    var p = make(2); p.lon = pl.lon; p.lat = pl.lat; p.type = pl.t; p.ed = pl.ed; p.mi = i; p.side = 1;
+    var p = make(2); p.lon = pl.lon; p.lat = pl.lat; p.type = pl.t; p.ed = pl.ed || ""; p.mi = i; p.side = 1;
     P.push(p);
   });
   MARKERS = DATA.places.length;

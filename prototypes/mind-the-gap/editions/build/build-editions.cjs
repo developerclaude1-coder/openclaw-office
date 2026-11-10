@@ -1,4 +1,5 @@
-/* Build the Israel and US editions of Mind the Gap from locale data + coastlines. */
+/* Build every edition of Mind the Gap: the six regions, cut from the shared
+   dataset, and the country editions written in their own locale files. */
 const fs = require('fs');
 const path = require('path');
 const HERE = __dirname;
@@ -12,12 +13,21 @@ const LAND_FOR = {
   il: 'land-il.txt',
   us: 'land-us.txt',
 };
-const TPL = fs.readFileSync(path.join(HERE, 'edition.template.html'), 'utf8');
+/* A region is too large for that: it carries the world coastline the intro
+   uses, and the page draws it as a curve so it stays soft when zoomed in. */
+const LAND_WORLD = path.join(HERE, '..', '..', 'shared', 'land-world-50.txt');
+/* the page is kept as three files, markup, stylesheet and script, and put together here */
+const part = (f) => fs.readFileSync(path.join(HERE, f), 'utf8');
+const TPL = part('edition.template.html')
+  .replace('/*__CSS__*/', () => part('edition.css').replace(/\n$/, ''))
+  .replace('/*__JS__*/', () => part('edition.js').replace(/\n$/, ''));
 const { fontFaceCss, STACKS } = require('../../shared/fonts/fonts.cjs');
+const { DIRECTORY } = require('../../shared/regions.cjs');
+const { regionLocale, REGION_IDS } = require('./regions.cjs');
 
-/*   node build-editions.cjs ["November 2026"]            -> ../il/index.html, ../us/index.html
- *   node build-editions.cjs --artifact --out=DIR         -> DIR/il/index.html, DIR/us/index.html,
- *                                                           linked for a published multi-page artifact */
+/*   node build-editions.cjs ["November 2026"]            -> ../<edition>/index.html, eight of them
+ *   node build-editions.cjs --artifact --out=DIR         -> DIR/<edition>/index.html, linked for a
+ *                                                           published multi-page artifact */
 const argv = process.argv.slice(2);
 const ARTIFACT = argv.includes('--artifact');
 const outArg = (argv.find((a) => a.startsWith('--out=')) || '').slice(6);
@@ -83,9 +93,26 @@ const BAND_CAPS = {
   ],
 };
 
+/* ---------- the way between editions ---------- */
+const escHtml = (v) => String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const hrefTo = (to) => to === 'world' ? LINKS.world : to === 'intro' ? LINKS.intro : '../' + to + '/index.html';
+
+/* Every edition, listed the same way in the menu and in the footer. A page
+   written in another language than the one you are reading says so. */
+function editionLinks(currentId, L) {
+  const he = L.lang === 'he';
+  const other = (lang) => lang === L.lang ? '' : ' <span class="ed-lang">' + (lang === 'he' ? 'עברית' : 'EN') + '</span>';
+  const rows = [{ to: 'world', cls: 'world', label: L.strings.footWorld, lang: 'en' }]
+    .concat(DIRECTORY.map((d) => ({ to: d.id, cls: d.kind, label: he ? d.he : d.name, lang: d.lang })));
+  return rows.map((r) => '<a class="' + r.cls + '" href="' + hrefTo(r.to) + '"'
+    + (r.to === currentId ? ' aria-current="page"' : '') + '>' + '<span>' + escHtml(r.label) + '</span>' + other(r.lang) + '</a>').join('');
+}
+
 function build(id) {
-  const L = JSON.parse(fs.readFileSync(path.join(HERE, 'locales', id + '.json'), 'utf8'));
+  const region = REGION_IDS.includes(id);
+  const L = region ? regionLocale(id) : JSON.parse(fs.readFileSync(path.join(HERE, 'locales', id + '.json'), 'utf8'));
   L.bandCaps = BAND_CAPS[L.lang];
+  for (const way of ['down', 'up']) L.doors[way] = L.doors[way].map(({ to, ...d }) => ({ ...d, href: hrefTo(to) }));
 
   /* The collector layer is global: artists and opportunities are gated by
      nationality and residency, a collector's problems are not. Every edition
@@ -103,9 +130,10 @@ function build(id) {
   L.bandNames = BAND_NAMES[L.lang];
 
   const T = L.strings;
-  const title = L.lang === 'he'
+  const title = L.title || (L.lang === 'he'
     ? 'מיינד ד׳ה גאפ — ' + T.brandSub
-    : 'Mind the Gap — ' + T.brandSub;
+    : 'Mind the Gap — ' + T.brandSub);
+  const links = editionLinks(id, L);
 
   let html = TPL
     .replace(/__LANG__/g, L.lang)
@@ -113,9 +141,9 @@ function build(id) {
     .replace(/__TITLE__/g, title)
     .replace(/__DESC__/g, T.heroLede)
     .replace(/__EDITION__/g, L.name)
-    .replace(/__EDITION_CODE__/g, id.toUpperCase())
-    .replace(/__ALT_HREF__/g, L.altEdition.href)
-    .replace(/__ALT_LABEL__/g, L.altEdition.label)
+    .replace(/__EDITION_NAME__/g, (DIRECTORY.find((d) => d.id === id) || {})[L.lang === 'he' ? 'he' : 'name'] || L.name)
+    .replace(/__EDITION_CODE__/g, L.code || id.toUpperCase())
+    .replace(/__EDITION_LINKS__/g, () => links)
     .replace(/__SERIF__/g, STACKS.serif)
     .replace(/__SANS__/g, STACKS.sans)
     .replace(/__MONO__/g, STACKS.mono)
@@ -132,7 +160,7 @@ function build(id) {
   /* cityEn / noteEn exist for the intro's world atlas; this page never reads them */
   L.places = L.places.map(({ cityEn, noteEn, ...p }) => p);
 
-  const land = fs.readFileSync(path.join(HERE, LAND_FOR[id]), 'utf8').trim();
+  const land = fs.readFileSync(LAND_FOR[id] ? path.join(HERE, LAND_FOR[id]) : LAND_WORLD, 'utf8').trim();
   html = html.replace('__LOCALE__', () => JSON.stringify(L)).replace('__LAND__', () => land);
   /* the Hebrew subsets are only shipped to a page that has Hebrew on it */
   html = html.replace('/*__FONTS__*/', () => fontFaceCss({ latin: true, hebrew: HEBREW.test(html) }));
@@ -157,5 +185,5 @@ function build(id) {
   );
 }
 
-['il', 'us'].forEach(build);
+REGION_IDS.concat(['il', 'us']).forEach(build);
 console.log('as of:', ASOF);

@@ -36,6 +36,7 @@
       <span class="cvl cvl--signal" id="lblIndex" data-i18n="lblIndex">{{lblIndex}}</span>
       <span class="cvl cvl--top cvl--signal" id="lblIL" data-i18n="lblIL">{{lblIL}}</span>
       <span class="cvl cvl--top cvl--signal" id="lblUS" data-i18n="lblUS">{{lblUS}}</span>
+      <!-- the six region names are added here by the script, from the data -->
     </div>
 
     <div class="ticker" id="ticker" aria-hidden="true">
@@ -167,21 +168,10 @@
         <div class="chips" id="chips" role="group"></div>
       </div>
 
-      <aside class="doors" id="doors">
-        <p class="doors-title" data-i18n="doorsTitle">{{doorsTitle}}</p>
-        <a class="door" href="__HREF_IL__">
-          <b data-i18n="doorIL">{{doorIL}}</b>
-          <span data-i18n="doorILMeta">{{doorILMeta}}</span>
-        </a>
-        <a class="door" href="__HREF_US__">
-          <b data-i18n="doorUS">{{doorUS}}</b>
-          <span data-i18n="doorUSMeta">{{doorUSMeta}}</span>
-        </a>
-        <a class="door" href="__HREF_WORLD__">
-          <b data-i18n="doorWorld">{{doorWorld}}</b>
-          <span data-i18n="doorWorldMeta">{{doorWorldMeta}}</span>
-        </a>
-      </aside>
+      <!-- a door to the world index and to every edition; a country's hangs under its region -->
+      <nav class="doors" id="doors" aria-label="{{doorsTitle}}">
+        <!--__DOORS__-->
+      </nav>
 
       <div class="app-foot">
         <div class="hud"><span data-i18n="scaleLabel">{{scaleLabel}}</span> <b id="mz" dir="ltr">1.0×</b> · <span id="mb"></span><span class="hud-count"> · <span id="mc"></span></span></div>

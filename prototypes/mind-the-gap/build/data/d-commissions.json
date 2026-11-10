@@ -102,11 +102,13 @@
    "city": "Sydney",
    "country": "Australia",
    "category": "civic",
+   "access": "open call",
    "summary": "The City of Sydney's programme supporting artists through grants and temporary public art projects in streets, parks and public spaces. It ran for 13 years as a month-long festival and now operates as a year-round calendar of projects rather than a single event.",
-   "budgetNote": "Amounts vary by round and by the scale and form of the proposal. Earlier rounds advertised commissions of up to around A$100,000 per project; this figure was not confirmed for the current round. Applicants submit an indicative budget covering artist fees, design, manufacture, materials, engineering, labour, installation, maintenance and deinstallation.",
+   "budgetNote": "Amounts vary by round and by the scale and form of the proposal. The 2024/25 round offered up to A$100,000 per project; the figure for the current round was not stated in the announcement checked. Applicants submit an indicative budget covering artist fees, design, manufacture, materials, engineering, labour, installation, maintenance and deinstallation.",
    "cycleNote": "Open expression of interest, advertised by the City for each programme year through its opportunities page, with separate strands (for example precinct project commissions and a banner gallery) that open and close on their own dates. Eligibility is set per round: the general programme supports local and international artists, but the 2026 Oxford Street and Taylor Square round was directed at local artists and organisations.",
    "confidence": "medium",
-   "sourceUrl": "https://www.cityofsydney.nsw.gov.au/opportunities/expression-of-interest-art-and-about"
+   "sourceUrl": "https://www.cityofsydney.nsw.gov.au/opportunities/expression-of-interest-art-and-about",
+   "unopened": true
   },
   {
    "name": "KORO — Public Art Norway (Kunst i offentlege rom)",

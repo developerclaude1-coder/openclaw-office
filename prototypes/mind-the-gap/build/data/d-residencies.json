@@ -145,18 +145,6 @@
    "sourceUrl": "https://khojstudios.org/"
   },
   {
-   "name": "Tokyo Arts and Space (TOKAS) — Residency Programme",
-   "city": "Tokyo",
-   "country": "Japan",
-   "duration": "Around three months for the creator strand; shorter for the curator strand",
-   "funding": "Funded: living space, airfare, a daily living allowance and a project or research fee, plus studio space. Amounts are published per call and differ between the creator and curator tracks.",
-   "disciplines": "Visual arts, design and architecture; a separate track for curators",
-   "summary": "A residency run by Tokyo Arts and Space, a programme of the Tokyo Metropolitan Foundation for History and Culture, which gives residents institutional access to the city that independent programmes rarely provide. It suits research-driven projects that need Tokyo as subject or material.",
-   "applicationNote": "An annual open call for the following year's programme, with separate application tracks for creators and for curators.",
-   "confidence": "low",
-   "sourceUrl": "https://www.tokyoartsandspace.jp/en/residence/index.html"
-  },
-  {
    "name": "Sharjah Art Foundation Residency Programme",
    "city": "Sharjah",
    "country": "United Arab Emirates",
@@ -208,13 +196,14 @@
    "name": "McCahon House — Parehuia Residency",
    "city": "Titirangi, Auckland",
    "country": "New Zealand",
-   "duration": "Three months, with several residencies offered each year",
-   "funding": "Funded: use of a furnished, architecturally designed house and studio plus a stipend, supported by public and private funders. Confirm current amounts in the live call.",
-   "disciplines": "Visual arts, pitched at mid-career artists",
-   "summary": "A purpose-built house and studio in French Bay, beside the cottage where Colin McCahon lived and painted in the 1950s, on the bush edge of west Auckland. The programme deliberately targets mid-career artists, a stage most residencies underserve.",
-   "applicationNote": "An annual open call assessed by a selection panel. Applicants must be New Zealand citizens or permanent residents and able to live and work full-time at Parehuia for the term.",
-   "confidence": "low",
-   "sourceUrl": "https://mccahonhouse.org.nz/"
+   "duration": "Three months, with several residents a year",
+   "funding": "Funded: a furnished, architect-designed house and studio plus a stipend, NZ$15,000 paid in three monthly instalments in the 2024 call. A separate Offshore Pathways residency carried NZ$7,500.",
+   "disciplines": "Visual arts, aimed at mid-career artists",
+   "summary": "A purpose-built house and studio in French Bay, beside the cottage where Colin McCahon lived and painted in the 1950s, on the bush edge of west Auckland. Besides the main residency there is an Offshore Pathways place for an artist building an international practice, and a Pacific Visual Arts Residency with Creative New Zealand for artists of Pacific Islands heritage.",
+   "applicationNote": "An annual open call by written application, for residencies in the following year. Whether the main residency is limited to New Zealand citizens and residents could not be confirmed; the exchange with Bundanon in Australia does require it.",
+   "confidence": "medium",
+   "sourceUrl": "https://mccahonhouse.org.nz/residency/parehuia-about",
+   "unopened": true
   }
  ]
 }
