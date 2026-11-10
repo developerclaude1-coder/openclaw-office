@@ -67,7 +67,8 @@ html[lang="he"] .door[hreflang="en"]::after{content:"EN"}
 .door--world{background:var(--fg);border-color:var(--fg);color:var(--bg)}
 .door--world span{color:inherit;opacity:.7}
 .door--country{grid-row:2;grid-column:var(--col);border-style:dashed}
-.door--country b{font-size:.92rem}
+.door--country b,.door--project b{font-size:.92rem}
+.door--project{grid-row:2;grid-column:var(--col)}
 
 .app-foot{position:absolute;inset-inline-start:var(--gs);bottom:14px;
   max-width:calc(100% - var(--gs) - var(--ge) - 56px);display:flex;flex-wrap:wrap;align-items:center;gap:8px;

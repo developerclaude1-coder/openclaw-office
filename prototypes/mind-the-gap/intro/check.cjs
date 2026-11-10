@@ -1,7 +1,7 @@
 /* Browser checks for the intro and the pages it leads to.
  *
  *   node check.cjs                    every part
- *   node check.cjs story atlas        only the parts named: data, story, atlas, play, nojs, pages
+ *   node check.cjs story atlas        only the parts named: data, story, atlas, play, nojs, pages, project
  *   node check.cjs --shots=DIR        also save a screenshot of each scene
  *   node check.cjs story --size=390x844 --lang=he     narrow the story part to one size or language
  *
@@ -218,9 +218,11 @@ async function atlas(browser) {
       const r = e.getBoundingClientRect();
       return { href: e.getAttribute('href'), cls: e.className, col: e.style.getPropertyValue('--col'), x: Math.round(r.left), y: Math.round(r.top), frame: e.getAttribute('data-frame'), lang: e.getAttribute('hreflang') };
     }));
-    ok(doors.length === 9 && doors.every((d) => fs.existsSync(path.resolve(HERE, d.href.split('#')[0]))), tag + 'all nine doors lead somewhere');
+    ok(doors.length === 10 && doors.every((d) => fs.existsSync(path.resolve(HERE, d.href.split('#')[0]))), tag + 'all ten doors lead somewhere');
     const regions = doors.filter((d) => /door--region/.test(d.cls)), countries = doors.filter((d) => /door--country/.test(d.cls));
+    const proj = doors.filter((d) => /door--project/.test(d.cls));
     ok(regions.length === 6 && countries.length === 2 && /door--world/.test(doors[0].cls), tag + 'there is a door for the world, for each of six regions and for each country edition');
+    ok(proj.length === 1 && /project\/index\.html#via-intro$/.test(proj[0].href) && !proj[0].frame, tag + 'and one for the project, which frames nothing on the map');
     ok(doors.filter((d) => d.lang === 'he').length === 1, tag + 'the one door that opens onto Hebrew says so');
     if (o.w > 1100) {
       /* on the wide shelf a country hangs directly under the region it belongs to */
@@ -230,6 +232,7 @@ async function atlas(browser) {
         return own && parent && /door--country/.test(own.cls) && own.x === parent.x && own.y > parent.y;
       });
       ok(under, tag + 'each country edition hangs under the region it belongs to');
+      ok(proj[0].x === doors[0].x && proj[0].y > doors[0].y, tag + 'the project hangs under the world index');
       await page.hover('.door--region >> nth=2'); await wait(page, 150);
       const framed = await page.evaluate(() => String(window.__mtg.AT.frame));
       ok(framed === regions[2].frame, tag + 'pointing at a region door frames that region on the map (' + framed + ')');
@@ -295,7 +298,7 @@ async function nojs(browser) {
     const titles = ['Two sides', 'First, we map', 'bound to place', 'not bound by borders', 'index is the bridge', 'Curation is resolution', 'Enter the world'];
     ok(titles.every((t) => text.includes(t)), w + '×' + h + ': every chapter is readable');
     const doorNames = await page.$$eval('.door', (els) => els.filter((e) => e.getClientRects().length).map((e) => e.querySelector('b').textContent));
-    ok(doorNames.length === 9 && ['World index', 'Europe', 'Middle East', 'Israel'].every((n) => doorNames.includes(n)), w + '×' + h + ': every door is still offered (' + doorNames.length + ')');
+    ok(doorNames.length === 10 && ['World index', 'The project', 'Europe', 'Middle East', 'Israel'].every((n) => doorNames.includes(n)), w + '×' + h + ': every door is still offered (' + doorNames.length + ')');
     ok(!/Skip intro|scroll to descend|Play the intro/i.test(text), w + '×' + h + ': no controls that need scripting are shown');
     ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), w + '×' + h + ': no sideways scroll');
     if (SHOTS) await page.screenshot({ path: path.join(SHOTS, `nojs-${w}.png`), fullPage: true });
@@ -377,10 +380,11 @@ async function pages(browser) {
         ok(!r.wide, tag + 'does not scroll sideways');
         const missing = r.links.filter((l) => !fs.existsSync(path.resolve(path.dirname(file), l.split('#')[0])));
         ok(r.links.length >= 9 && missing.length === 0, tag + 'links to every other page, and they resolve (' + r.links.length + ' links, missing: ' + missing.join(', ') + ')');
+        ok(['project/index.html', 'support/index.html'].every((p) => r.links.some((l) => l.endsWith(p))), tag + 'links to the project and to the support page');
         const want = promised[file];
         ok(want && want[0] === r.listed[0] && want[1] === r.listed[1], tag + 'holds what its door in the intro says: ' + r.listed.join(' and ') + ' listed, ' + (want || []).join(' and ') + ' promised');
         if (id !== 'world') {
-          ok(r.menu.length === 10 && r.menu.split('*').length === 2, tag + 'its menu lists every edition and marks this one (' + r.menu + ')');
+          ok(r.menu.length === 11 && r.menu.split('*').length === 2, tag + 'its menu lists every edition and marks this one (' + r.menu + ')');
           await page.click('#edMenu summary'); await wait(page, 200);
           const box = await page.$eval('.ed-list', (e) => { const q = e.getBoundingClientRect(); return q.left >= 0 && q.right <= innerWidth && q.height > 100; });
           ok(box, tag + 'the menu opens inside the window');
@@ -414,6 +418,7 @@ async function pages(browser) {
   if (want('play')) await play(browser);
   if (want('nojs')) await nojs(browser);
   if (want('pages')) await pages(browser);
+  if (want('project')) await require('./check-project.cjs')(browser, { ok, open, wait, ROOT, SHOTS });
   await browser.close();
   console.log('\n' + passed + ' passed, ' + failed + ' failed  (' + ((Date.now() - t0) / 1000).toFixed(0) + 's)');
   process.exit(failed ? 1 : 0);

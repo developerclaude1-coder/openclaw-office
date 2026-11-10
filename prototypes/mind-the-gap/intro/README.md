@@ -28,9 +28,11 @@ an object: a number, a title, two or three sentences, a tombstone line.
 Pressing **Enter** does not load another page. The ring flies apart into the
 world map, real coastlines resolve under the dots, the institutions settle on
 their actual coordinates, and the interface fades in around them: search, filters,
-pan and zoom, and a shelf of nine doors: the world index, an edition for each of
-six regions, and under their regions the two country editions, Israel and the
-United States. Point at a door and the map frames what it opens.
+pan and zoom, and a shelf of ten doors: the world index, an edition for each of
+six regions, under their regions the two country editions, Israel and the
+United States, and under the world index the project page, with the roadmap,
+the decks and the campaign. Point at an edition's door and the map frames what
+it opens.
 
 Colour carries meaning throughout. Ink is artists and the land itself, the cool
 blue is collectors and the industry, amber is whatever the index lights up. The
@@ -140,7 +142,7 @@ One `<canvas>`, no libraries.
 
 The shelf of doors has two arrangements. Wider than 1100px it is seven columns:
 the world index and the six regions in a row, with each country edition hanging
-directly under its region. Narrower, it is one strip you swipe, in the same
+directly under its region and the project under the world index. Narrower, it is one strip you swipe, in the same
 order, with a country marked as belonging to the region before it. The map's
 camera keeps clear of the shelf by measuring it, since its height changes with
 the window and with the language.
@@ -154,7 +156,7 @@ right, and map labels sit to the left of their markers.
 - **Reduced motion:** scenes cut instead of tweening, nothing twinkles or
   drifts, and the fly-to in the atlas becomes a jump. Nothing is removed.
 - **No scripting:** the page is a plain, complete document. All seven chapters
-  read in order, and all nine doors are offered as ordinary links.
+  read in order, and all ten doors are offered as ordinary links.
 
 ## Files
 
@@ -163,6 +165,7 @@ intro/
   index.html              the built page (generated)
   build.cjs               assembles it from src/ and the shared datasets
   check.cjs               browser checks (see below)
+  check-project.cjs       the checks' `project` part, for the project and support pages
   src/
     index.template.html   markup
     styles.css            tokens, type, the story's layout
@@ -214,7 +217,8 @@ label, or a headline that reaches into the arrival ring turns the run red.
 | --- | --- |
 | `data` | Before any page is opened: is every listing in a region, do the six regions add up to the world, does every institution lie inside its region's frame and on land the map lights as that region, and do a region and the country edition inside it list the same things? |
 | `story` | In all 8 scenes, at 9 window sizes, in both languages and with reduced motion: is any text clipped, under the bar, on top of other text or on the rail? Does any name set on the map leave the stage or sit on another? Does any control's label spill out of its outline? |
-| `atlas` | Does Enter arrive? Do search, ranking, fly-to, zoom, pan, wheel, filters, tooltips, the data note, the language switch, replay and skip each do what they say? Are there nine doors, does each lead somewhere, does a country hang under its region, and does pointing at a door frame its region? Does any part of the interface sit on another? |
+| `atlas` | Does Enter arrive? Do search, ranking, fly-to, zoom, pan, wheel, filters, tooltips, the data note, the language switch, replay and skip each do what they say? Are there ten doors, does each lead somewhere, does a country hang under its region and the project under the world index, and does pointing at a door frame its region? Does any part of the interface sit on another? |
 | `play` | Does anything move before it is asked to? Does play run at reading pace, pause, resume, yield to scrolling, stop at the end, and restart from there? |
 | `nojs` | With scripting off, is every chapter readable and is every door still offered? |
-| `pages` | For the world index and all eight editions: does the page hold exactly what its door in the intro says, use the shared typefaces, arrive in the light tone when entered from the intro, link to every other page, and stay inside a phone's width? Does an edition's menu list every edition, open inside the window and close on Escape? Does the tone you are in travel with you from one edition to the next? |
+| `pages` | For the world index and all eight editions: does the page hold exactly what its door in the intro says, use the shared typefaces, arrive in the light tone when entered from the intro, link to every other page, the project and the support page included, and stay inside a phone's width? Does an edition's menu list every edition, open inside the window and close on Escape? Does the tone you are in travel with you from one edition to the next? |
+| `project` | For the project and support pages: the same questions of tone, type, width and links, then: are the roadmap, both decks and the campaign all there; do the headline numbers match the dataset; are the timeline and the confidence bar drawn to scale; is every workstream listed once; does the first goal equal the editorial lines of Phase 0, and do the lines add up to Phase 0's cost? With no campaign yet, does nothing pretend to take a donation, and once there is one, does every donate button go to it? |

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>__TITLE__</title>
+<meta name="description" content="__DESC__" />
+<script>
+/* Coming through the intro's door, arrive in the light tone; coming from
+   another page, arrive in whichever tone that page was left in. */
+(function(m){if(m)document.documentElement.setAttribute("data-theme",m[1]==="dark"?"dark":"light");
+})(/^#via-(intro|light|dark)$/.exec(location.hash));
+</script>
+<style>
+/*__FONTS__*/
+/*__CSS__*/
+</style>
+</head>
+<body class="page-__PAGE__">
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <span class="mark" dir="ltr">MIND THE<i></i>GAP</span>
+      <span class="sub">__SUB__</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">__NAV__</nav>
+    <div class="nav-tools">
+      <button class="pill" id="themeBtn" type="button" aria-label="Switch between light and dark">◐</button>
+      __NAV_CTA__
+    </div>
+  </div>
+</header>
+
+<main>
+__MAIN__
+</main>
+
+__FOOTER__
+
+<div class="tip" id="tip" role="tooltip" hidden></div>
+
+<script>
+/*__JS__*/
+</script>
+</body>
+</html>

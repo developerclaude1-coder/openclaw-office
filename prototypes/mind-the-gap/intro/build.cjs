@@ -109,9 +109,9 @@ const fill = (v) => typeof v !== 'string' ? v : v.replace(/\{([A-Z]+)\}/g, (m, k
    use: each region, then any country edition inside it. A region's name and
    numbers are not written in strings.json; they come from the data. */
 const LINKS = ARTIFACT
-  ? { world: 'world/index.html', editions: 'editions/' }
-  : { world: '../index.html', editions: '../editions/' };
-const hrefOf = (id) => (id === 'world' ? LINKS.world : LINKS.editions + id + '/index.html') + '#via-intro';
+  ? { world: 'world/index.html', editions: 'editions/', project: 'project/index.html' }
+  : { world: '../index.html', editions: '../editions/', project: '../project/index.html' };
+const hrefOf = (id) => (LINKS[id] || LINKS.editions + id + '/index.html') + '#via-intro';
 const COUNTRY_KEY = { il: 'IL', us: 'US' };
 for (const lang of Object.keys(STR)) {
   const meta = STR[lang].doorRegionMeta;
@@ -126,7 +126,12 @@ for (const lang of Object.keys(STR)) {
    door shows it whenever that is not the language you are reading */
 const door = (cls, href, key, metaKey, attrs) => '<a class="door ' + cls + '" href="' + href + '"' + (attrs || ' hreflang="en"') + '>'
   + '<b data-i18n="' + key + '">{{' + key + '}}</b><span data-i18n="' + metaKey + '">{{' + metaKey + '}}</span></a>';
-const DOORS = [door('door--world', hrefOf('world'), 'doorWorld', 'doorWorldMeta')].concat(DIRECTORY.map((d) => {
+/* The project's door hangs under the world index's: the plan, the decks and
+   the campaign, in English. It opens no part of the map, so it frames nothing. */
+const DOORS = [
+  door('door--world', hrefOf('world'), 'doorWorld', 'doorWorldMeta'),
+  door('door--project', hrefOf('project'), 'doorProject', 'doorProjectMeta', ' hreflang="en" style="--col:1"'),
+].concat(DIRECTORY.map((d) => {
   const frame = ' hreflang="' + d.lang + '" data-frame="' + d.bounds.join(',') + '"';   // the frame is what the map shows while you point at the door
   if (d.kind === 'region') return door('door--region', hrefOf(d.id), 'door_' + d.id, 'door_' + d.id + '_m', frame);
   /* a country edition hangs under its region: column 1 is the world index */

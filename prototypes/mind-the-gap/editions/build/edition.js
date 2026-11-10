@@ -27,7 +27,7 @@ document.addEventListener("keydown",function(e){
   if(e.key==="Escape"&&edMenu.open){edMenu.open=false;edMenu.querySelector("summary").focus();}});
 /* A tone chosen here, or arrived in, goes along to the next edition. */
 document.addEventListener("click",function(e){
-  var a=e.target.closest&&e.target.closest(".ed-list a,.foot-editions a,a.way");
+  var a=e.target.closest&&e.target.closest(".ed-list a,.foot-editions a,a.way,a.xpage");
   var tone=root.getAttribute("data-theme");
   if(a&&tone&&a.getAttribute("href").charAt(0)!=="#")a.hash="via-"+tone;
 });

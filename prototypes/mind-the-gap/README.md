@@ -17,9 +17,28 @@ Open any page in a browser. No build step, no server, no network access required
 | [`intro/`](intro/) | **Start here.** How Mind the Gap works, as a piece of motion design: eight scenes that descend from the whole field to a single work, ending inside a live atlas you can explore. English and Hebrew. |
 | [`index.html`](index.html) | The world index: 92 commissions, 89 residencies, 139 institutions. |
 | [`editions/`](editions/) | An edition for each of six regions (`americas`, `europe`, `africa`, `middle-east`, `asia`, `oceania`), and one for each of two countries in its own language: Israel in Hebrew and right-to-left, the United States in English. |
+| [`project/`](project/) | The project, in one place: the roadmap, the investor deck, the founding partners deck, where the prototype stands, and four ways to get involved. |
+| [`support/`](support/) | The support page: what a donation pays for, where the money goes, the questions a donor should ask, and a button to the GoFundMe campaign once there is one. |
 | [`figma/`](figma/) | A handoff package for the two country editions, kept for reference. |
 
 The intro's last scene has a door to every one of these pages, and every page links to all the others.
+
+## The project and support pages
+
+Both are built from one file, [`project/build/content.json`](project/build/content.json): every
+line of copy, the links to the roadmap and the two decks, and the campaign link. The numbers they
+state about the index are counted from the dataset at build time, and the support page's goals are
+added up from the roadmap's cost lines, so the build stops if Phase 0's lines stop adding up to
+Phase 0's cost.
+
+- **The documents** live on claude.ai and open in a new tab. A visitor can open them only once each
+  is shared from its Share menu.
+- **The campaign** has to be created on GoFundMe by its organiser. Until `links.gofundme` is filled
+  in, the support page says the campaign opens soon and takes nothing. Once it is, every donate
+  button goes to the campaign and a share box appears. [`support/CAMPAIGN.md`](support/CAMPAIGN.md)
+  has a draft to paste: title, goal, story, and what to check first.
+- **A donation is not an investment.** The page says so, and says it is not tax-deductible while
+  Mind the Gap is neither a company nor a registered charity.
 
 ## One index, cut by place
 
@@ -102,13 +121,13 @@ could not be fully confirmed.
 ## Rebuilding
 
 Every page is generated. To change content, edit the JSON in `build/data/` or a country edition's
-locale file, then rebuild the three kinds of page. They all read the same dataset, so rebuild all
-three:
+locale file, then rebuild every kind of page. They all read the same dataset, so rebuild them all:
 
 ```bash
 node build/build.cjs "November 2026"             # the world index      -> index.html
 node editions/build/build-editions.cjs           # the eight editions   -> editions/<id>/index.html
 node intro/build.cjs                             # the intro            -> intro/index.html
+node project/build/build.cjs                     # project and support  -> project/, support/
 node intro/check.cjs                             # then check them, in a browser
 ```
 
@@ -117,8 +136,8 @@ artifact and changes nothing else.
 
 Each kind of page is kept as markup, a stylesheet and a script, and its build puts them into one
 self-contained file: `build/page.template.html`, `page.css` and `page.js` for the world index,
-`editions/build/edition.template.html`, `edition.css` and `edition.js` for the editions, and
-`intro/src/` for the intro.
+`editions/build/edition.template.html`, `edition.css` and `edition.js` for the editions,
+`intro/src/` for the intro, and `project/build/` for the project and support pages.
 
 [`build/dataset.cjs`](build/dataset.cjs) is the one place the data is assembled: it merges and
 de-duplicates the research files and the country editions, gives every listing its region,

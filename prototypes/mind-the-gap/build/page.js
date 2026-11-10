@@ -24,7 +24,7 @@
 
   /* A tone chosen here, or arrived in, goes along to the edition you open. */
   document.addEventListener("click", function(e){
-    var a = e.target.closest && e.target.closest("a.door,.foot-editions a");
+    var a = e.target.closest && e.target.closest("a.door,.foot-editions a,a.xpage");
     var tone = root.getAttribute("data-theme");
     if(a && tone) a.hash = "via-"+tone;
   });

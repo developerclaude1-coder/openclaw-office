@@ -93,7 +93,7 @@
     "zoomReset": "Reset view",
     "mapLabel": "World map of museums, galleries and biennials",
 
-    "doorsTitle": "Editions",
+    "doorsTitle": "Editions and the project",
     "doorRegionMeta": "{c} commissions · {r} residencies",
     "doorIL": "Israel",
     "doorILMeta": "{ILC} commissions · {ILR} residencies",
@@ -101,6 +101,8 @@
     "doorUSMeta": "{USC} commissions · {USR} residencies",
     "doorWorld": "World index",
     "doorWorldMeta": "{WC} commissions · {WR} residencies",
+    "doorProject": "The project",
+    "doorProjectMeta": "Roadmap · decks · support",
 
     "about": "About the data",
     "aboutBody": "Every institution, commission and residency here is real and was checked against primary sources between August and November 2026. Map positions were verified against national boundary data. Programmes, funding and application windows change every year, so always confirm with the organisation directly. This is a prototype, not an application portal."
@@ -200,7 +202,7 @@
     "zoomReset": "איפוס התצוגה",
     "mapLabel": "מפת עולם של מוזיאונים, גלריות וביאנלות",
 
-    "doorsTitle": "מהדורות",
+    "doorsTitle": "מהדורות והפרויקט",
     "doorRegionMeta": "{c} הזמנות · {r} תוכניות שהות",
     "doorIL": "ישראל",
     "doorILMeta": "{ILC} הזמנות · {ILR} תוכניות שהות",
@@ -208,6 +210,8 @@
     "doorUSMeta": "{USC} הזמנות · {USR} תוכניות שהות",
     "doorWorld": "האינדקס העולמי",
     "doorWorldMeta": "{WC} הזמנות · {WR} תוכניות שהות",
+    "doorProject": "הפרויקט",
+    "doorProjectMeta": "מפת דרכים · מצגות · תמיכה",
 
     "about": "על הנתונים",
     "aboutBody": "כל מוסד, הזמנה ותוכנית שהות כאן הם אמיתיים ונבדקו מול מקורות ראשוניים בין אוגוסט לנובמבר 2026. המיקומים על המפה אומתו מול נתוני גבולות המדינות. תוכניות, מימון ומועדי הגשה משתנים מדי שנה, לכן אמתו תמיד ישירות מול הגוף הרלוונטי. זהו אב־טיפוס, לא אתר הגשה."

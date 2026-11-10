@@ -40,6 +40,8 @@ const ASOF = argv.find((a) => !a.startsWith('--')) || 'November 2026';
 const LINKS = ARTIFACT
   ? { intro: '../../index.html', world: '../../world/index.html' }
   : { intro: '../../intro/index.html', world: '../../index.html' };
+/* the project and support pages sit at the top level in both layouts */
+Object.assign(LINKS, { project: '../../project/index.html', support: '../../support/index.html' });
 
 /* One type system across the intro and every edition: Frank Ruhl Libre,
    Heebo and JetBrains Mono, embedded in the page so nothing is fetched and
@@ -149,6 +151,11 @@ function build(id) {
     .replace(/__MONO__/g, STACKS.mono)
     .replace(/__HREF_INTRO__/g, LINKS.intro)
     .replace(/__HREF_WORLD__/g, LINKS.world)
+    .replace(/__HREF_PROJECT__/g, LINKS.project)
+    .replace(/__HREF_SUPPORT__/g, LINKS.support)
+    /* those two pages are in English; a page in another language says so, as
+       its edition menu does. Filled before the strings, which it sits against. */
+    .replace(/__EN_TAG__/g, L.lang === 'en' ? '' : ' <span class="ed-lang">EN</span>')
     .replace(/__ASOF__/g, ASOF);
 
   // string placeholders __S_key__

@@ -97,7 +97,9 @@
     "scopeGlobal": "Worldwide",
     "scopeLocal": "United States",
     "editionsTitle": "Editions",
-    "wayFurther": "Looking further?"
+    "wayFurther": "Looking further?",
+    "navProject": "The project",
+    "navSupport": "Support the project"
   },
   "places": [
     {

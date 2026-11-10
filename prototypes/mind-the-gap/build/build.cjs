@@ -16,8 +16,8 @@ const ARTIFACT = argv.includes('--artifact');
 const positional = argv.filter((a) => !a.startsWith('--'));
 const outArg = (argv.find((a) => a.startsWith('--out=')) || '').slice(6);
 const LINKS = ARTIFACT
-  ? { intro: '../index.html', editions: '../editions/' }
-  : { intro: 'intro/index.html', editions: 'editions/' };
+  ? { intro: '../index.html', editions: '../editions/', project: '../project/index.html', support: '../support/index.html' }
+  : { intro: 'intro/index.html', editions: 'editions/', project: 'project/index.html', support: 'support/index.html' };
 
 /* A door to every edition, with what is behind it counted from the data. */
 const { DIRECTORY } = require('../shared/regions.cjs');
@@ -57,6 +57,7 @@ html = html.replace('__DATA__', () => JSON.stringify(PAGE_DATA))
            .replace('__ASOF__', asOf)
            .replace('__SERIF__', STACKS.serif).replace('__SANS__', STACKS.sans).replace('__MONO__', STACKS.mono)
            .replace(/__HREF_INTRO__/g, LINKS.intro)
+           .replace(/__HREF_PROJECT__/g, LINKS.project).replace(/__HREF_SUPPORT__/g, LINKS.support)
            .replace('__EDITION_DOORS__', () => doors).replace('__EDITION_LINKS__', () => editionLinks)
            /* this page is English only, so the Hebrew subsets stay out of it */
            .replace('/*__FONTS__*/', () => fontFaceCss({ latin: true, hebrew: false }));

@@ -103,13 +103,15 @@
   .brand .gap::after{content:"";position:absolute;left:.2ch;right:.2ch;bottom:.28em;height:2px;background:var(--accent)}
   .nav-links{display:flex;gap:.3rem;align-items:center}
   .nav-links a{font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
-    text-decoration:none;color:var(--muted);padding:.5em .7em;border-radius:8px;transition:.18s}
+    text-decoration:none;color:var(--muted);padding:.5em .7em;border-radius:8px;transition:.18s;white-space:nowrap}
+  /* the bar is full before it narrows to a phone; the project stays a click away in the footer */
+  @media(max-width:1180px){ .nav-links a.xpage{display:none} }
   .nav-links a:hover{color:var(--ink);background:var(--surface-2)}
   .theme-toggle{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
     background:transparent;border:1px solid var(--line-strong);color:var(--muted);border-radius:999px;
     padding:.5em .8em;cursor:pointer;transition:.18s}
   .theme-toggle:hover{color:var(--accent);border-color:var(--accent)}
-  @media(max-width:900px){ .nav-links a[data-opt]{display:none} }
+  @media(max-width:1000px){ .nav-links a[data-opt]{display:none} }
 
   /* ---------------- HERO ---------------- */
   .hero{position:relative;min-height:clamp(620px,92vh,900px);display:flex;align-items:flex-end;

@@ -47,8 +47,10 @@ The three levels have to agree, and the build enforces it:
 Every edition has the same menu in its top bar and the same row in its footer:
 the world index, then each region with any country edition indented under it.
 An edition written in another language than the page you are on is marked. The
-tone you are reading in, light or dark, goes with you from one edition to the
-next.
+menu ends with the intro and the project page, and the footer also links to the
+support page; both are in English, which the Hebrew edition marks. The tone you
+are reading in, light or dark, goes with you from one edition to the next, and
+on to those pages.
 
 ## What was taken from the reference, and what beats it
 
