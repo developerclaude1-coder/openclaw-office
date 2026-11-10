@@ -18,8 +18,8 @@ an object: a number, a title, two or three sentences, a tombstone line.
 | --- | --- | --- | --- |
 | 00 | Cosmos | Undifferentiated stars; the wordmark assembles | The art world, at every resolution |
 | 01 | The gap | Two swarms form, with nothing between them | Artists and collectors cannot see each other |
-| 02 | The atlas | The points become a dot map of the world; 105 institutions ignite | First, we map the field |
-| 03 | Regional editions | The world dims; two regions are framed | Opportunities are bound to place |
+| 02 | The atlas | The points become a dot map of the world; 139 institutions ignite | First, we map the field |
+| 03 | Regional editions | The map divides into six regions, lit and named one after another; the two country editions are framed inside them | Opportunities are bound to place |
 | 04 | The collector layer | The whole map returns in the collectors' colour; routes arc between cities | Collectors are not bound by borders |
 | 05 | The bridge | The swarms return and the logo's gap bar spans them | The index is the bridge |
 | 06 | Resolution | Everything streams from one vanishing point; night turns to day | Curation is resolution |
@@ -28,8 +28,9 @@ an object: a number, a title, two or three sentences, a tombstone line.
 Pressing **Enter** does not load another page. The ring flies apart into the
 world map, real coastlines resolve under the dots, the institutions settle on
 their actual coordinates, and the interface fades in around them: search, filters,
-pan and zoom, and three doors to the Israel edition, the United States edition
-and the world index.
+pan and zoom, and a shelf of nine doors: the world index, an edition for each of
+six regions, and under their regions the two country editions, Israel and the
+United States. Point at a door and the map frames what it opens.
 
 Colour carries meaning throughout. Ink is artists and the land itself, the cool
 blue is collectors and the industry, amber is whatever the index lights up. The
@@ -54,10 +55,14 @@ Every number on the page is counted at build time from the same datasets the
 world index and the editions are built from, so the copy cannot drift:
 
 ```
-institutions 105 (63 museums, 22 galleries, 20 biennials) in 30 countries
-commissions  79  = world 64 + US 10 + IL 9, de-duplicated
-residencies  83  = world 65 + US 12 + IL 9, de-duplicated
+institutions 139 (89 museums, 25 galleries, 25 biennials) in 45 countries
+commissions  101  = 92 in the shared dataset + 9 in the Israel edition
+residencies  98  = 89 in the shared dataset + 9 in the Israel edition
+regions      AM 30/27/43  EU 14/15/32  AF 13/14/7  ME 8/6/32  AS 19/21/14  OC 8/6/11
 ```
+
+The numbers on each door are counted the same way, and the checks open the page
+behind every door to confirm it holds what the door says.
 
 The exhibits beside the captions are real entries: the search finds the Zeitz
 Museum in Cape Town and pulses it on the map, and the two opportunity cards are a
@@ -66,8 +71,9 @@ real Mifal HaPais open call and Times Square Arts' *Midnight Moment*.
 The build refuses to produce a page when the data and the copy disagree. It
 stops if the English and Hebrew strings have different keys, if the copy asks
 for a number that is not counted, if an institution lacks a field or has
-coordinates off the globe, or if a place has been added without a Hebrew name
-for its city and country.
+coordinates off the globe, if a listing is in a country that belongs to no
+region, or if a place has been added without a Hebrew name for its city and
+country.
 
 ### What is illustrative
 
@@ -79,9 +85,18 @@ for its city and country.
 ### Counting choices
 
 - Hong Kong is counted under China, as the source dataset frames it
-  ("China (Hong Kong SAR)"), so "30 countries" means countries.
-- Institutions that appear in an edition and in the world list are counted once
-  and keep their edition.
+  ("China (Hong Kong SAR)"), so "45 countries" means countries.
+- An institution that is in a country edition and in the world list is counted
+  once and keeps the wording of its edition.
+- Israel's commissions and residencies are written in Hebrew and exist only in
+  the Israel edition. They are in the intro's totals and not in the world
+  index's or the Middle East edition's, whose doors therefore show smaller
+  numbers than the sum of everything behind them.
+- A region is an editorial grouping for finding opportunities, not a
+  geopolitical claim. The table of which country sits where is
+  `../shared/regions.cjs`. On the map, land is lit by where it is: Russia east
+  of the Urals is lit with Asia, though a listing in Russia would be filed with
+  Europe.
 - Outside the Israel edition the data is English only. In Hebrew, cities and
   countries are named from `src/places-he.json`; institution names keep their
   own script, as they do in Hebrew print, and descriptive notes are left out
@@ -100,8 +115,13 @@ One `<canvas>`, no libraries.
 - **One projection.** The dot map in the story and the live atlas at the end are
   the same equirectangular projection through two cameras, which is why entering
   is a camera move rather than a cut.
-- **Every institution is its own particle.** The 105 points of light in scene 02
-  are the same 105 you can click after entering.
+- **Every institution is its own particle.** The 139 points of light in scene 02
+  are the same 139 you can click after entering.
+- **A dot knows its region.** Scene 03 lights the land region by region, and a
+  dot only has a longitude and a latitude. `../shared/region-grid.txt` is the
+  answer in 1.4 KB: national boundaries reduced to 2-degree cells, each holding
+  the region of the country that covers it. No two regions that touch are lit
+  at the same brightness, so their borders read without a line being drawn.
 - **Clusters do not burn out.** A dozen institutions share a few pixels in New
   York, so each halo is thinned by how many neighbours overlap it at the current
   zoom.
@@ -118,6 +138,13 @@ One `<canvas>`, no libraries.
 | Portrait (phones, tablets upright) | Exhibit in the top two fifths, label and card stacked beneath; the wordmark stacks; the atlas fills the height and you pan across it |
 | Shallow (a phone on its side) | Each scene keeps its title and loses its paragraph; the shelf of doors shrinks to names |
 
+The shelf of doors has two arrangements. Wider than 1100px it is seven columns:
+the world index and the six regions in a row, with each country edition hanging
+directly under its region. Narrower, it is one strip you swipe, in the same
+order, with a country marked as belonging to the region before it. The map's
+camera keeps clear of the shelf by measuring it, since its height changes with
+the window and with the language.
+
 In Hebrew the whole composition mirrors, not just the text: artists stand at the
 reading start, the bridge crosses from right to left, the map builds from the
 right, and map labels sit to the left of their markers.
@@ -127,7 +154,7 @@ right, and map labels sit to the left of their markers.
 - **Reduced motion:** scenes cut instead of tweening, nothing twinkles or
   drifts, and the fly-to in the atlas becomes a jump. Nothing is removed.
 - **No scripting:** the page is a plain, complete document. All seven chapters
-  read in order, and the three doors are offered as ordinary links.
+  read in order, and all nine doors are offered as ordinary links.
 
 ## Files
 
@@ -150,6 +177,9 @@ intro/
 shared/
   fonts/                  the typefaces every page embeds
   land-world-50.txt       world coastline, Natural Earth 50m
+  regions.cjs             the six regions, the country editions, and which country is where
+  region-grid.txt         which region each patch of land is in (generated)
+  build-region-grid.cjs   makes it, from Natural Earth national boundaries
 ```
 
 ## Rebuilding
@@ -166,7 +196,7 @@ to find each other.
 ## Checking it
 
 ```bash
-node check.cjs                                  # everything, about four minutes
+node check.cjs                                  # everything, about six minutes
 node check.cjs story atlas                      # just the parts named
 node check.cjs story --size=390x844 --lang=he   # one window size, one language
 node check.cjs --shots=DIR                      # and save a screenshot of every scene
@@ -182,8 +212,9 @@ label, or a headline that reaches into the arrival ring turns the run red.
 
 | Part | What it asks |
 | --- | --- |
-| `story` | In all 8 scenes, at 9 window sizes, in both languages and with reduced motion: is any text clipped, under the bar, on top of other text or on the rail? Does any control's label spill out of its outline? |
-| `atlas` | Does Enter arrive? Do search, ranking, fly-to, zoom, pan, wheel, filters, tooltips, the data note, the doors, the language switch, replay and skip each do what they say? Does any part of the interface sit on another? |
+| `data` | Before any page is opened: is every listing in a region, do the six regions add up to the world, does every institution lie inside its region's frame and on land the map lights as that region, and do a region and the country edition inside it list the same things? |
+| `story` | In all 8 scenes, at 9 window sizes, in both languages and with reduced motion: is any text clipped, under the bar, on top of other text or on the rail? Does any name set on the map leave the stage or sit on another? Does any control's label spill out of its outline? |
+| `atlas` | Does Enter arrive? Do search, ranking, fly-to, zoom, pan, wheel, filters, tooltips, the data note, the language switch, replay and skip each do what they say? Are there nine doors, does each lead somewhere, does a country hang under its region, and does pointing at a door frame its region? Does any part of the interface sit on another? |
 | `play` | Does anything move before it is asked to? Does play run at reading pace, pause, resume, yield to scrolling, stop at the end, and restart from there? |
-| `nojs` | With scripting off, is every chapter readable and are the doors still offered? |
-| `pages` | Do the world index and both editions use the shared typefaces, arrive in the light tone when entered from the intro, resolve all their links, and stay inside a phone's width? |
+| `nojs` | With scripting off, is every chapter readable and is every door still offered? |
+| `pages` | For the world index and all eight editions: does the page hold exactly what its door in the intro says, use the shared typefaces, arrive in the light tone when entered from the intro, link to every other page, and stay inside a phone's width? Does an edition's menu list every edition, open inside the window and close on Escape? Does the tone you are in travel with you from one edition to the next? |

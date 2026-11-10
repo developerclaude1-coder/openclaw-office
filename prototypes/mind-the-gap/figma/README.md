@@ -9,7 +9,7 @@ but it is **empty**. Writing to it hit a hard limit:
 You've reached the Figma MCP tool call limit on the Starter plan.
 ```
 
-The connected account (`developerclaude1@gmail.com`) is on tier **`starter`** with a
+The connected Figma account is on tier **`starter`** with a
 **`View`** seat, and its MCP tool-call quota is exhausted. That is an account limit,
 not something that can be worked around from here.
 

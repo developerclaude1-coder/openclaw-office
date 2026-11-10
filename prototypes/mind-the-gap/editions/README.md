@@ -1,16 +1,54 @@
-# Mind the Gap — regional editions
+# Mind the Gap — editions
 
-Two motion-ready editions of the Mind the Gap layout, benchmarked against
-[nala.art](https://nala.art/home):
+Eight motion-ready editions of the Mind the Gap layout, benchmarked against
+[nala.art](https://nala.art/home). Six cover the world by region; two go deeper
+into one country, in its own language.
 
-| Edition | Language | Direction | File |
-| --- | --- | --- | --- |
-| **Israel** | Hebrew | RTL | `il/index.html` |
-| **United States** | English | LTR | `us/index.html` |
+| Edition | Kind | Language | Direction | File |
+| --- | --- | --- | --- | --- |
+| **Americas** | region | English | LTR | `americas/index.html` |
+| **United States** | country, inside the Americas | English | LTR | `us/index.html` |
+| **Europe** | region | English | LTR | `europe/index.html` |
+| **Africa** | region | English | LTR | `africa/index.html` |
+| **Middle East** | region | English | LTR | `middle-east/index.html` |
+| **Israel** | country, inside the Middle East | Hebrew | RTL | `il/index.html` |
+| **Asia** | region | English | LTR | `asia/index.html` |
+| **Oceania** | region | English | LTR | `oceania/index.html` |
 
-Open either file directly in a browser. No build step, no server, no network
+Open any file directly in a browser. No build step, no server, no network
 request — each edition is a single self-contained file. New here? Start with
 [the intro](../intro/), which explains the whole thing and ends at these doors.
+
+## Regions and countries
+
+A regional edition is not written by hand. `build/regions.cjs` cuts it out of
+the shared dataset (`../build/dataset.cjs`): every commission, residency and
+institution whose country belongs to the region, shown through the English
+edition's interface. Its hero counts what it holds, its atlas opens framed on
+its own institutions, and two of its fact tiles are counted from the edition
+itself: how many of its commissions take applications, and how many countries
+it covers so far.
+
+A country edition is written by hand, in `build/locales/<id>.json`, in the
+country's language, with the facts that only apply there.
+
+The three levels have to agree, and the build enforces it:
+
+- A listing in a country that has its own edition must be in that edition, or
+  the build stops. The region can never know more about a country than the
+  country's own page.
+- The United States edition is in English, so its listings are also the
+  Americas edition's listings for the United States, word for word.
+- Israel's listings are in Hebrew, so they cannot sit among English cards. The
+  Middle East edition maps Israel's 17 institutions (they carry English names)
+  and says, above its commissions and its residencies, how many are listed in
+  the Israel edition and not here.
+
+Every edition has the same menu in its top bar and the same row in its footer:
+the world index, then each region with any country edition indented under it.
+An edition written in another language than the page you are on is marked. The
+tone you are reading in, light or dark, goes with you from one edition to the
+next.
 
 ## What was taken from the reference, and what beats it
 
@@ -37,7 +75,7 @@ Where these editions go further:
 
 ## Motion specification
 
-All motion is driven by CSS custom properties at the top of each file, so this
+All motion is driven by CSS custom properties at the top of `build/edition.css`, so this
 table and the build cannot drift apart — change a token and both change.
 
 | Token | Value | Applies to |
@@ -133,8 +171,12 @@ had to resolve to its stated country. 17/17 Israel and 34/34 US passed.
 | Museums | 10 | 23 |
 | Galleries | 5 | 5 |
 | Biennials / fairs | 2 | 6 |
-| Commissions | 4 | 10 |
-| Residencies | 6 | 12 |
+| Commissions | 9 | 10 |
+| Residencies | 9 | 12 |
+
+The six regional editions hold what the shared dataset holds for their region;
+the table in the [main README](../README.md) gives the numbers, and the notes
+there on how the November 2026 listings were checked apply to them.
 
 No dated deadlines appear anywhere, deliberately — application windows move every
 year and a wrong date actively harms an artist, so cards describe the cycle.
@@ -161,18 +203,22 @@ year and a wrong date actively harms an artist, so cards describe the cycle.
 
 ```bash
 cd build
-node build-editions.cjs "November 2026"         # writes ../il/index.html and ../us/index.html
+node build-editions.cjs "November 2026"         # writes ../<edition>/index.html, all eight
 node build-editions.cjs --artifact --out=DIR    # the same pages, linked for a published multi-page artifact
 ```
 
-Each edition links to the other, to the world index, and back to
+Each edition links to every other, to the world index, and back to
 [the intro](../intro/) ("How it works"). Entered through the intro's door, an
 edition opens in its light theme, because the intro ends in a lit room; opened
 directly, it follows the system setting as before.
 
-Content lives in `build/locales/{il,us}.json` — strings, data and map framing.
-The build fails loudly on a missing translation key or an unreplaced
-placeholder, so a half-translated edition cannot ship.
+The page itself is three files, `build/edition.template.html` (markup),
+`edition.css` and `edition.js`, which the build puts together.
+
+A country edition's content lives in `build/locales/{il,us}.json` — strings,
+data and map framing. A regional edition has no file of its own: to change what
+it lists, change the dataset. The build fails loudly on a missing translation
+key or an unreplaced placeholder, so a half-translated edition cannot ship.
 
 ### Coastlines
 
@@ -188,9 +234,16 @@ visible blockiness:
 Regenerate with `clip-region.cjs <source.geojson> <out> <minLon> <minLat> <maxLon> <maxLat> <tol> <precision>`.
 Natural Earth data is public domain.
 
+A region is too large for a coastline of its own at that precision: Europe,
+Africa and Asia share one landmass, so "clipping" any of them would ship most
+of the world anyway. The regional editions carry the world coastline the intro
+uses (`../shared/land-world-50.txt`, Natural Earth 50m, 56 KB) and draw it as a
+curve through the midpoints of its sides, which is the same shape at regional
+scale and stays a soft line, not facets, when you fly in to a city.
+
 ## Typography
 
-Both editions are set in the same three open-licensed faces, embedded in the
+Every edition is set in the same three open-licensed faces, embedded in the
 page as data URIs so nothing is fetched and nothing falls back by accident:
 
 | Role | Face | Scripts |
